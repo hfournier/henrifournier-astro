@@ -1,0 +1,11 @@
+{
+	"name": "Henri Fournier",
+	"description": "A JAMstack developer from Kelowna, BC Canada",
+	"link": "https://henrifournier.dev/author/henri-fournier/",
+	"url": "",
+	"avatar_urls": {
+		"24": "https://secure.gravatar.com/avatar/aab8492348ee16bc6324edc1c309bb35?s=24&d=mm&r=g",
+		"48": "https://secure.gravatar.com/avatar/aab8492348ee16bc6324edc1c309bb35?s=48&d=mm&r=g",
+		"96": "https://secure.gravatar.com/avatar/aab8492348ee16bc6324edc1c309bb35?s=96&d=mm&r=g"
+	}
+}

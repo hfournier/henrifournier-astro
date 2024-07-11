@@ -1,0 +1,15 @@
+---
+interface Props extends Omit<astroHTML.JSX.ButtonHTMLAttributes, "class"> {
+	class?: string
+}
+const { class: classList, ...attrs } = Astro.props
+---
+
+<button
+	class:list={[
+		"flex items-center gap-2 rounded-md border-2 border-grayish-600 px-4 py-1 outline-none ring-secondary-600 ring-offset-2 ring-offset-grayish-200 hover:border-secondary-700 hover:text-secondary-700 hover:shadow hover:shadow-secondary-500/50 focus-visible:ring-2 dark:border-grayish-400 dark:text-grayish-400 dark:ring-secondary-400 dark:ring-offset-grayish-800 dark:hover:border-secondary-300 dark:hover:text-secondary-300",
+		classList
+	]}
+	{...attrs}>
+	<slot />
+</button>

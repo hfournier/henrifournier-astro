@@ -1,0 +1,47 @@
+---
+import AsideLayout from "@layouts/AsideLayout.astro"
+import { getCollection } from "astro:content"
+
+export type Props = {
+	categories: { collection: string; id: string }[] | undefined
+	slug: string
+}
+
+const { categories, slug } = Astro.props as Props
+
+const filter = categories?.map((category) => category.id)
+
+let relatedArticles =
+	filter && filter.length > 0
+		? await getCollection("blogs", (entry) =>
+				entry.data.categories?.some(
+					(category) => filter.includes(category.id) && entry.slug !== slug
+				)
+			)
+		: undefined
+
+if (relatedArticles) {
+	relatedArticles = relatedArticles
+		.sort((a, b) => new Date(b.data.createdAt).valueOf() - new Date(a.data.createdAt).valueOf())
+		.slice(0, 5)
+}
+---
+
+{
+	relatedArticles && relatedArticles.length > 0 && (
+		<AsideLayout title="Related articles:">
+			<ul class="flex flex-col gap-3 pl-4" role="list">
+				{relatedArticles.map((article) => (
+					<li class="text-sm leading-tight">
+						<a
+							class="no-underline underline-offset-2 hover:underline"
+							href={`/blog/${article.slug}`}
+						>
+							{article.data.title}
+						</a>
+					</li>
+				))}
+			</ul>
+		</AsideLayout>
+	)
+}

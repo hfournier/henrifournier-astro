@@ -1,0 +1,73 @@
+---
+// const theme = document.documentElement.dataset.theme
+---
+
+<button
+	id="btnDarkLight"
+	class="h-6 w-6 touch-manipulation rounded-full focus:outline-none focus-visible:outline-offset-2 focus-visible:outline-primary-500 dark:focus-visible:outline-primary-600 md:h-7 md:w-7"
+	title="Toggles light and dark mode"
+	aria-label="Toggle light and dark mode">
+	<svg
+		class="bg-transparent text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-400"
+		stroke-linecap="round"
+		aria-hidden="true"
+		viewBox="0 0 24 24">
+		<mask class="origin-center" id="moon-mask">
+			<rect class="h-full w-full fill-white" x="0" y="0"></rect>
+			<circle
+				class="-translate-x-2 fill-black transition-transform delay-[250ms] duration-500 ease-[cubic-bezier(0,0,0,1)] motion-reduce:transition-none dark:translate-x-0 dark:delay-0 dark:duration-[250ms]"
+				cx="25"
+				cy="10"
+				r="6"></circle>
+		</mask>
+		<circle
+			id="sun"
+			class="origin-center scale-[1.75] fill-current transition-transform duration-500 ease-[cubic-bezier(.25,0,.3,1)] motion-reduce:transition-none dark:scale-100 dark:duration-500 dark:ease-[cubic-bezier(.5,1.25,.75,1.25)]"
+			cx="12"
+			cy="12"
+			r="6"
+			mask="url(#moon-mask)"></circle>
+		<g
+			class="opacity-0 transition-opacity duration-500 ease-[cubic-bezier(.25,0,.3,1)] motion-reduce:transition-none dark:opacity-100">
+			<g
+				class="origin-center -rotate-[25deg] stroke-current stroke-2 transition-transform duration-150 ease-[cubic-bezier(.5,1.5,.75,1.25)] motion-reduce:transition-none dark:rotate-0 dark:duration-500"
+				id="sun-beams">
+				<line x1="12" y1="1" x2="12" y2="3"></line>
+				<line x1="12" y1="21" x2="12" y2="23"></line>
+				<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+				<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+				<line x1="1" y1="12" x2="3" y2="12"></line>
+				<line x1="21" y1="12" x2="23" y2="12"></line>
+				<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+				<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+			</g>
+		</g>
+	</svg>
+</button>
+
+<script is:inline>
+	const btnDarkLight = document.getElementById("btnDarkLight")
+	if (btnDarkLight) {
+		btnDarkLight.addEventListener("click", () => {
+			const currentTheme = theme.getTheme()
+			const newTheme =
+				currentTheme === "auto"
+					? theme.getSystemTheme() === "dark"
+						? "light"
+						: "dark"
+					: currentTheme === "dark"
+						? "light"
+						: "dark"
+			theme.setTheme(newTheme)
+			updateSelectedTheme(newTheme)
+		})
+	}
+
+	const updateSelectedTheme = (newTheme = theme.getTheme()) => {
+		btnDarkLight.dataset.theme = newTheme
+	}
+
+	document.addEventListener("theme-changed", (event) => {
+		updateSelectedTheme(event.detail.theme)
+	})
+</script>

@@ -1,0 +1,97 @@
+---
+import { Icon } from "astro-icon/components"
+import { getCollection, getEntry } from "astro:content"
+
+const authorParam = Astro.url.searchParams.get("author")
+const author = authorParam ? await getEntry("authors", authorParam) : undefined
+const categoryParam = Astro.url.searchParams.get("category")
+const category = categoryParam ? await getEntry("categories", categoryParam) : undefined
+const tagsParam = Astro.url.searchParams.get("tags")?.slice(1, -1).split(",")
+const tags = tagsParam
+	? await getCollection("tags", (tag) => tagsParam.includes(tag.id))
+	: undefined
+
+const removeAuthor = () => {
+	const url = new URL(Astro.url.href)
+	url.searchParams.delete("author")
+	return url.href
+}
+
+const removeCategory = () => {
+	const url = new URL(Astro.url.href)
+	url.searchParams.delete("category")
+	return url.href
+}
+
+const removeTag = (tagId: string) => {
+	const url = new URL(Astro.url.href)
+	const newTagsParam: string[] = tagsParam ? [...tagsParam] : []
+	newTagsParam.splice(newTagsParam.indexOf(tagId), 1)
+	if (newTagsParam?.length === 0) {
+		url.searchParams.delete("tags")
+	} else {
+		url.searchParams.set("tags", `[${newTagsParam?.join(",")}]`)
+	}
+	return url.href
+}
+---
+
+{
+	Astro.url.search && (
+		<div class="not-prose mb-6">
+			<details class="py-4" open>
+				<summary class="flex cursor-pointer justify-end">
+					<span class="sr-only">Filter</span>
+					<Icon name="mdi:filter-menu-outline" class="size-6" aria-hidden="true" />
+				</summary>
+				<div class="border-b-2 border-grayish-300 py-4">
+					<ul class="flex flex-wrap items-center gap-1.5 px-4">
+						<li>Articles written</li>
+						{author && (
+							<li class="flex items-center gap-2">
+								by
+								<a
+									class="flex items-center gap-1 rounded px-2 outline outline-1 outline-grayish-300 hover:shadow hover:outline-2"
+									href={removeAuthor()}
+								>
+									{author.data.name}
+									<Icon name="mdi:close-circle" />
+								</a>
+							</li>
+						)}
+						{category && (
+							<li class="flex items-center gap-2">
+								about
+								<a
+									class="flex items-center gap-1 rounded px-2 outline outline-1 outline-grayish-300 hover:shadow hover:outline-2"
+									href={removeCategory()}
+								>
+									{category.data.name}
+									<Icon name="mdi:close-circle" />
+								</a>
+							</li>
+						)}
+						{tags && (
+							<li class="flex items-center gap-2">
+								matching
+								<ul class="flex gap-2">
+									{tags.map((tag) => (
+										<li class="flex items-center gap-1.5 before:[&:not(:first-child):not(:last-child)]:content-[','] before:[&:not(:first-child)]:last:content-['and']">
+											<a
+												class="flex items-center gap-1 rounded px-2 outline outline-1 outline-grayish-300 hover:shadow hover:outline-2"
+												href={removeTag(tag.id)}
+											>
+												{tag.data.name}
+												<Icon name="mdi:close-circle" />
+											</a>
+										</li>
+									))}
+								</ul>
+							</li>
+						)}
+					</ul>
+				</div>
+			</details>
+		</div>
+	)
+}

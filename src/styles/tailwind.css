@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--color-primary: #cc5500;
+
+		--color-grayish-sat: 10%;
+
+		--color-dark-step: 8.5%;
+		--color-light-step: 10.5%;
+
+		--color-blob-from: theme(colors.primary.600);
+		--color-blob-to: theme(colors.grayish.50);
+		--color-shirt: theme(colors.secondary.600);
+	}
+
+	html[data-theme="dark"] {
+		--color-blob-to: theme(colors.grayish.900);
+	}
+
+	.scrollable::-webkit-scrollbar {
+		@apply h-2 w-2 bg-grayish-100 dark:bg-grayish-800;
+	}
+	.scrollable::-webkit-scrollbar-track {
+		@apply my-1 rounded-full bg-grayish-100 dark:bg-grayish-800;
+	}
+	.scrollable::-webkit-scrollbar-thumb {
+		@apply rounded-full bg-grayish-300 hover:bg-grayish-400 dark:bg-grayish-600 dark:hover:bg-grayish-500;
+	}
+	.dark .scrollable::-webkit-scrollbar {
+		@apply bg-grayish-700;
+	}
+	.dark .scrollable::-webkit-scrollbar-track {
+		@apply bg-grayish-700;
+	}
+	.dark .scrollable::-webkit-scrollbar-thumb {
+		@apply bg-grayish-800 hover:bg-grayish-700;
+	}
+	@supports (scrollbar-color: darkgray lightgray) {
+		.scrollable {
+			scrollbar-width: thin;
+			scrollbar-color: theme(colors.grayish.300) theme(colors.grayish.100);
+		}
+		html[data-theme="dark"].scrollable,
+		.dark .scrollable {
+			scrollbar-color: theme(colors.grayish.600) theme(colors.grayish.800);
+		}
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		@apply font-baloo2 text-primary-600;
+	}
+
+	a {
+		@apply rounded-sm underline decoration-primary-600 underline-offset-4 hover:text-primary-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:ring-offset-2 dark:decoration-primary-500 dark:hover:text-primary-400 dark:focus-visible:ring-primary-500;
+	}
+	abbr {
+		@apply decoration-primary-600 decoration-2 underline-offset-4 dark:decoration-primary-500;
+	}
+}
+
+@layer utilities {
+	.hexagon {
+		@apply aspect-hexagon;
+		clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
+	}
+	.hexarect {
+		clip-path: polygon(0% 50%, 0% 0%, 100% 0%, 100% 50%, 100% 100%, 0% 100%);
+	}
+	.up-arrow {
+		clip-path: polygon(
+			50% 0%,
+			90% 30%,
+			78% 42%,
+			58% 25%,
+			58% 100%,
+			42% 100%,
+			42% 25%,
+			22% 42%,
+			10% 30%
+		);
+	}
+
+	.parens::before {
+		content: "( ";
+	}
+	.parens::after {
+		content: " )";
+	}
+
+	.tilt-down {
+		--rotateX: calc(var(--angle) * -1);
+	}
+	.tilt-up {
+		--rotateX: var(--angle);
+	}
+	.tilt-left {
+		--rotateY: calc(var(--angle) * -1);
+	}
+	.tilt-right {
+		--rotateY: var(--angle);
+	}
+}

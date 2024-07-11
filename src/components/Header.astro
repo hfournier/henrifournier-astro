@@ -1,0 +1,13 @@
+---
+import DarkLight from "./DarkLight.astro"
+import Logo from "./Logo.astro"
+import Nav from "./Nav.astro"
+---
+
+<Logo />
+
+<div class="flex w-full items-center justify-end gap-4 lg:flex-row-reverse lg:justify-start">
+	<!-- Dark mode toggle -->
+	<DarkLight />
+	<Nav />
+</div>

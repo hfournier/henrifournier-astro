@@ -1,0 +1,48 @@
+---
+import AsideLayout from "@layouts/AsideLayout.astro"
+import { getCollection } from "astro:content"
+
+export interface Props {
+	authorId: string
+	slug: string
+}
+
+const { authorId, slug } = Astro.props as Props
+
+const blogs = await getCollection(
+	"blogs",
+	(entry) => entry.data.author?.id === authorId && entry.slug !== slug
+)
+const sortedBlogs = blogs.sort(
+	(a, b) => new Date(b.data.createdAt).valueOf() - new Date(a.data.createdAt).valueOf()
+)
+---
+
+<AsideLayout title="Articles by this author:">
+	<ul class="flex flex-col gap-3 pl-4" role="list">
+		{
+			sortedBlogs.map(
+				(blog, index) =>
+					index < 10 && (
+						<li class="text-sm leading-tight">
+							<a
+								class="no-underline underline-offset-2 hover:underline"
+								href={`/blog/${blog.slug}`}
+							>
+								{blog.data.title}
+							</a>
+						</li>
+					)
+			)
+		}
+		{
+			blogs.length > 10 && (
+				<li>
+					<a class="flex items-start gap-1" href={`/blog?author=${authorId}`}>
+						more...
+					</a>
+				</li>
+			)
+		}
+	</ul>
+</AsideLayout>

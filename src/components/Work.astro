@@ -1,0 +1,25 @@
+---
+import Section from "./Section.astro"
+
+import { getCollection } from "astro:content"
+import WorkItem from "./WorkItem.astro"
+import WorkDialog from "./WorkDialog.astro"
+
+const works = await getCollection("work")
+---
+
+<Section id="work" heading="Work">
+	<p>
+		A collection of recent, and sometimes ongoing, work using various technologies. These websites
+		demonstrate our expertise in web design, development, and optimization. Whether you need a
+		simple landing page or a custom web application, we can help.
+	</p>
+
+	<div
+		class="my-16 grid w-full auto-cols-fr auto-rows-fr gap-x-[3.75rem] gap-y-2 md:gap-x-11 lg:gap-x-8 xl:gap-x-10"
+	>
+		{works.map((work) => <WorkItem {work} />)}
+	</div>
+
+	{works.map((work) => <WorkDialog {work} />)}
+</Section>

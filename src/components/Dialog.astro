@@ -1,0 +1,118 @@
+---
+import { Icon } from "astro-icon/components"
+import Button from "./form/Button.astro"
+
+export interface Props extends Omit<astroHTML.JSX.DialogHTMLAttributes, "class"> {
+	heading: string
+	class?: string
+}
+const { heading, class: classList, ...attrs } = Astro.props
+---
+
+<dialog
+	class:list={[
+		"w-[90dvw] bg-transparent backdrop:bg-grayish-950/70 md:w-[75dvw] lg:w-[50dvw]",
+		classList
+	]}
+	{...attrs}
+	aria-label={heading}
+>
+	<div
+		id="div_dialog"
+		class="grid grid-cols-1 grid-rows-[auto,_1fr,_auto] divide-y-[1px] divide-grayish-300 rounded-lg border border-grayish-300 bg-transparent dark:divide-grayish-700 dark:border-grayish-700 dark:bg-grayish-900"
+	>
+		<header
+			class="flex items-center justify-between rounded-t-lg bg-grayish-100 px-4 py-3 dark:bg-grayish-950"
+		>
+			<h3 class="text-2xl font-medium">{heading}</h3>
+			<button
+				id="dialogClose"
+				class="rounded-sm p-2 text-grayish-600 outline-none hover:text-grayish-700 focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4 focus-visible:ring-offset-grayish-100 dark:text-grayish-400 dark:hover:text-grayish-300 dark:focus-visible:ring-primary-500 dark:focus-visible:ring-offset-grayish-950"
+			>
+				<span class="sr-only">Close</span>
+				<Icon class="size-6" aria-hidden="true" name="mdi:close" />
+			</button>
+		</header>
+		<div
+			class="scrollable max-h-[70dvh] overflow-y-auto overscroll-contain bg-grayish-50 p-4 dark:bg-grayish-900"
+		>
+			<slot />
+		</div>
+		<footer
+			class="flex items-center justify-end gap-2 rounded-b-lg bg-grayish-100 p-4 dark:bg-grayish-950"
+		>
+			<Button id="btnClose">Close</Button>
+		</footer>
+	</div>
+</dialog>
+
+<style>
+	:root {
+		--opening-duration: 0.3s;
+	}
+
+	dialog[open] {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	dialog {
+		opacity: 0;
+		transform: scale(0);
+		transition:
+			opacity var(--opening-duration) ease-out,
+			transform var(--opening-duration) ease-out,
+			overlay var(--opening-duration) ease-out allow-discrete,
+			display var(--opening-duration) ease-out allow-discrete;
+	}
+
+	@starting-style {
+		dialog[open] {
+			opacity: 0;
+			transform: scale(0);
+		}
+	}
+
+	dialog::backdrop {
+		opacity: 0;
+		transition:
+			opacity var(--opening-duration) ease-out,
+			overlay var(--opening-duration) ease-out allow-discrete,
+			display var(--opening-duration) ease-out allow-discrete;
+	}
+
+	dialog[open]::backdrop {
+		opacity: 1;
+	}
+
+	@starting-style {
+		dialog[open]::backdrop {
+			opacity: 0;
+		}
+	}
+</style>
+
+<script>
+	const dialogs = document.getElementsByTagName("dialog")
+	if (dialogs && dialogs.length > 0) {
+		for (const dialog of dialogs) {
+			dialog.addEventListener("click", () => {
+				dialog.close()
+			})
+
+			dialog.firstElementChild?.addEventListener("click", (e) => {
+				e.stopPropagation()
+			})
+
+			const dialogClose = dialog.querySelector("#dialogClose")
+			dialogClose!.addEventListener("click", () => {
+				dialog.close()
+			})
+
+			const btnClose = dialog.querySelector("#btnClose")
+			btnClose!.addEventListener("click", () => {
+				dialog.close()
+			})
+		}
+	}
+</script>

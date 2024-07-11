@@ -1,0 +1,15 @@
+---
+type Props = {
+	justify?: string
+}
+const { justify = "md:text-center" } = Astro.props
+---
+
+<h1
+	class:list={[
+		"pb-2 text-2xl font-medium text-primary-600 before:content-left-angle after:pl-2 after:content-right-slash-angle sm:py-4 sm:text-3xl md:pb-6 md:text-4xl",
+		`${justify}`
+	]}
+>
+	<slot />
+</h1>

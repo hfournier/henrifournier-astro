@@ -1,0 +1,53 @@
+---
+import AsideLayout from "@layouts/AsideLayout.astro"
+import { Icon } from "astro-icon/components"
+
+export interface Props {
+	title: string
+}
+
+const { title } = Astro.props as Props
+---
+
+<AsideLayout title="Share:">
+	<ul class="flex flex-wrap gap-4 pl-4">
+		<li>
+			<a
+				href={`https://www.linkedin.com/shareArticle?mini=true&ro=true&trk=EasySocialShareButtons&title=${encodeURIComponent(
+					title.replaceAll(" ", "+")
+				)}&url=${encodeURIComponent(Astro.url.href)}`}
+			>
+				<span class="sr-only">Share on LinkedIn</span>
+				<Icon name="mdi:linkedin" class="size-8" aria-hidden="true" />
+			</a>
+		</li>
+		<li>
+			<a
+				href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+					title.replaceAll(" ", "+")
+				)}&url=${encodeURIComponent(Astro.url.href)}`}
+			>
+				<span class="sr-only">Share on Twitter</span>
+				<Icon name="mdi:twitter" class="size-8" aria-hidden="true" />
+			</a>
+		</li>
+		<li>
+			<a
+				href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`}
+			>
+				<span class="sr-only">Share on Facebook</span>
+				<Icon name="mdi:facebook" class="size-8" aria-hidden="true" />
+			</a>
+		</li>
+		<li>
+			<a
+				href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(
+					Astro.url.href
+				)}`}
+			>
+				<span class="sr-only">Share by email</span>
+				<Icon name="mdi:email" class="size-8" aria-hidden="true" />
+			</a>
+		</li>
+	</ul>
+</AsideLayout>

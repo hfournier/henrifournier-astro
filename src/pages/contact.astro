@@ -1,0 +1,47 @@
+---
+import MainLayout from "@layouts/MainLayout.astro"
+import Button from "@components/form/Button.astro"
+import Heading1 from "@components/Heading1.astro"
+import FormNetlify from "@components/form/FormNetlify.astro"
+import InputText from "@components/form/InputText.astro"
+import InputTextarea from "@components/form/InputTextarea.astro"
+import Seo, { type SeoType } from "@components/seo/Seo.astro"
+
+const seo: SeoType = {
+	title: "Contact | Henri Fournier Dev",
+	description: "Please leave me a message and I will reply shortly. Thank you."
+}
+---
+
+<MainLayout>
+	<Seo {seo} slot="head" />
+
+	<section
+		class="mx-auto grid place-content-center px-2 md:px-8 lg:px-12"
+		aria-label="Contact form">
+		<Heading1 justify="text-left">Contact Me</Heading1>
+		<p>Like what you see? Let's talk.</p>
+		<FormNetlify>
+			<InputText label="Name" id="name" name="name" type="text" required />
+			<InputText label="Email" id="email" name="email" type="email" required />
+			<InputText label="Subject" id="subject" name="subject" type="text" required />
+			<InputTextarea label="Message" id="message" name="message" rows="4" required />
+			<div class="flex gap-4">
+				<Button
+					id="btnSend"
+					type="submit"
+					class="group-invalid:pointer-events-none group-invalid:border-grayish-200">Send</Button
+				>
+				<Button id="btnClear" type="reset">Clear</Button>
+			</div>
+		</FormNetlify>
+	</section>
+</MainLayout>
+
+<script>
+	const btnSend = document.getElementById("btnSend")
+	btnSend?.addEventListener("click", () => {
+		alert("We're working on it!")
+		// alert("Message sent!")
+	})
+</script>

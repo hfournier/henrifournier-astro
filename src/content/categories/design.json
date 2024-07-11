@@ -1,0 +1,18 @@
+{
+	"name": "Design",
+	"description": "Unleash creativity with our Design category, featuring the latest trends in web design. Dive into a world of color, typography, and user experience that transforms the digital landscape. Perfect for designers seeking to captivate and engage.",
+	"seo": {
+		"title": "Unleash creativity with our Design category, featuring the latest trends in web design. Dive into a world of color, typography, and user experience that transforms the digital landscape. Perfect for designers seeking to captivate and engage.",
+		"openGraph": {
+			"title": "Unleash creativity with our Design category, featuring the latest trends in web design. Dive into a world of color, typography, and user experience that transforms the digital landscape. Perfect for designers seeking to captivate and engage.",
+			"type": "article",
+			"image": "@assets/seo-default-opengraph-image.png",
+			"url": "https://henrifournier.dev/",
+			"optional": { "locale": "en_CA", "siteName": "HenriFournier.dev" }
+		},
+		"twitter": {
+			"card": "summary_large_image",
+			"title": "Unleash creativity with our Design category, featuring the latest trends in web design. Dive into a world of color, typography, and user experience that transforms the digital landscape. Perfect for designers seeking to captivate and engage."
+		}
+	}
+}

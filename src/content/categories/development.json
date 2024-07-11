@@ -1,0 +1,18 @@
+{
+	"name": "Development",
+	"description": "Discover cutting-edge development insights and elevate your coding skills with our expert-led guides, covering everything from web to software development.",
+	"seo": {
+		"title": "Discover cutting-edge development insights and elevate your coding skills with our expert-led guides, covering everything from web to software development.",
+		"openGraph": {
+			"title": "Discover cutting-edge development insights and elevate your coding skills with our expert-led guides, covering everything from web to software development.",
+			"type": "article",
+			"image": "@assets/seo-default-opengraph-image.png",
+			"url": "https://henrifournier.dev/",
+			"optional": { "locale": "en_CA", "siteName": "HenriFournier.dev" }
+		},
+		"twitter": {
+			"card": "summary_large_image",
+			"title": "Discover cutting-edge development insights and elevate your coding skills with our expert-led guides, covering everything from web to software development."
+		}
+	}
+}

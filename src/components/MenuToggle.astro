@@ -1,0 +1,57 @@
+<button
+	class="rounded-sm focus:outline-none focus-visible:outline-offset-2 focus-visible:outline-primary-600 dark:focus-visible:outline-primary-500 lg:hidden"
+	type="button"
+	popovertarget="main-nav"
+>
+	<svg
+		viewBox="0 0 100 100"
+		fill="none"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		class="size-8 stroke-primary-600 stroke-[8px] dark:stroke-primary-500"
+		aria-hidden="true"
+	>
+		<path class="top-line" d="m 20 25 h 60 a 10 10 0 0 1 0 25 h -30"></path>
+		<path class="middle-line" d="m 20 50 h 60"></path>
+		<path class="bottom-line" d="m 80 75 h -60 a 10 10 0 0 1 0 -25 h 30"></path>
+	</svg>
+	<span class="sr-only">Menu</span>
+</button>
+
+<style is:global>
+	:root {
+		--transition-duration: 500ms;
+	}
+
+	svg {
+		transition: transform var(--transition-duration);
+	}
+
+	.top-line {
+		stroke-dasharray: 60 100;
+		transition: stroke-dashoffset var(--transition-duration);
+	}
+
+	.middle-line {
+		transform-origin: 50%;
+		transition: transform var(--transition-duration);
+	}
+
+	.bottom-line {
+		stroke-dasharray: 60 100;
+		transition: stroke-dashoffset var(--transition-duration);
+	}
+
+	[popover]:popover-open + button > svg {
+		transform: rotate(45deg);
+	}
+
+	[popover]:popover-open + button > svg .top-line,
+	[popover]:popover-open + button > svg .bottom-line {
+		stroke-dashoffset: -99px;
+	}
+
+	[popover]:popover-open + button > svg .middle-line {
+		transform: rotate(90deg);
+	}
+</style>

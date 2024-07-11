@@ -1,0 +1,60 @@
+---
+import { type CollectionEntry } from "astro:content"
+import BlogLayout from "@layouts/BlogLayout.astro"
+import BlogCard from "./BlogCard.astro"
+import type { Page } from "astro"
+import Pagination from "./Pagination.astro"
+import Filter from "./Filter.astro"
+import Seo from "@components/seo/Seo.astro"
+import { ITEMS_PER_PAGE } from "src/consts"
+
+type Props = {
+	page: Page<CollectionEntry<"blogs">>
+}
+
+const { page } = Astro.props
+const seo = {
+	title: "Blog",
+	description: "Blog posts on Astro, TailwindCSS and Sanity running on Netlify",
+	type: "website"
+}
+---
+
+<BlogLayout>
+	<Seo {seo} options={{ siteName: "HenriFournier.dev" }} slot="head" />
+	<Filter />
+	<section class="space-y-6">
+		<h1>{seo.title}</h1>
+		<p>{seo.description}</p>
+		{
+			page && (
+				<div class="min-h grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+					{page.data.map((entry) => (
+						<BlogCard
+							title={entry.data.title}
+							link={`/blog/${entry.slug}${Astro.url.search}`}
+							slug={entry.slug}
+							mediaSrc={entry.data.featuredMedia?.src}
+							mediaAlt={entry.data.featuredMedia?.alt}
+						>
+							{entry.data.description}
+						</BlogCard>
+					))}
+				</div>
+			)
+		}
+		{!page && <div>No blog posts found</div>}
+
+		{
+			page && page.total > ITEMS_PER_PAGE && (
+				<Pagination
+					prevUrl={page.url.prev}
+					currentUrl={page.url.current}
+					nextUrl={page.url.next}
+					currentPage={page.currentPage}
+					lastPage={page.lastPage}
+				/>
+			)
+		}
+	</section>
+</BlogLayout>

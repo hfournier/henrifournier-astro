@@ -1,0 +1,96 @@
+---
+import headshot from "@assets/headshot.png"
+import Section from "./Section.astro"
+import { Image } from "astro:assets"
+
+const details = [
+	{ label: "name", content: "Henri Fournier" },
+	{ label: "experience", content: "36+ years" },
+	{
+		label: "tech",
+		content: ["Jamstack", "Full Stack", "Front-End", "Back-End"]
+	},
+	{ label: "code", content: ["TypeScript", "JavaScript", "C#", "HTML"] },
+	{
+		label: "frameworks",
+		content: ["Astro", "Svelte", "11ty", "AlpineJS", "Angular"]
+	},
+	{ label: "data", content: ["Sanity", "JSON", "MongoDB", "SQL Server"] },
+	{ label: "styles", content: ["CSS", "Tailwind", "Bootstrap"] },
+	{ label: "speaks", content: ["English", "Français", "Grinch", "Sarcasm"] },
+	{ label: "pronouns", content: ["He", "Him"] }
+]
+---
+
+<Section id="about" heading="About">
+	<p>
+		Hello, my name is Henri Fournier and I'm a Jamstack developer. That means I design and build
+		<span
+			class="bg-gradient-to-r from-red-500 via-[rgb(249_115_22),_rgb(234_178_8),_rgb(34_197_94),_rgb(6_182_212),_rgb(59_130-246)] to-violet-500 bg-clip-text text-2xl tracking-wide text-transparent"
+			>unique</span
+		>,
+		<span
+			class="bg-gradient-to-b from-white to-secondary-400 bg-clip-text text-2xl font-thin tracking-tighter text-transparent"
+			>light-weight</span
+		>,
+		<span
+			class="bg-gradient-to-r from-transparent to-black bg-clip-text text-2xl italic tracking-tight text-transparent dark:to-white"
+			>fffast</span
+		>
+		and <span class="text-2xl font-extrabold tracking-[.18em]">effective</span>
+		websites. I always strive for everything to be
+		<span class="italic text-red-600 line-through dark:text-red-400">pixle</span> pixel perfect, because
+		that's the way it should be. Yeaaah, I'm one of those people.
+	</p>
+	<div class="mt-8 flex flex-col items-center md:mt-16 md:flex-row md:justify-evenly">
+		<div
+			class="hexagon mb-8 min-w-fit bg-gradient-to-br from-primary-600 from-30% to-secondary-600 to-70% p-2 md:mb-0 lg:p-3"
+		>
+			<Image
+				class="hexagon w-52 object-cover grayscale hover:grayscale-0 lg:w-64 xl:w-72"
+				src={headshot}
+				alt="Headshot of Henri Fournier"
+				width={300}
+				height={300}
+				loading="eager"
+			/>
+		</div>
+
+		<div
+			class="text-xl text-grayish-700 before:pr-2 before:content-left-curly after:content-right-curly dark:text-grayish-400 xl:text-2xl"
+		>
+			<div
+				class="pl-4 font-semibold text-secondary-700 after:text-grayish-700 after:content-colon dark:text-secondary-500 dark:after:text-grayish-400"
+			>
+				developer
+			</div>
+			<ul class="pl-8 before:content-left-curly after:content-right-curly">
+				{
+					details.map((detail) => (
+						<li class="flex pl-4">
+							<div class="font-semibold text-secondary-700 after:text-grayish-700 after:content-colon dark:text-secondary-500 dark:after:text-grayish-400">
+								{detail.label}
+							</div>
+							{typeof detail.content === "string" && (
+								<div class="pl-2 font-bold text-primary-600 after:font-normal after:text-grayish-700 after:content-comma dark:text-primary-500 dark:after:text-grayish-400 dark:lg:text-primary-600">
+									{detail.content}
+								</div>
+							)}
+							{typeof detail.content !== "string" && (
+								<ul class="flex flex-col pl-2 before:content-left-square after:last:content-right-square-comma md:inline-flex md:flex-row md:flex-wrap md:after:last:pl-2">
+									{detail.content.map((item) => (
+										<li class="flex pl-4 after:content-comma after:last:content-none md:pl-2">
+											<div class="font-bold text-primary-600 dark:text-primary-500 dark:lg:text-primary-600">
+												{item}
+											</div>
+										</li>
+									))}
+								</ul>
+							)}
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</div>
+</Section>

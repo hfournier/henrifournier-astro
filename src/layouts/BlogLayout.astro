@@ -1,0 +1,13 @@
+---
+import BaseLayout from "./BaseLayout.astro"
+---
+
+<BaseLayout>
+	<slot name="head" slot="head" />
+	<main
+		id="content"
+		class="prose-sm mx-auto w-full !max-w-5xl grow px-4 pb-4 pt-12 sm:prose xl:prose-lg sm:pt-14 md:pt-16 lg:pt-20"
+	>
+		<slot />
+	</main>
+</BaseLayout>

@@ -1,0 +1,201 @@
+---
+export interface Props {
+	prevUrl?: string
+	currentUrl: string
+	nextUrl?: string
+	currentPage: number
+	lastPage: number
+}
+
+const { prevUrl, currentUrl, nextUrl, currentPage, lastPage } = Astro.props as Props
+const firstPage = 1
+const regexpPageNumber = /\/[0-9]+(?=[^/]*$)/g
+const maxPages = 5
+const pageList: number[] = Array.from({ length: lastPage }, (_: number, i) => i + 1)
+let paginationLeft: number[] = []
+let paginationRight: number[] = []
+// reduce the list of pages that are displayed for pagination to maxPages (previous and next)
+pageList.forEach((i) => {
+	if (0 < currentPage - i && currentPage - i <= maxPages) {
+		paginationLeft.push(i)
+	}
+	if (0 < i - currentPage && i - currentPage <= maxPages) {
+		paginationRight.push(i)
+	}
+})
+const paginationLeftCount = paginationLeft.length
+const paginationRightCount = paginationRight.length
+// pad arrays with 0s to balance both sides with same maxPages count. Zero entries will be hidden
+if (paginationLeft.length < maxPages) {
+	paginationLeft = [...Array.from({ length: maxPages }, () => 0), ...paginationLeft]
+	while (paginationLeft.length > maxPages) {
+		paginationLeft.shift()
+	}
+}
+if (paginationRight.length < maxPages) {
+	paginationRight = [...paginationRight, ...Array.from({ length: maxPages }, () => 0)].slice(
+		0,
+		maxPages
+	)
+}
+// build pagination list to be displayed
+const paginationList: number[] = [...paginationLeft, currentPage, ...paginationRight]
+---
+
+<nav
+	class="mx-auto flex items-center justify-center gap-2 p-0 py-6"
+	class:list={[
+		"sm:[&>a:nth-child(3):not([data-page='0'])]:block [&>a:nth-child(3)]:hidden",
+		{
+			"sm:[&>a:nth-child(4):not([data-page='0'])]:block [&>a:nth-child(4)]:hidden":
+				paginationLeftCount >= 4 && paginationRightCount > 0
+		},
+		{
+			"sm:[&>a:nth-child(5):not([data-page='0'])]:block [&>a:nth-child(5)]:hidden":
+				paginationLeftCount >= 3 && paginationRightCount > 1
+		},
+		{
+			"sm:[&>a:nth-child(11):not([data-page='0'])]:block [&>a:nth-child(11)]:hidden":
+				paginationRightCount >= 3 && paginationLeftCount > 1
+		},
+		{
+			"sm:[&>a:nth-child(12):not([data-page='0'])]:block [&>a:nth-child(12)]:hidden":
+				paginationRightCount >= 4 && paginationLeftCount > 0
+		},
+		"sm:[&>a:nth-child(13):not([data-page='0'])]:block [&>a:nth-child(13)]:hidden"
+	]}
+>
+	{
+		currentPage === firstPage ? (
+			<span
+				class="rounded border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				aria-hidden="true"
+			>
+				<span class="sr-only">First page</span>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+					<path
+						fill="currentColor"
+						d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6l6 6l1.41-1.41M6 6h2v12H6V6Z"
+					/>
+				</svg>
+			</span>
+		) : (
+			<a
+				class="rounded border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				href={prevUrl?.replace(regexpPageNumber, "")}
+				aria-label="First Page"
+			>
+				<span class="sr-only">First page</span>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+					<path
+						fill="currentColor"
+						d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6l6 6l1.41-1.41M6 6h2v12H6V6Z"
+					/>
+				</svg>
+			</a>
+		)
+	}
+	{
+		!prevUrl ? (
+			<span
+				class="rounded border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				aria-hidden="true"
+			>
+				<span class="sr-only">Previous page</span>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+					<path fill="currentColor" d="M6 6h2v12H6m3.5-6l8.5 6V6m-2 8.14L12.97 12L16 9.86v4.28Z" />
+				</svg>
+			</span>
+		) : (
+			<a
+				class="rounded border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				href={prevUrl}
+				aria-label="Previous Page"
+			>
+				<span class="sr-only">Previous page</span>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+					<path fill="currentColor" d="M6 6h2v12H6m3.5-6l8.5 6V6m-2 8.14L12.97 12L16 9.86v4.28Z" />
+				</svg>
+			</a>
+		)
+	}
+
+	{
+		paginationList.map((i) =>
+			i === currentPage ? (
+				<span class="min-w-[1.5rem] rounded border-2 border-grayish-300 p-1 text-center text-sm uppercase text-grayish-300">
+					{i}
+				</span>
+			) : (
+				<a
+					class="min-w-[1.5rem] rounded border-2 border-grayish-500 p-1 text-center text-sm uppercase no-underline hover:shadow-md data-[page='0']:hidden"
+					data-page={i}
+					href={
+						i === 1
+							? currentUrl.replace(regexpPageNumber, "")
+							: currentUrl.match(regexpPageNumber)
+								? currentUrl.replace(regexpPageNumber, `/${i}`)
+								: `${currentUrl}/${i}`
+					}
+				>
+					{i}
+				</a>
+			)
+		)
+	}
+
+	{
+		!nextUrl ? (
+			<span
+				class="rounded border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				aria-hidden="true"
+			>
+				<span class="sr-only">Next page</span>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+					<path fill="currentColor" d="m6 18l8.5-6L6 6m2 3.86L11.03 12L8 14.14M16 6h2v12h-2" />
+				</svg>
+			</span>
+		) : (
+			<a
+				class="rounded border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				href={nextUrl}
+				aria-label="Next Page"
+			>
+				<span class="sr-only">Next page</span>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+					<path fill="currentColor" d="m6 18l8.5-6L6 6m2 3.86L11.03 12L8 14.14M16 6h2v12h-2" />
+				</svg>
+			</a>
+		)
+	}
+	{
+		currentPage === lastPage ? (
+			<span
+				class="rounded border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				aria-hidden="true"
+			>
+				<span class="sr-only">Last page</span>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+					<path
+						fill="currentColor"
+						d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6l-6-6l-1.41 1.41M16 6h2v12h-2V6Z"
+					/>
+				</svg>
+			</span>
+		) : (
+			<a
+				class="rounded border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				href={nextUrl?.replace(regexpPageNumber, `/${lastPage}`)}
+				aria-label="Last Page"
+			>
+				<span class="sr-only">Last page</span>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+					<path
+						fill="currentColor"
+						d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6l-6-6l-1.41 1.41M16 6h2v12h-2V6Z"
+					/>
+				</svg>
+			</a>
+		)
+	}
+</nav>

@@ -1,0 +1,75 @@
+---
+import AsideLayout from "@layouts/AsideLayout.astro"
+import { getCollection, getEntries, type DataEntryMap } from "astro:content"
+
+type Props = {
+	tags: { collection: "tags"; id: keyof DataEntryMap["tags"] }[]
+}
+const { tags } = Astro.props
+
+const blogs = await getCollection("blogs")
+const blogTags = blogs.map((blog) => blog.data.tags?.map((tag) => tag.id)).flat()
+
+const tagEntries = await getEntries(tags)
+const tagCounts = tagEntries.map((tag) => {
+	return { id: tag.id, count: blogTags.filter((bt) => bt === tag.id).length }
+})
+
+const getUrl = (tagId: string) => {
+	const url = new URL(Astro.url.href)
+	url.pathname = url.pathname.slice(0, url.pathname.lastIndexOf("/"))
+	if (url.searchParams.has("tags")) {
+		const tagParams = url.searchParams.get("tags")?.slice(1, -1).split(",")
+		if (tagParams) {
+			const tagIndex = tagParams.indexOf(tagId)
+			if (tagIndex !== -1) {
+				tagParams.splice(tagIndex, 1)
+			} else {
+				tagParams.push(tagId)
+			}
+			if (tagParams.length === 0) {
+				url.searchParams.delete("tags")
+			} else {
+				url.searchParams.set("tags", `[${tagParams.join(",")}]`)
+			}
+		}
+	} else {
+		url.searchParams.set("tags", `[${tagId}]`)
+	}
+	return url.href
+}
+const isSelectedTag = (tagId: string) => {
+	if (Astro.url.searchParams.has("tags")) {
+		const tagParams = Astro.url.searchParams.get("tags")?.slice(1, -1).split(",")
+		if (tagParams) {
+			return tagParams.indexOf(tagId) !== -1
+		}
+	}
+	return false
+}
+---
+
+{
+	tagEntries && tagEntries.length > 0 && (
+		<AsideLayout title="Tags:">
+			<ul class="flex flex-wrap gap-2 pl-4">
+				{tagEntries.map((tag) => (
+					<li
+						class:list={[
+							"rounded border-grayish-600",
+							{ "border bg-grayish-100": !isSelectedTag(tag.id) },
+							{ "border-2 font-semibold": isSelectedTag(tag.id) }
+						]}
+					>
+						<a class="flex h-full items-center no-underline" href={getUrl(tag.id)}>
+							<div class="px-1.5 text-sm">{tag.data.name}</div>
+							<div class="self-stretch bg-grayish-600 px-1.5 py-1 text-xs text-grayish-50 dark:text-grayish-950">
+								{tagCounts.find((tc) => tc.id === tag.id)?.count}
+							</div>
+						</a>
+					</li>
+				))}
+			</ul>
+		</AsideLayout>
+	)
+}

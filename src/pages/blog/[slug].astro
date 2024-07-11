@@ -1,0 +1,107 @@
+---
+import type { GetStaticPaths } from "astro"
+import { Image } from "astro:assets"
+import { getEntry, getCollection } from "astro:content"
+
+import { SITE_TITLE } from "src/consts"
+import BlogLayout from "@layouts/BlogLayout.astro"
+import Aside from "@components/aside/Aside.astro"
+import AsideArticle from "@components/aside/AsideArticle.astro"
+import AsideAuthor from "@components/aside/AsideAuthor.astro"
+import AsideRelated from "@components/aside/AsideRelated.astro"
+import AsideShare from "@components/aside/AsideShare.astro"
+import AsideTags from "@components/aside/AsideTags.astro"
+import Seo from "@components/seo/Seo.astro"
+
+export const getStaticPaths = (async () => {
+	const blogs = await getCollection("blogs")
+	return blogs.map((entry) => {
+		return {
+			params: { slug: entry.slug },
+			props: { entry }
+		}
+	})
+}) satisfies GetStaticPaths
+
+const { entry } = Astro.props
+
+const author = entry.data.author ? await getEntry("authors", entry.data.author.id) : undefined
+
+const { Content, headings } = await entry.render()
+---
+
+<BlogLayout>
+	{entry.data.seo && <Seo seo={entry.data.seo} options={{ siteName: SITE_TITLE }} slot="head" />}
+	{
+		!entry.data.seo && (
+			<Seo
+				slot="head"
+				seo={{ title: entry.data.title, description: entry.data.description }}
+				options={{ siteName: SITE_TITLE }}
+			/>
+		)
+	}
+	<div class="grid gap-12 md:grid-cols-[2fr,_1fr] lg:grid-cols-[3fr,_1fr]">
+		<article>
+			<header class="flex flex-col gap-6 prose-h1:mb-0 prose-img:my-0">
+				{
+					entry.data.featuredMedia !== undefined && entry.data.featuredMedia.id !== 0 && (
+						<Image
+							class="rounded-lg"
+							src={entry.data.featuredMedia.src}
+							alt={entry.data.featuredMedia.alt || "Alt text mising"}
+							loading="eager"
+							transition:name={`fm-${entry.slug}`}
+						/>
+					)
+				}
+				<h1 transition:name={`h-${entry.slug}`}>{entry.data.title}</h1>
+				<div class="flex flex-col">
+					{
+						author && (
+							<div class="text-sm">
+								Written by <a href={`/author/${author?.id}`}>{author?.data?.name || "unknown"}</a>
+							</div>
+						)
+					}
+					<div>
+						<time class="text-sm" datetime={entry.data.createdAt.toISOString()}>
+							Published on {
+								entry.data.createdAt.toLocaleDateString(undefined, {
+									month: "long",
+									day: "numeric",
+									year: "numeric"
+								})
+							}
+						</time>
+						{
+							entry.data.modifiedAt && entry.data.modifiedAt !== entry.data.createdAt && (
+								<time class="text-sm italic" datetime={entry.data.modifiedAt.toISOString()}>
+									(last updated{" "}
+									{entry.data.modifiedAt.toLocaleDateString(undefined, {
+										month: "long",
+										day: "numeric",
+										year: "numeric"
+									})}
+									)
+								</time>
+							)
+						}
+					</div>
+				</div>
+			</header>
+			<Content />
+		</article>
+		<Aside>
+			<AsideShare title={entry.data.title} />
+			{headings && headings.length > 0 && <AsideArticle {headings} />}
+			{entry.data.tags && <AsideTags tags={entry.data.tags} />}
+			{
+				entry.data.categories && (
+					<AsideRelated categories={entry.data.categories} slug={entry.slug} />
+				)
+			}
+			{entry.data.author && <AsideAuthor authorId={entry.data.author.id} slug={entry.slug} />}
+		</Aside>
+	</div>
+</BlogLayout>

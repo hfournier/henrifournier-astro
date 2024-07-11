@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content"
+import Image from "astro/components/Image.astro"
+import Dialog from "./Dialog.astro"
+
+type Props = { work: CollectionEntry<"work"> }
+const { work } = Astro.props
+const { Content } = await work.render()
+---
+
+<Dialog id={`dlg_${work.slug}`} heading={work.data.name}>
+	<Image src={work.data.image} alt={work.data.imageAlt} />
+	<div class="prose max-w-none dark:prose-invert">
+		<Content />
+		<h3>Technologies</h3>
+	</div>
+	<div class="flex flex-wrap items-center gap-2 py-4">
+		{
+			work.data.tags &&
+				work.data.tags.map((tag: string) => (
+					<span class="rounded bg-secondary-200 px-2 py-1 text-sm dark:bg-secondary-800 dark:text-white">
+						{tag}
+					</span>
+				))
+		}
+	</div>
+	{
+		work.data.link && (
+			<div class="py-2">
+				<a
+					class="text-sm text-primary-700 no-underline outline-none hover:underline focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4 focus-visible:ring-offset-grayish-50 dark:text-primary-400 dark:hover:text-primary-300 dark:focus-visible:ring-primary-500 dark:focus-visible:ring-offset-grayish-900"
+					href={work.data.link}
+				>
+					View website
+				</a>
+			</div>
+		)
+	}
+</Dialog>

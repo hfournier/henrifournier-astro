@@ -1,0 +1,13 @@
+---
+import BaseLayout from "./BaseLayout.astro"
+import GoToTop from "@components/GoToTop.astro"
+---
+
+<BaseLayout>
+	<slot name="head" slot="head" />
+	<main class="relative mx-auto w-full max-w-6xl px-4 py-8 md:px-8 lg:py-12" aria-label="Main">
+		<slot />
+		<!-- Go to top button -->
+		<GoToTop />
+	</main>
+</BaseLayout>

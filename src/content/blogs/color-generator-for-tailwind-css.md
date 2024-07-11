@@ -1,0 +1,54 @@
+---
+title: Color Generator for Tailwind CSS
+description: Quickly and easily generate a color scheme for Tailwind CSS, including all the standard shades from 50 to 950.
+createdAt: 2024-04-27
+author: henri-fournier
+categories:
+  - design
+tags:
+  - astro
+  - tailwindcss
+seo:
+  title: Color Generator for Tailwind CSS
+  description: Quickly and easily generate a color scheme for Tailwind CSS, including all the standard shades from 50 to 950.
+  openGraph:
+    title: Color Generator for Tailwind CSS
+    type: article
+    optional:
+      description: Quickly and easily generate a color scheme for Tailwind CSS, including all the standard shades from 50 to 950.
+---
+
+## The Problem
+
+Colors are hard! For developers that are not also skilled designers, colors can be **really** hard. How many code demos have you seen where the presenter starts by saying: "I'm not a designer, so ...". Am I right?!? If you're lucky, a designer hands you a Figma project (or similar) with a nicely defined color palette and you can just copy and paste the hex colors into your code. Done. Or, maybe you're free to choose any color you want, so you can draw from Tailwind's excellent selection of default colors. Even easier. However, most of the time, a client will give you a custom color to start with, like their brand color or their logo. Great. Now what? Well... you'll need a coordinated accent color or two and a matching gray. Aaand... you'll need 11 perfectly balanced shades for each of them. Oof. But, there's an easy way to do that, right?
+
+> If you’re wondering how we automatically generated the 50–950 shades of each color, bad news — color is complicated and to get the absolute best results we picked all of Tailwind’s default colors by hand, meticulously balancing them by eye and testing them in real designs to make sure we were happy with them.
+> &mdash; <cite>[Tailwind CSS - Generating Colors](https://tailwindcss.com/docs/customizing-colors#generating-colors)</cite>
+
+Ouch! Well... if you don't have the eye, time, skill, or inclination to "meticulously balance" your color palette yourself, I've got **good** news.
+
+## The Solution
+
+[Color Generator for Tailwind CSS](https://twcg-henrifournier-dev.netlify.app/) is a creatively named tool I've developed that will help you generate all the 50-950 standard shades for your custom colors, as well as coordinated accent colors and a matching gray-ish set to round off your color palette. It also produces the requisit code that you can copy and paste into your own code base.
+
+### Features
+
+lorem ipsum
+
+#### Select your color
+
+You can use the color picker to select your color or simply paste in the hex code. Chromium-based browsers and Safari include a more modern color picker, with options to enter hex codes, RGB and HSL values and an eye-droper to select a color from your screen. However, the Firefox color picker is in need of an update, so you may want to choose another browser, if that's an option. Once you've selected a color, the fun can begin.
+
+#### Experiment with different color spaces
+
+The first column represents the Tailwind CSS default colors. This column will automatically sync to the nearest color based on the hue of your selected color. The main purpose of this column is to give a point of comparison as you experiment with the various color spaces.
+
+The second and third columns represent color spaces with a _lightness_ option. Why two columns? I'm glad you asked. So that you can compare the results of two color spaces with each other side by side.
+
+The fourth and fifth columns represent rectangular color spaces. To achieve the required shades, the color-mix() function (more on [chrome dev](https://developer.chrome.com/docs/css-ui/css-color-mix), [mdn](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix)) is used to add white and black to the selected color within the selected color space.
+
+The sixth and seventh columns represent polar color spaces. The second dropdown is to select the Hue Interpolation Method, which is basically which way you want to go around the color wheel, which will yield very different results. Again, to achieve the required shades, the color-mix() function is used.
+
+### How to use
+
+lorem ipsum

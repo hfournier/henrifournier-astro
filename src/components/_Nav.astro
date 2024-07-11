@@ -1,0 +1,50 @@
+---
+import MenuToggle from "./MenuToggle.astro"
+
+let mainMenu = "main-nav"
+let navOpen = false
+type MenuItem = {
+	label: string
+	link: string
+}
+const navItems: MenuItem[] = [
+	{ label: "About", link: "/#about" },
+	{ label: "Work", link: "/#work" },
+	{ label: "Meet the Team", link: "/#team" },
+	{ label: "Experience", link: "/#experience" },
+	{ label: "Blog", link: "/blog" },
+	{ label: "Contact", link: "/contact" }
+]
+---
+
+<nav class="relative flex" aria-label="Main menu">
+	<!-- Hamburger Menu -->
+	<MenuToggle {navOpen} />
+
+	<ul
+		id={mainMenu}
+		class={`absolute right-0 top-0 gap-4 transition-all lg:translate-y-0 ${
+			navOpen
+				? "shadow-primary-500/30 z-20 flex translate-y-10 flex-col bg-grayish-100/85 p-4 shadow-md duration-500 dark:bg-grayish-800/95"
+				: "translate-x-52 translate-y-12 flex-row duration-300 lg:static lg:flex lg:translate-x-0 lg:translate-y-0"
+		}`}
+	>
+		{
+			navItems.map((navItem) => (
+				<li class="relative">
+					<a
+						aria-current={Astro.url.pathname === navItem.link ? "page" : null}
+						class:list={[
+							"whitespace-nowrap text-right text-lg font-bold text-primary-700 no-underline aria-[current='page']:underline dark:text-primary-500 md:text-xl md:text-primary-600",
+							{ hidden: !navOpen },
+							{ "lg:block": !navOpen }
+						]}
+						href={navItem.link}
+					>
+						{navItem.label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>

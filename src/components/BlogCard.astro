@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets"
+interface Props {
+	title: string
+	link: string
+	slug: string
+	mediaSrc?: any
+	mediaAlt?: string
+}
+
+const { link, title, slug, mediaSrc, mediaAlt = "TODO: Add alt text" } = Astro.props
+---
+
+<article
+	class="flex flex-col gap-1 rounded-lg border border-grayish-300 p-4 shadow-md transition-transform hover:scale-105 prose-p:my-0 prose-p:leading-normal"
+>
+	<header class="flex flex-col gap-4 prose-h2:m-0 prose-img:my-0">
+		{
+			mediaSrc && (
+				<a class="no-underline" href={link}>
+					<Image class="rounded-md" src={mediaSrc} alt={mediaAlt} transition:name={`fm-${slug}`} />
+				</a>
+			)
+		}
+		<h2 class="text-2xl" transition:name={`h-${slug}`}>
+			<a class="no-underline underline-offset-4 hover:underline" href={link}>{title}</a>
+		</h2>
+	</header>
+	<p class="line-clamp-4 sm:line-clamp-3">
+		<slot />
+	</p>
+</article>

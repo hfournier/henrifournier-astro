@@ -1,0 +1,33 @@
+---
+import AsideLayout from "@layouts/AsideLayout.astro"
+import type { MarkdownHeading } from "astro"
+
+export type Props = {
+	headings: MarkdownHeading[]
+}
+
+const { headings } = Astro.props as Props
+---
+
+<AsideLayout title="In this article:">
+	<ul class="flex flex-col gap-3" role="list">
+		{
+			headings
+				.filter((heading) => heading.depth < 4)
+				.map((heading) => (
+					<li
+						class="text-sm leading-tight"
+						class:list={[
+							{ "!pl-0": heading.depth === 1 },
+							{ "!pl-4": heading.depth === 2 },
+							{ "!pl-8": heading.depth === 3 }
+						]}
+					>
+						<a class="no-underline underline-offset-2 hover:underline" href={`#${heading.slug}`}>
+							{heading.text}
+						</a>
+					</li>
+				))
+		}
+	</ul>
+</AsideLayout>
