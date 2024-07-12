@@ -6,7 +6,6 @@ import icon from "astro-icon"
 // https://astro.build/config
 export default defineConfig({
 	site: "https://henrifournier.dev",
-	output: "hybrid",
 	integrations: [
 		tailwind({
 			applyBaseStyles: false

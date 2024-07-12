@@ -2,6 +2,12 @@
 	class="group mt-8 w-full min-w-[18rem] space-y-6 rounded-lg border-2 border-grayish-400 bg-grayish-50 p-6 text-left dark:bg-grayish-800 md:min-w-[24rem] md:max-w-md lg:min-w-[30rem] lg:max-w-lg lg:space-y-8 lg:p-8"
 	name="contact"
 	method="POST"
-	data-netlify="true">
+	data-netlify="true"
+	netlify-honeypot>
 	<slot />
+	<p class="hidden">
+		<label>
+			Don't fill this out if you're human: <input name="bot-field" />
+		</label>
+	</p>
 </form>
