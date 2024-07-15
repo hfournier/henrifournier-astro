@@ -1,11 +1,13 @@
 import { defineConfig } from "astro/config"
 import tailwind from "@astrojs/tailwind"
-
 import icon from "astro-icon"
+
+import netlify from "@astrojs/netlify"
 
 // https://astro.build/config
 export default defineConfig({
 	site: "https://henrifournier.dev",
+	output: "hybrid",
 	integrations: [
 		tailwind({
 			applyBaseStyles: false
@@ -42,5 +44,6 @@ export default defineConfig({
 				]
 			}
 		})
-	]
+	],
+	adapter: netlify()
 })
