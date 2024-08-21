@@ -47,6 +47,7 @@ export default defineConfig({
 					"chevron-down",
 					"close",
 					"close-circle",
+					"comment",
 					"comment-minus",
 					"comment-plus",
 					"email",
