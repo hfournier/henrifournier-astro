@@ -1,4 +1,5 @@
 import { seoSchema } from "@components/seo/seo"
+import { file } from "astro/loaders"
 import { z, defineCollection, type SchemaContext, reference } from "astro:content"
 
 const authorSchema = ({ image }: SchemaContext) =>
@@ -27,9 +28,9 @@ const blogSchema = ({ image }: SchemaContext) =>
 		author: reference("authors").optional(),
 		featuredMedia: z
 			.object({
-				id: z.number(),
 				src: image(),
 				alt: z.string(),
+				id: z.number().optional(),
 				caption: z.string().optional()
 			})
 			.optional(),
@@ -65,6 +66,25 @@ const workSchema = ({ image }: SchemaContext) =>
 		tags: z.array(z.string()).optional()
 	})
 
+const hexagonSchema = z.object({
+	id: z.string(),
+	cells: z.array(
+		z.object({
+			type: z.union([z.literal("none"), z.literal("fill"), z.literal("stroke"), z.literal("icon")]),
+			alt: z.string().optional(),
+			link: z.string().url().optional(),
+			svg: z.string().optional()
+		})
+	)
+})
+
+const hexagonsCollection = defineCollection({
+	// The file loader loads a single file which contains multiple entries. The path is relative to the project root, or an absolute path.
+	// The data must be an array of objects, each with a unique `id` property, or an object with IDs as keys and entries as values.
+	loader: file("src/data/hexagons.json"),
+	schema: hexagonSchema
+})
+
 const authorsCollection = defineCollection({
 	type: "data", // v2.5.0 and later
 	schema: authorSchema
@@ -95,5 +115,6 @@ export const collections = {
 	blogs: blogsCollection,
 	categories: categoriesCollection,
 	tags: tagsCollection,
-	work: workCollection
+	work: workCollection,
+	hexagons: hexagonsCollection
 }

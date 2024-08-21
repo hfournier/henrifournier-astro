@@ -56,14 +56,15 @@ const isSelectedTag = (tagId: string) => {
 				{tagEntries.map((tag) => (
 					<li
 						class:list={[
-							"rounded border-grayish-600",
+							"rounded border-grayish-600 bg-grayish-100 hover:border-primary-600 dark:bg-grayish-800 dark:hover:border-primary-500",
 							{ "border bg-grayish-100": !isSelectedTag(tag.id) },
 							{ "border-2 font-semibold": isSelectedTag(tag.id) }
-						]}
-					>
+						]}>
 						<a class="flex h-full items-center no-underline" href={getUrl(tag.id)}>
-							<div class="px-1.5 text-sm">{tag.data.name}</div>
-							<div class="self-stretch bg-grayish-600 px-1.5 py-1 text-xs text-grayish-50 dark:text-grayish-950">
+							<div class="px-1.5 text-sm text-grayish-950 dark:text-grayish-50">
+								{tag.data.name}
+							</div>
+							<div class="self-stretch bg-grayish-600 px-1.5 py-1 text-xs text-grayish-50 dark:bg-grayish-400 dark:text-grayish-950">
 								{tagCounts.find((tc) => tc.id === tag.id)?.count}
 							</div>
 						</a>

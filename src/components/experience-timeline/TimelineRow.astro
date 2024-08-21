@@ -1,0 +1,16 @@
+---
+type Props = {
+	rowClass: string
+}
+const { rowClass } = Astro.props
+---
+
+<div
+	class:list={[
+		"border-grayish-300 p-6 sm:p-12",
+		"col-start-2 md:odd:col-start-3 md:even:col-start-1",
+		`${rowClass}`
+	]}
+	aria-hidden="true">
+	<slot />
+</div>

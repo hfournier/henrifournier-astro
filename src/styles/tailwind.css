@@ -6,7 +6,7 @@
 	:root {
 		--color-primary: #cc5500;
 
-		--color-grayish-sat: 10%;
+		--color-grayish-sat: 5%;
 
 		--color-dark-step: 8.5%;
 		--color-light-step: 10.5%;
@@ -17,7 +17,7 @@
 	}
 
 	html[data-theme="dark"] {
-		--color-blob-to: theme(colors.grayish.900);
+		--color-blob-to: theme(colors.grayish.950);
 	}
 
 	.scrollable::-webkit-scrollbar {
@@ -44,6 +44,7 @@
 			scrollbar-color: theme(colors.grayish.300) theme(colors.grayish.100);
 		}
 		html[data-theme="dark"].scrollable,
+		[data-theme="dark"] .scrollable,
 		.dark .scrollable {
 			scrollbar-color: theme(colors.grayish.600) theme(colors.grayish.800);
 		}
@@ -53,14 +54,7 @@
 	h2,
 	h3,
 	h4 {
-		@apply font-baloo2 text-primary-600;
-	}
-
-	a {
-		@apply rounded-sm underline decoration-primary-600 underline-offset-4 hover:text-primary-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:ring-offset-2 dark:decoration-primary-500 dark:hover:text-primary-400 dark:focus-visible:ring-primary-500;
-	}
-	abbr {
-		@apply decoration-primary-600 decoration-2 underline-offset-4 dark:decoration-primary-500;
+		@apply font-baloo2;
 	}
 }
 

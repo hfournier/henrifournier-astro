@@ -1,15 +1,27 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro"
 import Button from "@components/form/Button.astro"
-import Heading1 from "@components/Heading1.astro"
+import Heading1 from "@components/heading/Heading1.astro"
 import FormNetlify from "@components/form/FormNetlify.astro"
 import InputText from "@components/form/InputText.astro"
 import InputTextarea from "@components/form/InputTextarea.astro"
 import Seo, { type SeoType } from "@components/seo/Seo.astro"
 
+import contact_me from "@assets/og-images/contact-me.png"
+
 const seo: SeoType = {
 	title: "Contact | Henri Fournier Dev",
-	description: "Please leave me a message and I will reply shortly. Thank you."
+	description: "Please leave me a message and I will reply shortly. Thank you.",
+	openGraph: {
+		title: "Contact | Henri Fournier Dev | Kelowna, BC",
+		type: "website",
+		image: contact_me,
+		imageAlt:
+			"Hexagon background with a gradient, the HenriFournier.dev logo and the title of the page: Contact Me",
+		optional: {
+			description: "Please leave me a message and I will reply shortly. Thank you."
+		}
+	}
 }
 ---
 
@@ -30,18 +42,11 @@ const seo: SeoType = {
 				<Button
 					id="btnSend"
 					type="submit"
-					class="group-invalid:pointer-events-none group-invalid:border-grayish-200">Send</Button
+					class="group-invalid:pointer-events-none group-invalid:border-grayish-600 group-invalid:bg-grayish-600 group-invalid:text-white dark:group-invalid:border-grayish-600 dark:group-invalid:bg-grayish-600"
+					>Send</Button
 				>
-				<Button id="btnClear" type="reset">Clear</Button>
+				<Button id="btnClear" type="reset" outline={true}>Clear</Button>
 			</div>
 		</FormNetlify>
 	</section>
 </MainLayout>
-
-<script>
-	const btnSend = document.getElementById("btnSend")
-	btnSend?.addEventListener("click", () => {
-		alert("We're working on it!")
-		// alert("Message sent!")
-	})
-</script>

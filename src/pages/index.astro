@@ -2,16 +2,30 @@
 import MainLayout from "@layouts/MainLayout.astro"
 import Hero from "@components/Hero.astro"
 import About from "@components/About.astro"
-import Experience from "@components/Experience.astro"
+import Experience from "@components/experience-timeline/Experience.astro"
 import Team from "@components/Team.astro"
-import Work from "@components/Work.astro"
+import Work from "@components/work/Work.astro"
 import Seo, { type SeoType } from "@components/seo/Seo.astro"
+
+import home from "@assets/og-images/home.png"
 
 const seo: SeoType = {
 	title:
 		"Jamstack Developer | Full Stack Developer | Web Developer | Henri Fournier Dev | Kelowna, BC",
 	description:
-		"Lighter, faster, better custom Jamstack websites that work for you with Svelte, 11ty, Angular, TailwindCSS and Sanity on Netlify"
+		"Lighter, faster, better custom Jamstack websites that work for you with Svelte, 11ty, Angular, TailwindCSS and Sanity on Netlify",
+	openGraph: {
+		title:
+			"Jamstack Developer | Full Stack Developer | Web Developer | Henri Fournier Dev | Kelowna, BC",
+		type: "website",
+		image: home,
+		imageAlt:
+			"Hexagon background with a gradient, the HenriFournier.dev logo and the title of the website",
+		optional: {
+			description:
+				"Lighter, faster, better custom Jamstack websites that work for you with Svelte, 11ty, Angular, TailwindCSS and Sanity on Netlify"
+		}
+	}
 }
 ---
 

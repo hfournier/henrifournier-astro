@@ -1,0 +1,17 @@
+---
+interface Props extends Omit<astroHTML.JSX.HtmlHTMLAttributes, "class, title"> {
+	title: string
+	class?: string
+}
+const { class: classList, title, ...attrs } = Astro.props
+---
+
+<abbr
+	class:list={[
+		"decoration-secondary-700 decoration-2 underline-offset-4 dark:decoration-secondary-500",
+		classList
+	]}
+	title={title}
+	{...attrs}>
+	<slot />
+</abbr>

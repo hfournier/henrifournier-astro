@@ -3,7 +3,7 @@ import type { GetStaticPaths } from "astro"
 import { Image } from "astro:assets"
 import { getEntry, getCollection } from "astro:content"
 
-import { SITE_TITLE } from "src/consts"
+import { SITE_TITLE } from "../../consts"
 import BlogLayout from "@layouts/BlogLayout.astro"
 import Aside from "@components/aside/Aside.astro"
 import AsideArticle from "@components/aside/AsideArticle.astro"
@@ -12,6 +12,8 @@ import AsideRelated from "@components/aside/AsideRelated.astro"
 import AsideShare from "@components/aside/AsideShare.astro"
 import AsideTags from "@components/aside/AsideTags.astro"
 import Seo from "@components/seo/Seo.astro"
+import { Icon } from "astro-icon/components"
+import Comments from "@components/Comments.astro"
 
 export const getStaticPaths = (async () => {
 	const blogs = await getCollection("blogs")
@@ -27,7 +29,7 @@ const { entry } = Astro.props
 
 const author = entry.data.author ? await getEntry("authors", entry.data.author.id) : undefined
 
-const { Content, headings } = await entry.render()
+const { Content, headings, remarkPluginFrontmatter } = await entry.render()
 ---
 
 <BlogLayout>
@@ -41,9 +43,12 @@ const { Content, headings } = await entry.render()
 			/>
 		)
 	}
-	<div class="grid gap-12 md:grid-cols-[2fr,_1fr] lg:grid-cols-[3fr,_1fr]">
-		<article>
-			<header class="flex flex-col gap-6 prose-h1:mb-0 prose-img:my-0">
+	<div
+		class="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,_2fr),_1fr] xl:grid-cols-[minmax(0,_3fr),_1fr]">
+		<article
+			class="[&_pre]:scrollable prose-sm prose-stone !max-w-full sm:prose xl:prose-lg dark:prose-invert prose-h1:mb-0 prose-p:text-pretty prose-a:underline-offset-2 hover:prose-a:decoration-primary-600 prose-blockquote:border-secondary-600 prose-code:rounded prose-code:bg-grayish-200 prose-code:px-1 prose-code:py-0.5 prose-code:font-medium prose-code:text-black prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:!bg-grayish-900 prose-img:my-0 dark:hover:prose-a:decoration-primary-400 dark:prose-blockquote:border-secondary-400 dark:prose-code:bg-grayish-800 dark:prose-code:text-grayish-100 dark:prose-pre:border dark:prose-pre:border-grayish-700 [&>pre>code]:bg-transparent"
+			data-pagefind-body>
+			<header class="flex flex-col gap-6">
 				{
 					entry.data.featuredMedia !== undefined && entry.data.featuredMedia.id !== 0 && (
 						<Image
@@ -55,20 +60,21 @@ const { Content, headings } = await entry.render()
 						/>
 					)
 				}
-				<h1 transition:name={`h-${entry.slug}`}>{entry.data.title}</h1>
-				<div class="flex flex-col">
-					{
-						author && (
-							<div class="text-sm">
-								Written by <a href={`/author/${author?.id}`}>{author?.data?.name || "unknown"}</a>
-							</div>
-						)
-					}
-					<div>
+				<h1 class="text-balance" transition:name={`h-${entry.slug}`}>
+					{entry.data.title}
+				</h1>
+				<div class="flex flex-col gap-1 lg:flex-row lg:items-center lg:gap-2">
+					<a
+						class="text-sm !no-underline underline-offset-2 hover:!underline"
+						href={`/author/${author?.id}`}>
+						{author?.data?.name || "unknown"}
+					</a>
+					<span class="hidden text-secondary-700 lg:inline-block dark:text-secondary-300"> | </span>
+					<div class="flex">
 						<time class="text-sm" datetime={entry.data.createdAt.toISOString()}>
-							Published on {
+							{
 								entry.data.createdAt.toLocaleDateString(undefined, {
-									month: "long",
+									month: "short",
 									day: "numeric",
 									year: "numeric"
 								})
@@ -76,17 +82,24 @@ const { Content, headings } = await entry.render()
 						</time>
 						{
 							entry.data.modifiedAt && entry.data.modifiedAt !== entry.data.createdAt && (
-								<time class="text-sm italic" datetime={entry.data.modifiedAt.toISOString()}>
-									(last updated{" "}
-									{entry.data.modifiedAt.toLocaleDateString(undefined, {
-										month: "long",
-										day: "numeric",
-										year: "numeric"
-									})}
-									)
-								</time>
+								<>
+									<span class="text-sm italic">&nbsp;(updated&nbsp;</span>
+									<time class="text-sm italic" datetime={entry.data.modifiedAt.toISOString()}>
+										{entry.data.modifiedAt.toLocaleDateString(undefined, {
+											month: "short",
+											day: "numeric",
+											year: "numeric"
+										})}
+									</time>
+									<span class="text-sm">)</span>
+								</>
 							)
 						}
+					</div>
+					<span class="hidden text-secondary-700 lg:inline-block dark:text-secondary-300"> | </span>
+					<div class="flex gap-1">
+						<Icon class="size-5" name="mdi:book-clock-outline" />
+						<span class="text-sm">{remarkPluginFrontmatter.minutesRead}</span>
 					</div>
 				</div>
 			</header>
@@ -104,4 +117,8 @@ const { Content, headings } = await entry.render()
 			{entry.data.author && <AsideAuthor authorId={entry.data.author.id} slug={entry.slug} />}
 		</Aside>
 	</div>
+
+	<Comments post={entry} server:defer>
+		<div slot="fallback"></div>
+	</Comments>
 </BlogLayout>

@@ -38,36 +38,49 @@ const removeTag = (tagId: string) => {
 
 {
 	Astro.url.search && (
-		<div class="not-prose mb-6">
-			<details class="py-4" open>
+		<div class="mb-6">
+			<details class="group py-4" open>
 				<summary class="flex cursor-pointer justify-end">
 					<span class="sr-only">Filter</span>
-					<Icon name="mdi:filter-menu-outline" class="size-6" aria-hidden="true" />
+					<Icon
+						name="mdi:filter-menu-outline"
+						class="size-6 group-open:hidden"
+						aria-hidden="true"
+					/>
+					<Icon
+						name="filter-menu-outline-close"
+						class="hidden size-6 group-open:block"
+						aria-hidden="true"
+					/>
 				</summary>
 				<div class="border-b-2 border-grayish-300 py-4">
 					<ul class="flex flex-wrap items-center gap-1.5 px-4">
 						<li>Articles written</li>
-						{author && (
+						{authorParam && (
 							<li class="flex items-center gap-2">
 								by
 								<a
-									class="flex items-center gap-1 rounded px-2 outline outline-1 outline-grayish-300 hover:shadow hover:outline-2"
-									href={removeAuthor()}
-								>
-									{author.data.name}
-									<Icon name="mdi:close-circle" />
+									class="group/author flex items-center gap-2 rounded px-2 no-underline outline outline-1 outline-grayish-300 hover:text-inherit hover:shadow hover:outline-2"
+									href={removeAuthor()}>
+									{author?.data.name ?? authorParam}
+									<Icon
+										class="size-5 group-hover/author:text-primary-600 dark:group-hover/author:text-primary-500"
+										name="mdi:close-circle"
+									/>
 								</a>
 							</li>
 						)}
-						{category && (
+						{categoryParam && (
 							<li class="flex items-center gap-2">
 								about
 								<a
-									class="flex items-center gap-1 rounded px-2 outline outline-1 outline-grayish-300 hover:shadow hover:outline-2"
-									href={removeCategory()}
-								>
-									{category.data.name}
-									<Icon name="mdi:close-circle" />
+									class="group/category flex items-center gap-2 rounded px-2 no-underline outline outline-1 outline-grayish-300 hover:text-inherit hover:shadow hover:outline-2"
+									href={removeCategory()}>
+									{category?.data.name ?? categoryParam}
+									<Icon
+										class="size-5 group-hover/category:text-primary-600 dark:group-hover/category:text-primary-500"
+										name="mdi:close-circle"
+									/>
 								</a>
 							</li>
 						)}
@@ -78,11 +91,13 @@ const removeTag = (tagId: string) => {
 									{tags.map((tag) => (
 										<li class="flex items-center gap-1.5 before:[&:not(:first-child):not(:last-child)]:content-[','] before:[&:not(:first-child)]:last:content-['and']">
 											<a
-												class="flex items-center gap-1 rounded px-2 outline outline-1 outline-grayish-300 hover:shadow hover:outline-2"
-												href={removeTag(tag.id)}
-											>
+												class="group/tags flex items-center gap-2 rounded px-2 no-underline outline outline-1 outline-grayish-300 hover:text-inherit hover:shadow hover:outline-2"
+												href={removeTag(tag.id)}>
 												{tag.data.name}
-												<Icon name="mdi:close-circle" />
+												<Icon
+													class="size-5 group-hover/tags:text-primary-600 dark:group-hover/tags:text-primary-500"
+													name="mdi:close-circle"
+												/>
 											</a>
 										</li>
 									))}

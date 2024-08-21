@@ -1,0 +1,40 @@
+---
+import { Icon } from "astro-icon/components"
+
+type Props = {
+	title: string
+	level?: 2 | 3 | 4 | 5 | 6
+}
+const { title, level = 3 } = Astro.props
+const HeadingTag = `h${level}`
+---
+
+<details class="group/details rounded border-2 border-grayish-700 p-4 dark:border-grayish-300">
+	<summary
+		class="group/summary flex w-full cursor-pointer list-none items-center justify-between rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-grayish-800 focus-visible:ring-offset-4 focus-visible:ring-offset-grayish-50 prose-headings:my-0 dark:focus-visible:ring-grayish-200 dark:focus-visible:ring-offset-grayish-900">
+		<HeadingTag
+			class:list={[
+				"!text-grayish-700 group-focus-visible/summary:!text-grayish-900 dark:!text-grayish-300 dark:group-focus-visible/summary:!text-grayish-100"
+			]}>
+			{title}
+		</HeadingTag>
+		<Icon
+			name="mdi:chevron-down"
+			class:list={[
+				"flex-shrink-0 origin-center transform text-grayish-700 transition-transform duration-300 group-open/details:-rotate-180 group-focus-visible/summary:!text-grayish-900 dark:text-grayish-300 dark:group-focus-visible/summary:!text-grayish-100",
+				{
+					"size-9": level === 2,
+					"size-8": level === 3,
+					"size-7": level === 4,
+					"size-6": level === 5,
+					"size-5": level === 6
+				}
+			]}
+			aria-label="Expand or Collapse these details"
+		/>
+	</summary>
+	<div
+		class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-1000 ease-in-out group-open/details:grid-rows-[1fr] [&>pre>code]:bg-transparent">
+		<slot />
+	</div>
+</details>

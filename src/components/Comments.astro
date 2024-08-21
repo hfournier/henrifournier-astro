@@ -1,0 +1,151 @@
+---
+import type { CollectionEntry } from "astro:content"
+import { db, and, eq, Comment } from "astro:db"
+import { Icon } from "astro-icon/components"
+import InputTextarea from "./form/InputTextarea.astro"
+import InputText from "./form/InputText.astro"
+import Button from "./form/Button.astro"
+
+export const prerender = false
+
+type Props = {
+	post: CollectionEntry<"blogs">
+}
+
+const { post } = Astro.props
+
+const comments = await db
+	.select()
+	.from(Comment)
+	.where(eq(Comment.postSlug, post.slug))
+	// .where(and(eq(Comment.status, "approved"), eq(Comment.postSlug, post.slug)))
+	.orderBy(Comment.createdAt)
+---
+
+<section class="my-12 space-y-4 rounded border border-secondary-200 p-4 dark:border-secondary-800">
+	<div class="flex items-center gap-4">
+		<h2 class="font-baloo2 text-3xl font-bold">Comments</h2>
+		<button type="button">
+			<span class="sr-only">Add a comment</span>
+			<Icon
+				class="size-7 hover:text-secondary-600 dark:hover:text-secondary-400"
+				name="mdi:comment-plus"
+				aria-hidden="true"
+				title="Add a comment"
+			/>
+		</button>
+	</div>
+	<p>
+		{comments && comments.length === 0 ? "Be the first to" : "Please"} leave me a comment about <span
+			class="fonrt-baloo2 text-secondary-600 dark:text-secondary-400">
+			{post.data.title}</span
+		> and let me know what you thought of the article. Thank you.
+	</p>
+	<details class="group peer">
+		<summary class="list-none py-2">
+			<span class="sr-only">Add a comment</span>
+			<Icon
+				class="size-7 hover:text-secondary-600 group-open:hidden dark:hover:text-secondary-400"
+				name="mdi:comment-plus"
+				aria-hidden="true"
+				title="Add a comment"
+			/>
+			<Icon
+				class="hidden size-7 hover:text-secondary-600 group-open:block dark:hover:text-secondary-400"
+				name="mdi:comment-minus"
+				aria-hidden="true"
+				title="Add a comment"
+			/>
+		</summary>
+	</details>
+	<div
+		class="max-h-0 overflow-hidden transition-[max-height] duration-200 ease-in peer-open:max-h-[22rem] peer-open:duration-300 peer-open:ease-in-out md:peer-open:max-h-56">
+		<form
+			class="group/form grid gap-x-4 gap-y-6 rounded border border-grayish-200 p-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] dark:border-grayish-700 md:[&>div:first-child]:col-span-3"
+			id="formComment"
+			method="post"
+			data-netlify="true">
+			<InputTextarea
+				class="!bg-transparent [&+label]:bg-grayish-50 dark:[&+label]:bg-grayish-950"
+				label="Comment"
+				id="text"
+				name="text"
+				rows="4"
+				required
+			/>
+			<InputText
+				class="!bg-transparent [&+label]:bg-grayish-50 dark:[&+label]:bg-grayish-950"
+				label="Name"
+				id="name"
+				name="name"
+				type="text"
+			/>
+			<InputText
+				class="!bg-transparent [&+label]:bg-grayish-50 dark:[&+label]:bg-grayish-950"
+				label="Email"
+				id="email"
+				name="email"
+				type="email"
+			/>
+			<input class="hidden" type="hidden" name="postSlug" value={post.slug} />
+
+			<Button
+				class="flex items-center justify-center gap-2 group-invalid/form:pointer-events-none group-invalid/form:opacity-50"
+				type="submit"
+				outline={true}>
+				<Icon class="size-7" name="mdi:send" aria-hidden="true" title="Submit comment" />
+				<span class="md:sr-only">Submit comment</span>
+			</Button>
+		</form>
+	</div>
+	{
+		comments && comments.length > 0 && (
+			<>
+				<div class="my-4 space-y-4">
+					{comments &&
+						comments.length > 0 &&
+						comments.map((comment) => (
+							<div class="space-y-3 rounded border border-grayish-200 bg-grayish-100 p-4 text-grayish-700 dark:border-grayish-700 dark:bg-grayish-900 dark:text-grayish-200">
+								<p class="">{comment.text}</p>
+								<footer class="flex gap-1.5 text-sm text-grayish-600 dark:text-grayish-300">
+									<div class="">Written by {comment.name ?? "Anonymous"}</div> on
+									<time class="" datetime={comment.createdAt.toISOString()}>
+										{comment.createdAt.toLocaleDateString(undefined, {
+											month: "short",
+											day: "numeric",
+											year: "numeric"
+										})}
+									</time>
+								</footer>
+							</div>
+						))}
+				</div>
+			</>
+		)
+	}
+	<p class="text-sm text-grayish-600 dark:text-grayish-300">
+		Note: rude, inappropriate, or offensive comments will be deleted at my discretion.
+	</p>
+</section>
+
+<script>
+	import { isInputError } from "astro:actions"
+	import { actions } from "astro:actions"
+
+	const formComment = document.getElementById("formComment") as HTMLFormElement
+
+	formComment.addEventListener("submit", async (event) => {
+		event.preventDefault()
+		const formData = new FormData(formComment)
+		// TODO: sanitize inputs
+		const { data, error } = await actions.comment(formData)
+		if (data) {
+			formComment.reset()
+			console.log(`Result: ${data}`)
+		}
+
+		if (error && isInputError(error)) {
+			console.error(error.fields)
+		}
+	})
+</script>

@@ -1,0 +1,633 @@
+---
+title: Auto Generate a Tailwind CSS Color Scheme from One Color
+description: Quickly and easily generate a color scheme for Tailwind CSS, including all the standard shades from 50 to 950.
+createdAt: 2024-07-25
+modifiedAt: 2024-08-06
+author: henri-fournier
+featuredMedia:
+  src: cover.png
+  alt: Hexagon background with a gradient, the HenriFournier.dev logo and the title of the post
+categories:
+  - development
+tags:
+  - tailwindcss
+seo:
+  title: Auto Generate a Tailwind CSS Color Scheme from One Color
+  description: Quickly and easily generate a color scheme for Tailwind CSS, including all the standard shades from 50 to 950.
+  openGraph:
+    title: Auto Generate a Tailwind CSS Color Scheme from One Color
+    type: article
+    image: og.png
+    imageAlt: Hexagon background with a gradient, the HenriFournier.dev logo and the title of the post
+    optional:
+      description: Quickly and easily generate a color scheme for Tailwind CSS, including all the standard shades from 50 to 950.
+---
+
+import Accordion from "@components/Accordion.astro"
+import AccordionItem from "@components/AccordionItem.astro"
+
+## The Problem
+
+You're starting a new website project and your client/boss gives you a logo or brand color to use for the overall design. Now you have to design a whole color scheme based on this single color. You turn to Tailwind CSS and its superb default color palette, but none of the colors match the hue and saturation of your given color. Now what? How do you generate a color scheme that matches your brand color?
+
+## The Solution
+
+What if I told you that you can automatically generate all the 50-950 standard shades for your custom color, as well as a coordinated set of accent color(s), and a matching gray-ish set to round out your color palette? It's actually pretty easy... with a little modern CSS magic. Ready? Let's dive in.
+
+### A brief history of CSS Colors
+
+Without getting too deep into the weeds on color, it might help to understand a bit of the history behind CSS colors and how we got here.
+
+#### The sRGB Color Space
+
+The sRGB color space, short for standard Red Green Blue, is a color space created by HP and Microsoft in 1996 to standardize the colors displayed by electronic devices like monitors, printers, and the web. It ensures color consistency across different devices, which is crucial for accurate color reproduction.
+
+In those early days of web development and CSS, we were pretty much limited to named-colors (black, white, dodgerblue, etc.) and hex color codes (#000000, #ffffff, #1e90ff, etc.). For many developers, this is still the most common way of specifying colors in CSS.
+
+#### The rgb() Color Function
+
+The `rgb()` color function made its appearance in 1998 as part of the CSS2 standard. Although it allowed you to specify RGB values as decimal values, rather than hexadecimal, it didn't make writing colors any more intuitive.
+
+Most people looking at `#1e90ff` or `rgb(30, 144, 255)` would likely have no idea what color those values represent, or that they are indeed the same color.
+
+#### The hsl() Color Function
+
+The `hsl()` function was first introduced in CSS3, which became a W3C Recommendation in June 2011. This function allows you to define colors using the Hue-Saturation-Lightness (HSL) model, making it easier to work with colors in a more intuitive way compared to the RGB model.
+
+The basic syntax for the hsl() function is `hsl(H S L / A)`, where:
+
+- H stands for Hue: This represents the type of color and is measured in degrees on the color wheel, ranging from 0 to 360. For example, 0 (or 360) is red, 120 is green, and 240 is blue.
+- S stands for Saturation: This indicates the intensity or purity of the color. It is expressed as a percentage, where 100% is the full color and 0% is a shade of gray.
+- L stands for Lightness: This measures the brightness of the color. It's also expressed as a percentage, where 0% is black, 50% is neither dark nor light, and 100% is white.
+- A (optional): Represents the alpha channel (transparency) of the color, ranging from 0 (fully transparent) to 1 (fully opaque).
+
+#### The hwb() Color Function
+
+The `hwb()` color function, which stands for Hue-Whiteness-Blackness, was proposed as a new standard in CSS4. This function allows you to define colors in a more intuitive way by specifying the hue, and then adjusting the amount of whiteness and blackness.
+
+The basic syntax for the hwb() function is `hwb(H W B / A)`, where:
+
+- H stands for Hue: This represents the type of color and is measured in degrees on the color wheel, ranging from 0 to 360.
+- W stands for Whiteness: This indicates the amount of white mixed into the color, expressed as a percentage from 0% to 100%.
+- B stands for Blackness: This measures the amount of black mixed into the color, also expressed as a percentage from 0% to 100%.
+- A (optional): Represents the alpha channel (transparency) of the color, ranging from 0 (fully transparent) to 1 (fully opaque).
+
+Although the HWB model is designed to be more intuitive, I find that adding a bit, or a lot, of whiteness/blackness seems very trial and error-ish, and not so intuitive.
+
+### How to Define Colors Today
+
+I'm sure a lot of you may have already used some of these color functions, but I bet many still haven't. Old habits die hard. I know. But let's look at an example and see if one makes more sense to you than the others. In the following code sample, every color definition represents the exact same color.
+
+```css
+.dodgerblue-text {
+	color: dodgerblue;
+	color: #1e90ff;
+	color: rgb(30, 144, 255);
+	color: hwb(210 12% 0%);
+	color: hsl(210, 100%, 56%);
+}
+```
+
+The named-color provides a hint that this is a blue color, but unless you're already familiar with **dodgerblue**, you can't tell if this color is light, or dark, or bright, or dull. Also, named-colors are not very flexible, since there is a limited number of named colors you can choose from.
+
+By looking at the hex code **#1e90ff** and `rgb(30, 144, 255)` function, you can deduce that the color has a low red value, a mid green value, and a high blue value. So again, you kind of know it's a blue color, but you don't have much more information than with the named-color.
+
+The `hwb(210 12% 0%)` function is a little more insightful, but you do have to get familiar with the [color wheel](https://en.wikipedia.org/wiki/Color_wheel) to gain further insights. The first value is the hue, and as we've already seen in the above definition, it's in degrees on the color wheel. In this example, the hue is 210 degrees, which is a blue color. It has a little bit of whiteness (12%), and no blackness (0%). So not a dark blue, but it's still a little difficult to visualize.
+
+The last entry in our list is the `hsl(210, 100%, 56%)` function. Like `hwb()`, it has a hue of 210 degrees, but instead of whiteness and blackness, it has a saturation of 100%, and a lightness of 56%. Therefore, we know that this is a vivid (highly saturated) blue color that's sort of halfway between dark and light.
+
+<div style="background-color: hsl(210, 100%, 56%); height: 100px; width: 80%; margin: 0 auto;"></div>
+
+For our purpose, I would argue that the `hsl()` function is the most intuitive and easiest to use among the above choices. If we want a lighter blue, we just increase the lightness. If we want a darker blue, we decrease it. So, by varying the lightness from 95% to 5%, we can create all the 50-950 Tailwind CSS shades we need for our primary color.
+
+<div style="display: grid; grid-template-columns: repeat(11, 1fr); height: 100px; width: 80%; margin: 0 auto;">
+	<div style="background-color: hsl(210, 100%, 95%);"></div>
+	<div style="background-color: hsl(210, 100%, 90%);"></div>
+	<div style="background-color: hsl(210, 100%, 80%);"></div>
+	<div style="background-color: hsl(210, 100%, 70%);"></div>
+	<div style="background-color: hsl(210, 100%, 60%);"></div>
+	<div style="background-color: hsl(210, 100%, 50%);"></div>
+	<div style="background-color: hsl(210, 100%, 40%);"></div>
+	<div style="background-color: hsl(210, 100%, 30%);"></div>
+	<div style="background-color: hsl(210, 100%, 20%);"></div>
+	<div style="background-color: hsl(210, 100%, 10%);"></div>
+	<div style="background-color: hsl(210, 100%, 5%);"></div>
+</div>
+
+To achieve the above color shades in Tailwind CSS, we just need to code the following:
+
+<Accordion>
+  <AccordionItem title="Tailwind CSS V3.x - tailwind.css" level={4}>
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--color-primary-50: 210deg 100% 95%;
+		--color-primary-100: 210deg 100% 90%;
+		--color-primary-200: 210deg 100% 80%;
+		--color-primary-300: 210deg 100% 70%;
+		--color-primary-400: 210deg 100% 60%;
+		--color-primary-500: 210deg 100% 50%;
+		--color-primary-600: 210deg 100% 40%;
+		--color-primary-700: 210deg 100% 30%;
+		--color-primary-800: 210deg 100% 20%;
+		--color-primary-900: 210deg 100% 10%;
+		--color-primary-950: 210deg 100% 5%;
+	}
+}
+```
+
+  </AccordionItem>
+  <AccordionItem title="Tailwind CSS V3.x - tailwind.config.js" level={4}>
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+	theme: {
+		extend: {
+			colors: {
+				primary: {
+					50: "hsl(var(--color-primary-50) / <alpha-value>)",
+					100: "hsl(var(--color-primary-100) / <alpha-value>)",
+					200: "hsl(var(--color-primary-200) / <alpha-value>)",
+					300: "hsl(var(--color-primary-300) / <alpha-value>)",
+					400: "hsl(var(--color-primary-400) / <alpha-value>)",
+					500: "hsl(var(--color-primary-500) / <alpha-value>)",
+					600: "hsl(var(--color-primary-600) / <alpha-value>)",
+					700: "hsl(var(--color-primary-700) / <alpha-value>)",
+					800: "hsl(var(--color-primary-800) / <alpha-value>)",
+					900: "hsl(var(--color-primary-900) / <alpha-value>)",
+					950: "hsl(var(--color-primary-950) / <alpha-value>)"
+				}
+			}
+		}
+	}
+}
+```
+
+  </AccordionItem>
+  <AccordionItem title="Tailwind CSS V4.x - tailwind.css" level={4}>
+
+```css
+@import "tailwindcss";
+
+@theme {
+	--color-primary-50: hsl(210deg 100% 95%);
+	--color-primary-100: hsl(210deg 100% 90%);
+	--color-primary-200: hsl(210deg 100% 80%);
+	--color-primary-300: hsl(210deg 100% 70%);
+	--color-primary-400: hsl(210deg 100% 60%);
+	--color-primary-500: hsl(210deg 100% 50%);
+	--color-primary-600: hsl(210deg 100% 40%);
+	--color-primary-700: hsl(210deg 100% 30%);
+	--color-primary-800: hsl(210deg 100% 20%);
+	--color-primary-900: hsl(210deg 100% 10%);
+	--color-primary-950: hsl(210deg 100% 5%);
+}
+```
+
+  </AccordionItem>
+</Accordion>
+
+Great! Now that we have our primary color, let's add a secondary complimentary color. All we have to do to generate this color is go to the opposite side of the color wheel. To do that, we just add 180deg (half of 360 degrees) to the hue of our primary color using the following formula: `calc(210 + 180)` and voila... we have our secondary color.
+
+<div style="display: grid; grid-template-columns: repeat(11, 1fr); height: 100px; width: 80%; margin: 0 auto;">
+	<div style="background-color: hsl(calc(210 + 180), 100%, 95%);"></div>
+	<div style="background-color: hsl(calc(210 + 180), 100%, 90%);"></div>
+	<div style="background-color: hsl(calc(210 + 180), 100%, 80%);"></div>
+	<div style="background-color: hsl(calc(210 + 180), 100%, 70%);"></div>
+	<div style="background-color: hsl(calc(210 + 180), 100%, 60%);"></div>
+	<div style="background-color: hsl(calc(210 + 180), 100%, 50%);"></div>
+	<div style="background-color: hsl(calc(210 + 180), 100%, 40%);"></div>
+	<div style="background-color: hsl(calc(210 + 180), 100%, 30%);"></div>
+	<div style="background-color: hsl(calc(210 + 180), 100%, 20%);"></div>
+	<div style="background-color: hsl(calc(210 + 180), 100%, 10%);"></div>
+	<div style="background-color: hsl(calc(210 + 180), 100%, 5%);"></div>
+</div>
+
+From here, we could use one of the Tailwind CSS neutral gray tones and call it a day. But, it's so easy to generate our own custom gray-ish color, why wouldn't we? All we have to do is lower the saturation value. You can start around +/- 10% and adjust it until you get the tone you want. As we get closer to zero, the color will become less saturated and more of a neutral gray.
+
+<div style="display: grid; grid-template-columns: repeat(11, 1fr); height: 100px; width: 80%; margin: 0 auto; border-bottom: 2px solid transparent;">
+	<div style="background-color: hsl(210, 15%, 95%);"></div>
+	<div style="background-color: hsl(210, 15%, 90%);"></div>
+	<div style="background-color: hsl(210, 15%, 80%);"></div>
+	<div style="background-color: hsl(210, 15%, 70%);"></div>
+	<div style="background-color: hsl(210, 15%, 60%);"></div>
+	<div style="background-color: hsl(210, 15%, 50%);"></div>
+	<div style="background-color: hsl(210, 15%, 40%);"></div>
+	<div style="background-color: hsl(210, 15%, 30%);"></div>
+	<div style="background-color: hsl(210, 15%, 20%);"></div>
+	<div style="background-color: hsl(210, 15%, 10%);"></div>
+	<div style="background-color: hsl(210, 15%, 5%);"></div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(11, 1fr); height: 100px; width: 80%; margin: 0 auto; border-bottom: 2px solid transparent;">
+	<div style="background-color: hsl(210, 10%, 95%);"></div>
+	<div style="background-color: hsl(210, 10%, 90%);"></div>
+	<div style="background-color: hsl(210, 10%, 80%);"></div>
+	<div style="background-color: hsl(210, 10%, 70%);"></div>
+	<div style="background-color: hsl(210, 10%, 60%);"></div>
+	<div style="background-color: hsl(210, 10%, 50%);"></div>
+	<div style="background-color: hsl(210, 10%, 40%);"></div>
+	<div style="background-color: hsl(210, 10%, 30%);"></div>
+	<div style="background-color: hsl(210, 10%, 20%);"></div>
+	<div style="background-color: hsl(210, 10%, 10%);"></div>
+	<div style="background-color: hsl(210, 10%, 5%);"></div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(11, 1fr); height: 100px; width: 80%; margin: 0 auto;">
+	<div style="background-color: hsl(210, 5%, 95%);"></div>
+	<div style="background-color: hsl(210, 5%, 90%);"></div>
+	<div style="background-color: hsl(210, 5%, 80%);"></div>
+	<div style="background-color: hsl(210, 5%, 70%);"></div>
+	<div style="background-color: hsl(210, 5%, 60%);"></div>
+	<div style="background-color: hsl(210, 5%, 50%);"></div>
+	<div style="background-color: hsl(210, 5%, 40%);"></div>
+	<div style="background-color: hsl(210, 5%, 30%);"></div>
+	<div style="background-color: hsl(210, 5%, 20%);"></div>
+	<div style="background-color: hsl(210, 5%, 10%);"></div>
+	<div style="background-color: hsl(210, 5%, 5%);"></div>
+</div>
+
+The three shade groups above have a saturation level of 15%, 10%, and 5% respectively. By simply altering that one value, we can create anything from a bluish-gray to a more neutral gray with little to no blue showing. Feel free to experiment with the saturation percentage until you find the perfect one. After playing around with the saturation values, I decided to go with 8% saturation.
+
+OK, let's see what our new colors and shades look like all together.
+
+<div style="display: flex; flex-direction: column; gap: 2px;">
+	<div style="display: grid; grid-template-columns: repeat(11, 1fr); height: 100px; width: 80%; margin: 0 auto;">
+		<div style="background-color: hsl(210, 100%, 95%);"></div>
+		<div style="background-color: hsl(210, 100%, 90%);"></div>
+		<div style="background-color: hsl(210, 100%, 80%);"></div>
+		<div style="background-color: hsl(210, 100%, 70%);"></div>
+		<div style="background-color: hsl(210, 100%, 60%);"></div>
+		<div style="background-color: hsl(210, 100%, 50%);"></div>
+		<div style="background-color: hsl(210, 100%, 40%);"></div>
+		<div style="background-color: hsl(210, 100%, 30%);"></div>
+		<div style="background-color: hsl(210, 100%, 20%);"></div>
+		<div style="background-color: hsl(210, 100%, 10%);"></div>
+		<div style="background-color: hsl(210, 100%, 5%);"></div>
+	</div>
+	<div style="display: grid; grid-template-columns: repeat(11, 1fr); height: 100px; width: 80%; margin: 0 auto;">
+		<div style="background-color: hsl(calc(210 + 180), 100%, 95%);"></div>
+		<div style="background-color: hsl(calc(210 + 180), 100%, 90%);"></div>
+		<div style="background-color: hsl(calc(210 + 180), 100%, 80%);"></div>
+		<div style="background-color: hsl(calc(210 + 180), 100%, 70%);"></div>
+		<div style="background-color: hsl(calc(210 + 180), 100%, 60%);"></div>
+		<div style="background-color: hsl(calc(210 + 180), 100%, 50%);"></div>
+		<div style="background-color: hsl(calc(210 + 180), 100%, 40%);"></div>
+		<div style="background-color: hsl(calc(210 + 180), 100%, 30%);"></div>
+		<div style="background-color: hsl(calc(210 + 180), 100%, 20%);"></div>
+		<div style="background-color: hsl(calc(210 + 180), 100%, 10%);"></div>
+		<div style="background-color: hsl(calc(210 + 180), 100%, 5%);"></div>
+	</div>
+	<div style="display: grid; grid-template-columns: repeat(11, 1fr); height: 100px; width: 80%; margin: 0 auto;">
+		<div style="background-color: hsl(210, 8%, 95%);"></div>
+		<div style="background-color: hsl(210, 8%, 90%);"></div>
+		<div style="background-color: hsl(210, 8%, 80%);"></div>
+		<div style="background-color: hsl(210, 8%, 70%);"></div>
+		<div style="background-color: hsl(210, 8%, 60%);"></div>
+		<div style="background-color: hsl(210, 8%, 50%);"></div>
+		<div style="background-color: hsl(210, 8%, 40%);"></div>
+		<div style="background-color: hsl(210, 8%, 30%);"></div>
+		<div style="background-color: hsl(210, 8%, 20%);"></div>
+		<div style="background-color: hsl(210, 8%, 10%);"></div>
+		<div style="background-color: hsl(210, 8%, 5%);"></div>
+	</div>
+</div>
+
+Nice! We could stop there, but we can improve on this further.
+
+### Time for a Little CSS Magic
+
+In the above code example, we had to hard-code our hue value of `210` for each shade of our primary color, then again in our `calc()` function for our secondary color, and again for our grayish color, which is less than ideal. We could replace all the `210` values with a CSS custom property, but what if we don't need to? Abracadabra!
+
+#### Relative Color
+
+In CSS, relative color syntax allows you to define a color based on another existing color. This feature was introduced in the CSS Color Module Level 5 and made it into all major browsers this month (July 2024). It enables you to create variations of a base color, such as lighter, darker, more saturated, or less saturated versions. Sound familiar?
+
+The general syntax for relative colors involves using a color function (like `rgb()`, `hsl()`, etc.) with the `from` keyword to specify the origin color.
+
+In the previous section, we had to know our color's HSL values in order to make use of the `hsl()` function. With Relative Color syntax, we can use the `from` keyword inside the `hsl()` function to start with any color we are given in whatever format. Going back to our earlier color options, we can start with the hex color and code `hsl(from #1e90ff h s l)` to get the same `dodgerblue` without having to manually convert the hex color to HSL. That's convenient, but that's not the magic part. Notice that after `from #1e90ff`, we now have `h s l` instead of the hard-coded HSL values we had before. That is where the magic comes in, because we can manipulate those three values to produce a different color. Wait, what? Yup. Let's use a few examples to demonstrate what I'm talking about.
+
+```css
+.primary-color {
+	/* starting with the hex color #1e90ff, set the background color to our original color in HSL */
+	background-color: hsl(from #1e90ff h s l);
+}
+.secondary-color {
+	/* set the background color to the complementary color by adding 180 degrees to the hue */
+	background-color: hsl(from #1e90ff calc(h + 180) s l);
+}
+.grayish-color {
+	/* set the background color to a grayish color by setting the saturation to 10% */
+	background-color: hsl(from #1e90ff h 10% l);
+}
+```
+
+How cool is that? We can leave the `h`, `s`, `l` values unchanged, or use them in a `calc()`, or replace them all together. 😱
+
+### Full Source Code
+
+Let's take everything we've learned so far, rework our previous code example and put it all together.
+
+<Accordion>
+  <AccordionItem title="Tailwind CSS V3.x - tailwind.css" level={4}>
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--color-base: #1e90ff;
+		--color-grayish-s: 8%;
+	}
+}
+```
+
+  </AccordionItem>
+  <AccordionItem title="Tailwind CSS V3.x - tailwind.config.js" level={4}>
+
+```js
+/** @type {import('tailwindcss').Config} */
+export default {
+	theme: {
+		extend: {
+			colors: {
+				primary: {
+					DEFAULT: "hsl(from var(--color-base) h s l / <alpha-value>)",
+					50: "hsl(from var(--color-base) h s 95% / <alpha-value>)",
+					100: "hsl(from var(--color-base) h s 90% / <alpha-value>)",
+					200: "hsl(from var(--color-base) h s 80% / <alpha-value>)",
+					300: "hsl(from var(--color-base) h s 70% / <alpha-value>)",
+					400: "hsl(from var(--color-base) h s 60% / <alpha-value>)",
+					500: "hsl(from var(--color-base) h s 50% / <alpha-value>)",
+					600: "hsl(from var(--color-base) h s 40% / <alpha-value>)",
+					700: "hsl(from var(--color-base) h s 30% / <alpha-value>)",
+					800: "hsl(from var(--color-base) h s 20% / <alpha-value>)",
+					900: "hsl(from var(--color-base) h s 10% / <alpha-value>)",
+					950: "hsl(from var(--color-base) h s 5% / <alpha-value>)"
+				},
+				secondary: {
+					50: "hsl(from var(--color-base) calc(h + 180) s 95% / <alpha-value>)",
+					100: "hsl(from var(--color-base) calc(h + 180) s 90% / <alpha-value>)",
+					200: "hsl(from var(--color-base) calc(h + 180) s 80% / <alpha-value>)",
+					300: "hsl(from var(--color-base) calc(h + 180) s 70% / <alpha-value>)",
+					400: "hsl(from var(--color-base) calc(h + 180) s 60% / <alpha-value>)",
+					500: "hsl(from var(--color-base) calc(h + 180) s 50% / <alpha-value>)",
+					600: "hsl(from var(--color-base) calc(h + 180) s 40% / <alpha-value>)",
+					700: "hsl(from var(--color-base) calc(h + 180) s 30% / <alpha-value>)",
+					800: "hsl(from var(--color-base) calc(h + 180) s 20% / <alpha-value>)",
+					900: "hsl(from var(--color-base) calc(h + 180) s 10% / <alpha-value>)",
+					950: "hsl(from var(--color-base) calc(h + 180) s 5% / <alpha-value>)"
+				},
+				grayish: {
+					50: "hsl(from var(--color-base) h var(--color-grayish-s) 95% / <alpha-value>)",
+					100: "hsl(from var(--color-base) h var(--color-grayish-s) 90% / <alpha-value>)",
+					200: "hsl(from var(--color-base) h var(--color-grayish-s) 80% / <alpha-value>)",
+					300: "hsl(from var(--color-base) h var(--color-grayish-s) 70% / <alpha-value>)",
+					400: "hsl(from var(--color-base) h var(--color-grayish-s) 60% / <alpha-value>)",
+					500: "hsl(from var(--color-base) h var(--color-grayish-s) 50% / <alpha-value>)",
+					600: "hsl(from var(--color-base) h var(--color-grayish-s) 40% / <alpha-value>)",
+					700: "hsl(from var(--color-base) h var(--color-grayish-s) 30% / <alpha-value>)",
+					800: "hsl(from var(--color-base) h var(--color-grayish-s) 20% / <alpha-value>)",
+					900: "hsl(from var(--color-base) h var(--color-grayish-s) 10% / <alpha-value>)",
+					950: "hsl(from var(--color-base) h var(--color-grayish-s) 5% / <alpha-value>)"
+				}
+			}
+		}
+	},
+	plugins: []
+}
+```
+
+  </AccordionItem>
+  <AccordionItem title="Tailwind CSS V4.x - tailwind.css" level={4}>
+
+```css
+@import "tailwindcss";
+
+:root {
+	--color-base: #1e90ff;
+	--color-grayish-s: 8%;
+}
+
+@theme {
+	--color-primary: hsl(from var(--color-base) h s l);
+	--color-primary-50: hsl(from var(--color-base) h s 95%);
+	--color-primary-100: hsl(from var(--color-base) h s 90%);
+	--color-primary-200: hsl(from var(--color-base) h s 80%);
+	--color-primary-300: hsl(from var(--color-base) h s 70%);
+	--color-primary-400: hsl(from var(--color-base) h s 60%);
+	--color-primary-500: hsl(from var(--color-base) h s 50%);
+	--color-primary-600: hsl(from var(--color-base) h s 40%);
+	--color-primary-700: hsl(from var(--color-base) h s 30%);
+	--color-primary-800: hsl(from var(--color-base) h s 20%);
+	--color-primary-900: hsl(from var(--color-base) h s 10%);
+	--color-primary-950: hsl(from var(--color-base) h s 5%);
+
+	--color-secondary-50: hsl(from var(--color-base) calc(h + 180) s 95%);
+	--color-secondary-100: hsl(from var(--color-base) calc(h + 180) s 90%);
+	--color-secondary-200: hsl(from var(--color-base) calc(h + 180) s 80%);
+	--color-secondary-300: hsl(from var(--color-base) calc(h + 180) s 70%);
+	--color-secondary-400: hsl(from var(--color-base) calc(h + 180) s 60%);
+	--color-secondary-500: hsl(from var(--color-base) calc(h + 180) s 50%);
+	--color-secondary-600: hsl(from var(--color-base) calc(h + 180) s 40%);
+	--color-secondary-700: hsl(from var(--color-base) calc(h + 180) s 30%);
+	--color-secondary-800: hsl(from var(--color-base) calc(h + 180) s 20%);
+	--color-secondary-900: hsl(from var(--color-base) calc(h + 180) s 10%);
+	--color-secondary-950: hsl(from var(--color-base) calc(h + 180) s 5%);
+
+	--color-grayish-50: hsl(from var(--color-base) h var(--color-grayish-s) 95%);
+	--color-grayish-100: hsl(from var(--color-base) h var(--color-grayish-s) 90%);
+	--color-grayish-200: hsl(from var(--color-base) h var(--color-grayish-s) 80%);
+	--color-grayish-300: hsl(from var(--color-base) h var(--color-grayish-s) 70%);
+	--color-grayish-400: hsl(from var(--color-base) h var(--color-grayish-s) 60%);
+	--color-grayish-500: hsl(from var(--color-base) h var(--color-grayish-s) 50%);
+	--color-grayish-600: hsl(from var(--color-base) h var(--color-grayish-s) 40%);
+	--color-grayish-700: hsl(from var(--color-base) h var(--color-grayish-s) 30%);
+	--color-grayish-800: hsl(from var(--color-base) h var(--color-grayish-s) 20%);
+	--color-grayish-900: hsl(from var(--color-base) h var(--color-grayish-s) 10%);
+	--color-grayish-950: hsl(from var(--color-base) h var(--color-grayish-s) 5%);
+}
+```
+
+  </AccordionItem>
+</Accordion>
+
+As you can see from the above code blocks, we can create a color scheme based on a single color and an optional grayish saturation level. You can copy the above code from project to project and just change those two values and automatically generate a custom color scheme in seconds. If you'd like to play around with the code, just go to the [V3.x tailwind-play page](https://play.tailwindcss.com/3B5yABiIwb?file=css) or [V4.x tailwind-play page](https://play.tailwindcss.com/Z9RYuOBzjG?file=css), and try changing the `--color-base` value to any named or hex color. Enjoy!
+
+## Bonus #1: More Color Palettes
+
+If we needed more colors for our design, we could easily generate other color palettes. For example:
+
+<Accordion>
+  <AccordionItem title="Split-Complementary Color Palette">
+    If we wanted to use an split-complementary color palette, which has three colors in it, we can use the following code, where instead of adding 180 degrees to the hue, as we did to generate the complementary color, we can subtract/add 150 degrees to the hue:
+
+```css
+.primary-color {
+	background-color: hsl(from #1e90ff h s l);
+}
+.secondary-color {
+	background-color: hsl(from #1e90ff calc(h - 150) s l);
+}
+.tertiary-color {
+	background-color: hsl(from #1e90ff calc(h + 150) s l);
+}
+```
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); height: 100px; width: 80%; margin: 0 auto;">
+      <div style="background-color: hsl(from #1e90ff h s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h - 150) s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h + 150) s l);"></div>
+    </div>
+
+  </AccordionItem>
+  <AccordionItem title="Analogous Color Palette">
+    For an analogous color palette, we do the same thing except subtracting/adding 45 degrees to the hue, instead of 150:
+
+```css
+.primary-color {
+	background-color: hsl(from #1e90ff h s l);
+}
+.secondary-color {
+	background-color: hsl(from #1e90ff calc(h - 45) s l);
+}
+.tertiary-color {
+	background-color: hsl(from #1e90ff calc(h + 45) s l);
+}
+```
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); height: 100px; width: 80%; margin: 0 auto;">
+      <div style="background-color: hsl(from #1e90ff h s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h - 45) s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h + 45) s l);"></div>
+    </div>
+
+  </AccordionItem>
+  <AccordionItem title="Triadic Color Palette">
+    For a triadic color palette, we do the same thing except subtracting/adding 120 degrees to the hue, instead of 45:
+
+```css
+.primary-color {
+	background-color: hsl(from #1e90ff h s l);
+}
+.triad-1 {
+	background-color: hsl(from #1e90ff calc(h - 120) s l);
+}
+.triad-2 {
+	background-color: hsl(from #1e90ff calc(h + 120) s l);
+}
+```
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); height: 100px; width: 80%; margin: 0 auto;">
+      <div style="background-color: hsl(from #1e90ff h s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h - 120) s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h + 120) s l);"></div>
+    </div>
+
+  </AccordionItem>
+  <AccordionItem title="Tetradic Color Palette">
+    For a tetradic color palette, we add 30 degrees to the hue to get an analogous color, then subtract/add 180 degrees to each hue:
+
+    ```css
+    .color-1 {
+      background-color: hsl(from #1e90ff h s l);
+    }
+    .color-2 {
+      background-color: hsl(from #1e90ff calc(h + 30) s l);
+    }
+    .color-3 {
+      background-color: hsl(from #1e90ff calc(h + 180) s l);
+    }
+    .color-4 {
+      background-color: hsl(from #1e90ff calc(h + 30 + 180) s l);
+    }
+    ```
+
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); height: 100px; width: 80%; margin: 0 auto;">
+      <div style="background-color: hsl(from #1e90ff h s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h + 30) s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h + 180) s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h + 30 + 180) s l);"></div>
+    </div>
+
+  </AccordionItem>
+  <AccordionItem title="Square Color Palette">
+    For a square color palette, we add 90, 180 and 270 degrees to the hue:
+
+    ```css
+    .color-1 {
+      background-color: hsl(from #1e90ff h s l);
+    }
+    .color-2 {
+      background-color: hsl(from #1e90ff calc(h + 90) s l);
+    }
+    .color-3 {
+      background-color: hsl(from #1e90ff calc(h + 180) s l);
+    }
+    .color-4 {
+      background-color: hsl(from #1e90ff calc(h + 270) s l);
+    }
+    ```
+
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); height: 100px; width: 80%; margin: 0 auto;">
+      <div style="background-color: hsl(from #1e90ff h s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h + 90) s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h + 180) s l);"></div>
+      <div style="background-color: hsl(from #1e90ff calc(h + 270) s l);"></div>
+    </div>
+
+  </AccordionItem>
+</Accordion>
+
+## Bonus #2: CIE Color Spaces
+
+Beyond the sRGB color space we are all used to, there are other newer (to CSS) color spaces that offer wider gamut values. These color spaces come with their own color functions, namely `lab()`, `lch()`, `oklab()` and `oklch()`, where the latter two are corrective of the former two, which had flaws.
+
+### The oklab() Color Function
+
+The oklab() function in CSS is used to express colors in the Oklab color space, which is designed to mimic how humans perceive color. This color space is particularly useful for creating smooth and uniform color gradients, transforming images to grayscale without altering their lightness, and modifying color saturation while maintaining the perception of hue and lightness.
+
+The basic syntax for the oklab() function is: `oklab(L a b / A)`
+
+- L: Represents the perceived lightness of the color. It can be a number between 0 and 1, where 0 is black and 1 is white.
+- a: Specifies the color’s position along the green-red axis. It can be a number between -0.4 and 0.4.
+- b: Specifies the color’s position along the blue-yellow axis. It can also be a number between -0.4 and 0.4.
+- A (optional): Represents the alpha channel (transparency) of the color, ranging from 0 (fully transparent) to 1 (fully opaque).
+
+### The oklch() Color Function
+
+The oklch() function is a CSS color function that represents colors in the Oklab color space. It's the cylindrical form of oklab(), using the same lightness (L) axis but with polar chroma and hue (H) coordinates.
+
+The basic syntax for the oklab() function is: `oklch(L C H / A)`
+
+- L: Lightness, a number between 0 and 1, or a percentage between 0% and 100%.
+- C: Chroma, a number or percentage representing the color’s intensity or amount of color with a range from 0 (no color) to 0.4 (maximum chroma)
+- H: Hue, an angle representing the color’s hue with a range of 0° to 360°.
+- A (optional): Represents the alpha channel (transparency) of the color, ranging from 0 (fully transparent) to 1 (fully opaque).
+
+Although both of these functions will allow you to use colors beyond the sRGB color space, I personally find them less intuitive to use. I haven't yet been able to wrap my head around the `a` and `b` parameters of the oklab() function. The `lch()` function is much closer to the `hsl()` function, since they both have hue and lightness parameters, but the chroma value is not as easy to use as the saturation value. However, you may find them useful for creating color gradients, transforming images to grayscale without altering their lightness, and modifying color saturation while maintaining the perception of hue and lightness.
+
+## Summary
+
+In this article, we learned about various color functions available in the sRGB Color Space, and how they can be used to create a color scheme based on a single color. The recent addition of Relative Color syntax to all major browsers made that task even simpler and reduced the amount of code we have to write and maintain. Like magic.
+
+I hope you enjoyed this article and found it helpful.
+
+## Resources
+
+If you'd like to dive deeper into relative color, I encourage you to check out these resources:
+
+- [hsl() function](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl) (MDN)
+- [Using relative colors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors) (MDN)
+- [CSS relative color syntax](https://developer.chrome.com/blog/css-relative-color-syntax) (blog post by Adam Argyle)
+- [Thinking on ways to solve RELATIVE COLORS](https://www.youtube.com/watch?v=1z_ViBjdnSw) (YouTube video by Adam Argyle)
+- [Relative colors make so many things easier!](https://www.youtube.com/watch?v=gPacarD9NuA) (YouTube video by Kevin Powell)
+- [High definition CSS color guide](https://developer.chrome.com/docs/css-ui/high-definition-css-color-guide) (blog post by Adam Argyle)

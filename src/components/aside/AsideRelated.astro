@@ -34,9 +34,8 @@ if (relatedArticles) {
 				{relatedArticles.map((article) => (
 					<li class="text-sm leading-tight">
 						<a
-							class="no-underline underline-offset-2 hover:underline"
-							href={`/blog/${article.slug}`}
-						>
+							class="no-underline decoration-primary-600 underline-offset-2 hover:underline dark:decoration-primary-400"
+							href={`/blog/${article.slug}`}>
 							{article.data.title}
 						</a>
 					</li>

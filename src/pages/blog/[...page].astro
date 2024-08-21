@@ -1,7 +1,13 @@
 ---
 import { getCollection } from "astro:content"
+import MainLayout from "@layouts/MainLayout.astro"
 import BlogList from "@components/BlogList.astro"
 import { paginate } from "@utils/pagination"
+import Seo from "@components/seo/Seo.astro"
+import Filter from "@components/Filter.astro"
+import Heading1 from "@components/heading/Heading1.astro"
+
+import developer_blog from "@assets/og-images/developer-blog.png"
 
 export const prerender = false
 
@@ -24,6 +30,32 @@ if (entries && entries.length > 0) {
 }
 
 const page = await paginate(entries, Astro.url)
+
+const seo = {
+	title: "Developer Blog | Henri Fournier Dev | Kelowna, BC",
+	description:
+		"JAMstack developer blog with a focus on Astro and Tailwind CSS web development running on Netlify, with some extra tips and tricks sprinkled in for good measure.",
+	type: "website",
+	openGraph: {
+		title: "Developer Blog | Henri Fournier Dev | Kelowna, BC",
+		type: "website",
+		image: developer_blog,
+		imageAlt:
+			"Hexagon background with a gradient, the HenriFournier.dev logo and the title of the page: Developer Blog",
+		optional: {
+			description:
+				"JAMstack developer blog with a focus on Astro and Tailwind CSS web development running on Netlify, with some extra tips and tricks sprinkled in for good measure."
+		}
+	}
+}
 ---
 
-<BlogList {page} />
+<MainLayout>
+	<Seo {seo} options={{ siteName: "HenriFournier.dev" }} slot="head" />
+	<Filter />
+	<section class="space-y-6">
+		<Heading1 justify="text-left">Developer Blog</Heading1>
+		<p>{seo.description}</p>
+		<BlogList {page} />
+	</section>
+</MainLayout>

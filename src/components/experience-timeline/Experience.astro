@@ -1,6 +1,9 @@
 ---
-import Heading3 from "./Heading3.astro"
-import Section from "./Section.astro"
+import Abbr from "../Abbr.astro"
+import Heading3 from "../heading/Heading3.astro"
+import Section from "../Section.astro"
+import Timeline from "./Timeline.astro"
+import TimelineHexagons from "./TimelineHexagons.astro"
 import TimelineRow from "./TimelineRow.astro"
 ---
 
@@ -12,31 +15,33 @@ import TimelineRow from "./TimelineRow.astro"
 		There's always something new to learn and a problem to solve. Basically... I love a good puzzle.
 		&#x1F9E9;
 	</p>
-	<div class="relative mt-8 grid px-0 md:mt-16 md:grid-cols-2 lg:px-4">
-		<TimelineRow side="right" rowClass="row-start-1">
+	<div
+		class="relative mt-8 grid grid-cols-[auto_minmax(0,_1fr)] px-0 md:mt-16 md:grid-cols-[minmax(0,_1fr)_auto_minmax(0,_1fr)] lg:px-4 [&_a]:rounded-[50%_50%_50%_50%_/_85%_85%_15%_15%] [&_a]:text-secondary-700 [&_a]:!no-underline hover:[&_a]:text-secondary-800 hover:[&_a]:!underline hover:[&_a]:decoration-secondary-800 dark:[&_a]:text-secondary-300 dark:hover:[&_a]:text-secondary-200 dark:hover:[&_a]:decoration-secondary-200">
+		<TimelineRow rowClass="row-start-1">
 			<Heading3>Jamstack Developer</Heading3>
 			<p>
 				The evolution from <a href="https://en.wikipedia.org/wiki/Solution_stack">Full Stack</a>
 				to <a href="https://jamstack.org/">Jamstack</a> wasn't a huge leap and one-click deployments
 				to
-				<a href="https://www.netlify.com/">Netlify</a> made life so much simpler. I found that
+				<a href="https://www.netlify.com/">Netlify</a> made life so much simpler. I thought that both
 				<a href="https://svelte.dev/">Svelte</a>/<a href="https://kit.svelte.dev/">SvelteKit</a>
-				and <a href="https://astro.build/">Astro</a> with
-				<a href="https://tailwindcss.com/">TailwindCSS</a>, and
+				and
 				<a href="https://www.11ty.dev/">Eleventy (11ty)</a>
 				(with
 				<a href="https://alpinejs.dev/">AlpineJS</a>) were more nimble, intuitive and required much
-				less boiler-plate coding than Angular. The end result was lighter, faster, better web
-				apps... and that's my jam.
+				less boiler-plate coding than Angular. However, once I found <a href="https://astro.build/"
+					>Astro</a
+				> with <a href="https://tailwindcss.com/">Tailwind CSS</a>, there was no turning back. The
+				end result was lighter, faster, better web apps... and that's my jam.
 			</p>
 		</TimelineRow>
-		<TimelineRow side="left" rowClass="row-start-2">
+		<TimelineRow rowClass="row-start-2">
 			<Heading3>Full Stack Developer</Heading3>
 			<p>
 				Yearning to get back to my software roots, I explored the rapidely evolving world of
 				<a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>-based web development and
 				settled on the
-				<abbr title="MongDB, Express, Angular and NodeJS">MEAN</abbr>
+				<Abbr title="MongDB, Express, Angular and NodeJS">MEAN</Abbr>
 				Stack. Since
 				<a href="https://angular.io/">Angular</a>
 				is built on
@@ -46,18 +51,18 @@ import TimelineRow from "./TimelineRow.astro"
 				based on TypeScript.
 			</p>
 		</TimelineRow>
-		<TimelineRow side="right" rowClass="row-start-3">
+		<TimelineRow rowClass="row-start-3">
 			<Heading3>IT Consultant</Heading3>
 			<p>
 				Having spent 20 years developing software, I was feeling a little burnt out and uninspired.
-				So when opportunity knocked, I opened the door and walked into the world of <abbr
-					title="Information technology">IT</abbr
+				So when opportunity knocked, I opened the door and walked into the world of <Abbr
+					title="Information technology">IT</Abbr
 				> consulting. Like software development, IT requires that you constantly learn and expand your
 				knowledge. Unlike software development, I found that IT work lacked the creative side where you
 				could build something out of nothing but your imagination and skills.
 			</p>
 		</TimelineRow>
-		<TimelineRow side="left" rowClass="row-start-4">
+		<TimelineRow rowClass="row-start-4">
 			<Heading3>C# Developer</Heading3>
 			<p>
 				After Microsoft released <a href="https://en.wikipedia.org/wiki/.NET_Framework">.NET</a>, it
@@ -65,11 +70,11 @@ import TimelineRow from "./TimelineRow.astro"
 				<a href="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)">C#</a>
 				would be a better development option, so my evolution continued. By this time, I had relocated
 				to Kelowna, BC, where I worked with other developers to launch
-				<abbr title="Thompson Okanagan dot NET User Group">TODNUG</abbr> to share our knowledge with
+				<Abbr title="Thompson Okanagan dot NET User Group">TODNUG</Abbr> to share our knowledge with
 				the community.
 			</p>
 		</TimelineRow>
-		<TimelineRow side="right" rowClass="row-start-5">
+		<TimelineRow rowClass="row-start-5">
 			<Heading3>Delphi Developer</Heading3>
 			<p>
 				With Windows gaining momemtum, it was time to look for a new set of tools. Based on <a
@@ -78,28 +83,28 @@ import TimelineRow from "./TimelineRow.astro"
 				<a href="https://en.wikipedia.org/wiki/Object_Pascal">Borland</a>'s
 				<a href="https://en.wikipedia.org/wiki/Delphi_(software)">Delphi</a>
 				was the natural choice for me. Being ahead of the curve, I co-founded the
-				<abbr title="Toronto Area Delphi Developer Association">TaDDa!</abbr> user group and presented
+				<Abbr title="Toronto Area Delphi Developer Association">TaDDa!</Abbr> user group and presented
 				on various topics to share my new found knowledge, which lead to more international conferences.
 			</p>
 		</TimelineRow>
-		<TimelineRow side="left" rowClass="row-start-6">
+		<TimelineRow rowClass="row-start-6">
 			<Heading3>Clipper Developer</Heading3>
 			<p>
-				As <abbr title="Personal Computers">PCs</abbr> became more prevalent in the market place, I capitalized
+				As <Abbr title="Personal Computers">PCs</Abbr> became more prevalent in the market place, I capitalized
 				on my previous dBase skills and quickly learned to develop
 				<a href="https://en.wikipedia.org/wiki/MS-DOS"> MS-DOS</a>
 				applications in
 				<a href="https://en.wikipedia.org/wiki/Clipper_(programming_language)">Clipper</a>. I also
 				became well versed in
-				<abbr title="Object Oriented Programming">OOP</abbr> and spoke on the topic at international
+				<Abbr title="Object Oriented Programming">OOP</Abbr> and spoke on the topic at international
 				conferences.
 			</p>
 		</TimelineRow>
-		<TimelineRow side="right" rowClass="row-start-7">
+		<TimelineRow rowClass="row-start-7">
 			<Heading3>PL/1 & Cobol Programmer</Heading3>
 			<p>
-				With <abbr title="Bachelor of Science in Computer Science">BSc (CS)</abbr>
-				from <abbr title="University of New Brunswick">UNB</abbr>
+				With <Abbr title="Bachelor of Science in Computer Science">BSc (CS)</Abbr>
+				from <Abbr title="University of New Brunswick">UNB</Abbr>
 				added to the end of my name, I moved to Toronto and was employed as a
 				<a href="https://en.wikipedia.org/wiki/PL/I">PL/1</a>
 				and
@@ -108,7 +113,7 @@ import TimelineRow from "./TimelineRow.astro"
 				year, I was self-employed as a contract programmer.
 			</p>
 		</TimelineRow>
-		<TimelineRow side="left" rowClass="row-start-[8]">
+		<TimelineRow rowClass="row-start-8">
 			<Heading3>dBase III Programmer</Heading3>
 			<p>
 				When the university introduced a course in <a href="https://en.wikipedia.org/wiki/DBase"
@@ -118,7 +123,7 @@ import TimelineRow from "./TimelineRow.astro"
 				summer jobs programming in dBase III.
 			</p>
 		</TimelineRow>
-		<TimelineRow side="right" rowClass="row-start-[9]">
+		<TimelineRow rowClass="row-start-9">
 			<Heading3>Fortran Programmer</Heading3>
 			<p>
 				The first computer program I wrote was in <a href="https://en.wikipedia.org/wiki/Fortran"
@@ -130,9 +135,11 @@ import TimelineRow from "./TimelineRow.astro"
 				numbers.
 			</p>
 		</TimelineRow>
-		<TimelineRow side="left" rowClass="row-start-[10]">
+		<TimelineRow rowClass="row-start-10">
 			<Heading3>Grade 9 Student</Heading3>
 			<p>I tested high on an aptitude test for a career in Computer Science. OK. Good to know.</p>
 		</TimelineRow>
+		<Timeline />
+		<TimelineHexagons />
 	</div>
 </Section>

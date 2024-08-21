@@ -3,16 +3,17 @@ import { Icon } from "astro-icon/components"
 ---
 
 <div class="sticky bottom-3 left-full -mr-4 w-fit">
-	<a href="#top" class="opacity-50 drop-shadow-md transition-opacity hover:opacity-100">
+	<a
+		href="#top"
+		class="rounded-full opacity-50 transition-opacity hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-primary-600 focus-visible:[outline-style:auto] dark:focus-visible:outline-primary-500">
 		<div
-			class="hexagon bg-grayish-50/0 hover:bg-grayish-50/60 dark:bg-grayish-900/0 dark:hover:bg-grayish-900/60"
-		>
-			<div class="hexagon bg-primary-600 p-1 dark:bg-primary-500">
+			class="hexagon bg-grayish-50/0 hover:bg-grayish-50/60 dark:bg-grayish-900/0 dark:hover:bg-grayish-900/60">
+			<div class="hexagon bg-primary-600 p-1">
 				<div class="hexagon bg-grayish-50 dark:bg-grayish-950">
 					<span class="sr-only">Go to top</span>
 					<Icon
 						name="mdi:arrow-up-thin"
-						class="aspect-hexagon size-5 text-primary-600 dark:text-primary-500 sm:size-6 md:size-8"
+						class="aspect-hexagon size-5 text-primary-600 sm:size-6 md:size-8"
 						aria-hidden="true"
 					/>
 				</div>

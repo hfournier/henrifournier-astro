@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon/components"
-import Button from "./form/Button.astro"
+import Button from "../form/Button.astro"
 
 export interface Props extends Omit<astroHTML.JSX.DialogHTMLAttributes, "class"> {
 	heading: string
@@ -11,39 +11,30 @@ const { heading, class: classList, ...attrs } = Astro.props
 
 <dialog
 	class:list={[
-		"w-[90dvw] bg-transparent backdrop:bg-grayish-950/70 md:w-[75dvw] lg:w-[50dvw]",
+		"w-[90dvw] bg-transparent backdrop:bg-grayish-950/70 backdrop:backdrop-blur-sm md:w-[75dvw] lg:w-[50dvw]",
 		classList
 	]}
 	{...attrs}
-	aria-label={heading}
->
-	<div
-		id="div_dialog"
+	aria-label={heading}>
+	<form
 		class="grid grid-cols-1 grid-rows-[auto,_1fr,_auto] divide-y-[1px] divide-grayish-300 rounded-lg border border-grayish-300 bg-transparent dark:divide-grayish-700 dark:border-grayish-700 dark:bg-grayish-900"
-	>
+		method="dialog">
 		<header
-			class="flex items-center justify-between rounded-t-lg bg-grayish-100 px-4 py-3 dark:bg-grayish-950"
-		>
+			class="flex items-center justify-between rounded-t-lg bg-grayish-100 px-4 py-3 dark:bg-grayish-950">
 			<h3 class="text-2xl font-medium">{heading}</h3>
 			<button
-				id="dialogClose"
-				class="rounded-sm p-2 text-grayish-600 outline-none hover:text-grayish-700 focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4 focus-visible:ring-offset-grayish-100 dark:text-grayish-400 dark:hover:text-grayish-300 dark:focus-visible:ring-primary-500 dark:focus-visible:ring-offset-grayish-950"
-			>
+				class="rounded-full p-2 text-grayish-600 outline-none hover:text-grayish-700 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary-600 dark:text-grayish-400 dark:hover:text-grayish-300 dark:focus-visible:outline-primary-500"
+				type="submit"
+				autofocus>
 				<span class="sr-only">Close</span>
 				<Icon class="size-6" aria-hidden="true" name="mdi:close" />
 			</button>
 		</header>
 		<div
-			class="scrollable max-h-[70dvh] overflow-y-auto overscroll-contain bg-grayish-50 p-4 dark:bg-grayish-900"
-		>
+			class="scrollable max-h-[70dvh] overflow-y-auto overscroll-contain bg-grayish-50 p-4 dark:bg-grayish-900">
 			<slot />
 		</div>
-		<footer
-			class="flex items-center justify-end gap-2 rounded-b-lg bg-grayish-100 p-4 dark:bg-grayish-950"
-		>
-			<Button id="btnClose">Close</Button>
-		</footer>
-	</div>
+	</form>
 </dialog>
 
 <style>
@@ -93,7 +84,9 @@ const { heading, class: classList, ...attrs } = Astro.props
 </style>
 
 <script>
-	const dialogs = document.getElementsByTagName("dialog")
+	const dialogs = document.querySelectorAll(
+		"dialog[id^='dlgWorkItem_']"
+	) as NodeListOf<HTMLDialogElement>
 	if (dialogs && dialogs.length > 0) {
 		for (const dialog of dialogs) {
 			dialog.addEventListener("click", () => {
@@ -102,16 +95,6 @@ const { heading, class: classList, ...attrs } = Astro.props
 
 			dialog.firstElementChild?.addEventListener("click", (e) => {
 				e.stopPropagation()
-			})
-
-			const dialogClose = dialog.querySelector("#dialogClose")
-			dialogClose!.addEventListener("click", () => {
-				dialog.close()
-			})
-
-			const btnClose = dialog.querySelector("#btnClose")
-			btnClose!.addEventListener("click", () => {
-				dialog.close()
 			})
 		}
 	}

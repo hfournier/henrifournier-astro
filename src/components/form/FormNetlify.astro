@@ -4,11 +4,11 @@
 	action="/success"
 	method="POST"
 	data-netlify="true"
-	netlify-honeypot>
+	netlify-honeypot="phone-number">
 	<slot />
 	<p class="hidden">
 		<label>
-			Don't fill this out if you're human: <input name="bot-field" />
+			Don't fill this out if you're human: <input name="phone-number" />
 		</label>
 	</p>
 </form>

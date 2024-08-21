@@ -1,148 +1,170 @@
 [
-	[
-		{ "type": 0 },
-		{
-			"type": 3,
-			"alt": "JavaScript website",
-			"link": "https://en.wikipedia.org/wiki/JavaScript",
-			"svg": "devicon:javascript"
-		},
-		{ "type": 1 },
-		{ "type": 2 },
-		{
-			"type": 3,
-			"alt": "Netlify website",
-			"link": "https://www.netlify.com/",
-			"svg": "devicon:netlify"
-		},
-		{ "type": 0 },
-		{ "type": 0 },
-		{ "type": 1 },
-		{ "type": 0 },
-		{ "type": 2 },
-		{ "type": 1 },
-		{ "type": 2 },
-		{
-			"type": 3,
-			"alt": "AlpineJS website",
-			"link": "https://alpinejs.dev/",
-			"svg": "devicon:alpinejs"
-		},
-		{ "type": 2 },
-		{ "type": 0 },
-		{ "type": 0 },
-		{ "type": 0 }
-	],
-	[
-		{ "type": 2 },
-		{ "type": 2 },
-		{ "type": 2 },
-		{
-			"type": 3,
-			"alt": "Angular website",
-			"link": "https://angular.io/",
-			"svg": "devicon:angular"
-		},
-		{ "type": 2 },
-		{ "type": 2 },
-		{
-			"type": 3,
-			"alt": "Svelte website",
-			"link": "https://svelte.dev/",
-			"svg": "devicon:svelte"
-		},
-		{ "type": 2 },
-		{ "type": 2 },
-		{ "type": 2 },
-		{
-			"type": 3,
-			"alt": "Astro website",
-			"link": "https://astro.build/",
-			"svg": "devicon:astro"
-		},
-		{ "type": 2 },
-		{ "type": 2 },
-		{
-			"type": 3,
-			"alt": "TypeScript website",
-			"link": "https://www.typescriptlang.org/",
-			"svg": "devicon:typescript"
-		},
-		{ "type": 2 },
-		{
-			"type": 3,
-			"alt": "Bootstrap website",
-			"link": "https://getbootstrap.com/",
-			"svg": "devicon:bootstrap"
-		},
-		{ "type": 0 }
-	],
-	[
-		{
-			"type": 3,
-			"alt": "NodeJS website",
-			"link": "https://nodejs.org/en/",
-			"svg": "devicon:nodejs"
-		},
-		{ "type": 2 },
-		{ "type": 2 },
-		{ "type": 2 },
-		{ "type": 2 },
-		{
-			"type": 3,
-			"alt": "Tailwind CSS website",
-			"link": "https://tailwindcss.com/",
-			"svg": "devicon:tailwindcss"
-		},
-		{ "type": 2 },
-		{ "type": 0 },
-		{ "type": 0 },
-		{ "type": 0 },
-		{ "type": 2 },
-		{
-			"type": 3,
-			"alt": "Stripe website",
-			"link": "https://stripe.com/en-ca",
-			"svg": "logos:stripe"
-		},
-		{ "type": 2 },
-		{ "type": 2 },
-		{ "type": 2 },
-		{ "type": 2 },
-		{ "type": 0 }
-	],
-	[
-		{ "type": 0 },
-		{ "type": 0 },
-		{
-			"type": 3,
-			"alt": "GitHub website",
-			"link": "https://github.com/",
-			"svg": "devicon:github"
-		},
-		{ "type": 1 },
-		{ "type": 2 },
-		{ "type": 0 },
-		{ "type": 0 },
-		{ "type": 0 },
-		{ "type": 0 },
-		{ "type": 0 },
-		{ "type": 0 },
-		{ "type": 0 },
-		{ "type": 2 },
-		{
-			"type": 3,
-			"alt": "MongoDB website",
-			"link": "https://www.mongodb.com/",
-			"svg": "devicon:mongodb"
-		},
-		{ "type": 2 },
-		{ "type": 1 },
-		{
-			"type": 3,
-			"alt": "NestJS website",
-			"link": "https://nestjs.com/",
-			"svg": "devicon:nestjs"
-		}
-	]
+	{
+		"id": "row-1",
+		"cells": [
+			{ "type": "none" },
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "Angular website",
+				"link": "https://angular.io/",
+				"svg": "devicon:angular"
+			},
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "Netlify website",
+				"link": "https://www.netlify.com/",
+				"svg": "devicon:netlify"
+			},
+			{ "type": "none" },
+			{ "type": "none" },
+			{ "type": "stroke" },
+			{ "type": "none" },
+			{ "type": "fill" },
+			{ "type": "stroke" },
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "AlpineJS website",
+				"link": "https://alpinejs.dev/",
+				"svg": "devicon:alpinejs"
+			},
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "Stripe website",
+				"link": "https://stripe.com/en-ca",
+				"svg": "logos:stripe"
+			},
+			{ "type": "none" },
+			{ "type": "none" }
+		]
+	},
+	{
+		"id": "row-2",
+		"cells": [
+			{
+				"type": "icon",
+				"alt": "NestJS website",
+				"link": "https://nestjs.com/",
+				"svg": "devicon:nestjs"
+			},
+			{ "type": "fill" },
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "JavaScript website",
+				"link": "https://en.wikipedia.org/wiki/JavaScript",
+				"svg": "devicon:javascript"
+			},
+			{ "type": "fill" },
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "Tailwind CSS website",
+				"link": "https://tailwindcss.com/",
+				"svg": "devicon:tailwindcss"
+			},
+			{ "type": "fill" },
+			{ "type": "fill" },
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "Astro website",
+				"link": "https://astro.build/",
+				"svg": "devicon:astro"
+			},
+			{ "type": "fill" },
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "TypeScript website",
+				"link": "https://www.typescriptlang.org/",
+				"svg": "devicon:typescript"
+			},
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "Bootstrap website",
+				"link": "https://getbootstrap.com/",
+				"svg": "devicon:bootstrap"
+			},
+			{ "type": "none" }
+		]
+	},
+	{
+		"id": "row-3",
+		"cells": [
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "NodeJS website",
+				"link": "https://nodejs.org/en/",
+				"svg": "devicon:nodejs"
+			},
+			{ "type": "fill" },
+			{ "type": "fill" },
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "CSS3 website",
+				"link": "https://en.wikipedia.org/wiki/CSS",
+				"svg": "devicon:css3"
+			},
+			{ "type": "fill" },
+			{ "type": "none" },
+			{ "type": "none" },
+			{ "type": "none" },
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "HTML5 website",
+				"link": "https://en.wikipedia.org/wiki/HTML5",
+				"svg": "devicon:html5"
+			},
+			{ "type": "fill" },
+			{ "type": "fill" },
+			{ "type": "fill" },
+			{ "type": "fill" },
+			{ "type": "none" }
+		]
+	},
+	{
+		"id": "row-4",
+		"cells": [
+			{ "type": "none" },
+			{ "type": "none" },
+			{ "type": "stroke" },
+			{
+				"type": "icon",
+				"alt": "GitHub website",
+				"link": "https://github.com/",
+				"svg": "devicon:github"
+			},
+			{ "type": "fill" },
+			{ "type": "none" },
+			{ "type": "none" },
+			{ "type": "none" },
+			{ "type": "none" },
+			{ "type": "none" },
+			{ "type": "none" },
+			{ "type": "none" },
+			{ "type": "fill" },
+			{
+				"type": "icon",
+				"alt": "Svelte website",
+				"link": "https://svelte.dev/",
+				"svg": "devicon:svelte"
+			},
+			{ "type": "fill" },
+			{ "type": "stroke" },
+			{
+				"type": "icon",
+				"alt": "MongoDB website",
+				"link": "https://www.mongodb.com/",
+				"svg": "devicon:mongodb"
+			}
+		]
+	}
 ]

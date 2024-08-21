@@ -1,44 +1,59 @@
 ---
 import { Icon } from "astro-icon/components"
 
+interface Props extends Omit<astroHTML.JSX.HtmlHTMLAttributes, "class"> {
+	class?: string
+}
+const { class: classList, ...attrs } = Astro.props
+
 const year = new Date().getFullYear().toString()
 ---
 
-<div class="flex gap-10">
-	<a href="/contact">
-		<span class="sr-only">Email me</span>
-		<Icon
-			class="size-8 text-grayish-100 hover:text-primary-500"
-			name="mdi:email"
-			aria-hidden="true"
-		/>
-	</a>
-	<a href="https://ca.linkedin.com/in/henrifournier">
-		<span class="sr-only">My LinkedIn profile</span>
-		<Icon
-			class="size-8 text-grayish-100 hover:text-primary-500"
-			name="mdi:linkedin"
-			aria-hidden="true"
-		/>
-	</a>
-	<a href="https://github.com/hfournier">
-		<span class="sr-only">My Github profile</span>
-		<Icon
-			class="size-8 text-grayish-100 hover:text-primary-500"
-			name="mdi:github"
-			aria-hidden="true"
-		/>
-	</a>
-	<a href="tel:+12503170583">
-		<span class="sr-only">Call me</span>
-		<Icon
-			class="size-8 text-grayish-100 hover:text-primary-500"
-			name="mdi:phone"
-			aria-hidden="true"
-		/>
-	</a>
-</div>
+<footer
+	class:list={[
+		"mx-auto flex w-full flex-col items-center gap-6 bg-grayish-800 py-6 text-grayish-300",
+		classList
+	]}
+	aria-label="Footer"
+	{...attrs}>
+	<div class="flex gap-10">
+		<a class="rounded-full focus-visible:outline-offset-8" href="/contact">
+			<span class="sr-only">Email me</span>
+			<Icon
+				class="size-8 text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400"
+				name="mdi:email"
+				aria-hidden="true"
+			/>
+		</a>
+		<a
+			class="rounded-full focus-visible:outline-offset-8"
+			href="https://ca.linkedin.com/in/henrifournier">
+			<span class="sr-only">My LinkedIn profile</span>
+			<Icon
+				class="size-8 text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400"
+				name="mdi:linkedin"
+				aria-hidden="true"
+			/>
+		</a>
+		<a class="rounded-full focus-visible:outline-offset-8" href="https://github.com/hfournier">
+			<span class="sr-only">My Github profile</span>
+			<Icon
+				class="size-8 text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400"
+				name="mdi:github"
+				aria-hidden="true"
+			/>
+		</a>
+		<a class="rounded-full focus-visible:outline-offset-8" href="tel:+12503170583">
+			<span class="sr-only">Call me</span>
+			<Icon
+				class="size-8 text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400"
+				name="mdi:phone"
+				aria-hidden="true"
+			/>
+		</a>
+	</div>
 
-<div class="text-sm">
-	Copyright &copy; {year} Henri Fournier. All rights Reserved.
-</div>
+	<div class="text-sm">
+		Copyright &copy; {year} Henri Fournier. All rights Reserved.
+	</div>
+</footer>

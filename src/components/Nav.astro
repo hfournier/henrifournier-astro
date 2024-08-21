@@ -1,5 +1,6 @@
 ---
 import MenuToggle from "./MenuToggle.astro"
+import NavLink from "./NavLink.astro"
 
 const navOpen = true
 type MenuItem = {
@@ -21,13 +22,11 @@ const navItems: MenuItem[] = [
 		{
 			navItems.map((navItem) => (
 				<li>
-					<a
-						class="whitespace-nowrap text-right text-lg font-bold text-primary-700 no-underline aria-[current='page']:underline dark:text-primary-500 md:text-xl md:text-primary-600"
+					<NavLink
 						href={navItem.link}
-						aria-current={Astro.url.pathname === navItem.link ? "page" : null}
-					>
+						aria-current={Astro.url.pathname === navItem.link ? "page" : null}>
 						{navItem.label}
-					</a>
+					</NavLink>
 				</li>
 			))
 		}
@@ -36,23 +35,19 @@ const navItems: MenuItem[] = [
 
 <nav class="lg:hidden">
 	<div
-		class="absolute inset-[unset] right-12 top-14 m-0 bg-transparent sm:right-16 sm:top-16 md:right-24 md:top-20"
+		class="absolute inset-[unset] right-10 top-14 m-0 bg-transparent sm:right-12 sm:top-16 md:right-16 md:top-20"
 		id="main-nav"
-		popover
-	>
+		popover>
 		<ul
-			class="flex flex-col items-end gap-4 bg-grayish-100/90 p-4 shadow-md shadow-primary-500/30 dark:bg-grayish-800/90"
-		>
+			class="flex flex-col items-end gap-4 bg-grayish-100/90 p-4 shadow-md shadow-primary-500/30 dark:bg-grayish-800/90">
 			{
 				navItems.map((navItem) => (
 					<li>
-						<a
-							class="whitespace-nowrap text-right text-lg font-bold text-primary-700 no-underline aria-[current='page']:underline dark:text-primary-500 md:text-xl md:text-primary-600"
+						<NavLink
 							href={navItem.link}
-							aria-current={Astro.url.pathname === navItem.link ? "page" : null}
-						>
+							aria-current={Astro.url.pathname === navItem.link ? "page" : null}>
 							{navItem.label}
-						</a>
+						</NavLink>
 					</li>
 				))
 			}

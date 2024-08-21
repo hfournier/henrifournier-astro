@@ -1,42 +1,37 @@
 ---
-import hexagons from "@data/hexagons.json"
+// import hexagons from "@data/hexagons-old.json"
 import { Icon } from "astro-icon/components"
+import ButtonLink from "./ButtonLink.astro"
+import { getCollection } from "astro:content"
 
-enum HexTypes {
-	NONE = 0,
-	STROKE = 1,
-	FILL = 2,
-	LINK = 3
-}
+const hexagons = await getCollection("hexagons")
 
-type Hexagon = {
-	type: HexTypes
-	alt?: string
-	link?: string
-	svg?: string
-}
+// enum HexTypes {
+// 	NONE = 0,
+// 	STROKE = 1,
+// 	FILL = 2,
+// 	LINK = 3
+// }
+
+// type Hexagon = {
+// 	type: HexTypes
+// 	alt?: string
+// 	link?: string
+// 	svg?: string
+// }
 ---
 
 <section class="mx-0 pb-12 sm:mx-4 md:mx-8 lg:mx-16" aria-labelledby="heading-hero">
 	<div class="flex flex-col items-center">
-		<h1
-			class="text-3xl font-semibold text-primary-600 dark:text-primary-500 md:text-4xl lg:text-5xl dark:lg:text-primary-600"
-			id="heading-hero">
+		<h1 class="text-3xl font-semibold text-primary-600 md:text-4xl lg:text-5xl" id="heading-hero">
 			Lighter. Faster. Better.
 		</h1>
-		<p class="mt-2 text-grayish-700 dark:text-grayish-100 md:text-xl">
+		<p class="mt-2 text-grayish-700 md:text-xl dark:text-grayish-100">
 			Custom websites that work for <span class="font-bold">you</span>
 		</p>
 		<div class="mt-4 flex w-full items-center justify-center space-x-4">
-			<a
-				href="/contact"
-				class="max-w-fit whitespace-nowrap rounded border-2 border-secondary-700 bg-secondary-700 px-3 py-1 text-sm font-semibold uppercase text-white no-underline hover:border-secondary-600 hover:bg-secondary-600 hover:text-white hover:shadow-md hover:shadow-secondary-500/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4 dark:bg-secondary-600 dark:text-black dark:hover:bg-secondary-500 dark:hover:text-black dark:hover:shadow-secondary-500/50 dark:focus-visible:ring-primary-500 md:px-4 md:py-2 md:text-base"
-				>Contact Me</a
-			>
-			<a
-				class="max-w-fit whitespace-nowrap rounded border-2 border-secondary-700 px-3 py-1 text-sm font-semibold uppercase !text-secondary-700 no-underline hover:border-secondary-600 hover:!no-underline hover:shadow-md hover:shadow-secondary-500/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4 dark:!text-white dark:outline-secondary-600 dark:hover:shadow-secondary-500/50 dark:hover:outline-secondary-500 dark:focus-visible:ring-primary-500 md:px-4 md:py-2 md:text-base"
-				href="#about">Learn more</a
-			>
+			<ButtonLink href="/contact">Contact Me</ButtonLink>
+			<ButtonLink href="#about" outline={true}>Learn more</ButtonLink>
 		</div>
 		<div class="mt-12 grid w-fit grid-cols-1 grid-rows-1 justify-items-center md:mt-16">
 			<svg
@@ -72,19 +67,23 @@ type Hexagon = {
 			<div
 				class="col-start-1 row-start-1 mt-3 grid auto-cols-min auto-rows-min gap-x-1 gap-y-px px-2 sm:mt-4 sm:gap-x-2 sm:gap-y-[3px] md:mt-5 md:px-4 lg:mt-7 lg:gap-x-3 lg:gap-y-1 lg:px-5 xl:gap-x-[13px] xl:gap-y-1.5 xl:px-6">
 				{
-					hexagons.map((hexRow: Hexagon[], r) =>
-						hexRow.map(
-							(hex: Hexagon, c) =>
-								hex.type != HexTypes.NONE && (
+					hexagons.map((hexRow, r) =>
+						hexRow.data.cells.map(
+							(hex, c) =>
+								hex.type != "none" && (
 									<>
 										<div
 											class:list={[
 												`hexagon col-span-3 col-start-${c * 2 + 1} row-span-2 row-start-${c % 2 !== 0 ? r * 2 + 2 : r * 2 + 1} grid w-5 place-items-center duration-200 motion-safe:opacity-0 sm:w-10 lg:w-12 xl:w-14`,
-												{ "bg-primary-600": hex.type == HexTypes.FILL },
-												{ "bg-transparent": hex.type == HexTypes.STROKE },
-												{ "bg-primary-50": hex.type == HexTypes.LINK },
-												{ "hover:scale-105": hex.type == HexTypes.FILL },
-												{ "hover:scale-110": hex.type == HexTypes.LINK },
+												{ "bg-primary-600": hex.type === "fill" },
+												{ "bg-transparent": hex.type === "stroke" },
+												{ "bg-primary-50": hex.type === "icon" },
+												{ "hover:scale-105": hex.type === "fill" },
+												{ "hover:scale-110": hex.type === "icon" },
+												{ "[&>a:focus-visible]:outline-none": hex.type === "icon" },
+												{ "has-[a:focus-visible]:bg-white": hex.type === "icon" },
+												{ "has-[a:focus-visible]:scale-150": hex.type === "icon" },
+												{ "has-[a:focus-visible]:z-10": hex.type === "icon" },
 												{
 													"motion-safe:animate-[fadeIn_250ms_3000ms_ease-out_forwards]":
 														r == 1 && c == 8
@@ -198,7 +197,7 @@ type Hexagon = {
 														r == 3 && (c == 0 || c == 16)
 												}
 											]}>
-											{hex.type === HexTypes.STROKE && (
+											{hex.type === "stroke" && (
 												<svg viewBox="0 0 300 259.8" aria-hidden="true">
 													<polygon
 														class="fill-transparent stroke-primary-600/50 stroke-[16] hover:fill-primary-600/20"
@@ -206,7 +205,7 @@ type Hexagon = {
 													/>
 												</svg>
 											)}
-											{hex.type === HexTypes.LINK && (
+											{hex.type === "icon" && (
 												<a href={hex.link} aria-label="{hex.alt}">
 													<span class="sr-only dark:text-black">{hex.alt}</span>
 													<Icon

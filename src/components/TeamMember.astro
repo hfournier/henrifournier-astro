@@ -7,38 +7,33 @@ const { title } = Astro.props
 
 <div class="group grid grid-cols-3 grid-rows-3">
 	<div
-		class="[&:hover~_div:nth-child(10)]:tilt-up [&:hover~_div:nth-child(10)]:tilt-left col-start-1 row-start-1"
-	>
+		class="[&:hover~_div:nth-child(10)]:tilt-up [&:hover~_div:nth-child(10)]:tilt-left col-start-1 row-start-1">
 	</div>
 	<div class="[&:hover~_div:nth-child(10)]:tilt-up col-start-2 row-start-1"></div>
 	<div
-		class="[&:hover~_div:nth-child(10)]:tilt-up [&:hover~_div:nth-child(10)]:tilt-right col-start-3 row-start-1"
-	>
+		class="[&:hover~_div:nth-child(10)]:tilt-up [&:hover~_div:nth-child(10)]:tilt-right col-start-3 row-start-1">
 	</div>
 	<div class="[&:hover~_div:nth-child(10)]:tilt-left col-start-1 row-start-2"></div>
 	<div class="col-start-2 row-start-2"></div>
 	<div class="[&:hover~_div:nth-child(10)]:tilt-right col-start-3 row-start-2"></div>
 	<div
-		class="[&:hover~_div:nth-child(10)]:tilt-down [&:hover~_div:nth-child(10)]:tilt-left col-start-1 row-start-3"
-	>
+		class="[&:hover~_div:nth-child(10)]:tilt-down [&:hover~_div:nth-child(10)]:tilt-left col-start-1 row-start-3">
 	</div>
 	<div class="[&:hover~_div:nth-child(10)]:tilt-down col-start-2 row-start-3"></div>
 	<div
-		class="[&:hover~_div:nth-child(10)]:tilt-down [&:hover~_div:nth-child(10)]:tilt-right col-start-3 row-start-3"
-	>
+		class="[&:hover~_div:nth-child(10)]:tilt-down [&:hover~_div:nth-child(10)]:tilt-right col-start-3 row-start-3">
 	</div>
 
 	<div
-		class="tilting-card pointer-events-none col-span-full row-span-full flex aspect-square h-full w-full flex-col border border-grayish-300 bg-grayish-100 p-2 group-hover:shadow-lg group-hover:shadow-primary-500/40 dark:border-grayish-600 dark:bg-grayish-700 [&_a]:pointer-events-auto"
-	>
+		class="tilting-card pointer-events-none col-span-full row-span-full flex aspect-square h-full w-full flex-col border border-grayish-300 bg-grayish-100 p-2 group-hover:shadow-lg group-hover:shadow-primary-500/40 dark:border-grayish-600 dark:bg-grayish-700 [&_a]:pointer-events-auto">
 		<div
-			class="border border-grayish-300 bg-grayish-50 dark:border-grayish-600 dark:bg-grayish-400"
-		>
+			class="border border-grayish-300 bg-grayish-50 dark:border-grayish-600 dark:bg-grayish-400">
 			<slot name="svg" />
 		</div>
 		<div class="pt-2">
 			<h3 class="text-xl font-bold text-primary-600 dark:text-primary-400">{title}</h3>
-			<p class="text-sm text-grayish-900 dark:text-grayish-200">
+			<p
+				class="text-sm text-grayish-900 dark:text-grayish-100 [&_a]:rounded-b-none [&_a]:rounded-t-sm [&_a]:text-secondary-700 [&_a]:!no-underline hover:[&_a]:text-secondary-800 hover:[&_a]:!underline hover:[&_a]:decoration-secondary-800 dark:[&_a]:text-secondary-200 dark:hover:[&_a]:text-secondary-100 dark:hover:[&_a]:decoration-secondary-200">
 				<slot />
 			</p>
 		</div>

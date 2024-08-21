@@ -1,0 +1,210 @@
+---
+import { Icon } from "astro-icon/components"
+import Button from "./form/Button.astro"
+---
+
+<button
+	class="touch-manipulation rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-600 dark:focus-visible:outline-primary-500"
+	id="btnSearch"
+	type="button"
+	arial-label="Search">
+	<span class="sr-only">Search</span>
+	<Icon
+		class="size-6 text-primary-600 hover:text-primary-700 md:size-7 dark:hover:text-primary-500"
+		name="mdi:search"
+		aria-hidden="true"
+	/>
+</button>
+
+<dialog
+	class="max-h-[90dvh] w-[640px] max-w-[95dvw] bg-transparent backdrop:bg-grayish-500/50 backdrop:backdrop-blur-sm"
+	id="dlgSearch"
+	aria-label="Search">
+	<div
+		class="rounded-xl bg-grayish-50 p-4 text-grayish-900 md:p-6 lg:p-8 dark:bg-grayish-800 dark:text-grayish-100"
+		id="dlgContainer">
+		<div
+			class="flex flex-col has-[div:first-child:not(:empty)]:gap-4 md:has-[div:first-child:not(:empty)]:gap-6 lg:has-[div:first-child:not(:empty)]:gap-8">
+			<form
+				class="flex items-center gap-2 rounded-md border border-grayish-500 bg-grayish-50 px-2 py-1 text-grayish-900 dark:bg-grayish-800 dark:text-grayish-100"
+				role="search"
+				aria-label="Search this site">
+				<Icon class="size-8" name="mdi:search" aria-hidden="true" />
+				<label for="inputSearch" class="sr-only">Search</label>
+				<input
+					class="w-full bg-inherit p-2 text-inherit outline-none placeholder:text-grayish-700 focus-visible:border-secondary-600 dark:placeholder:text-grayish-300 dark:focus-visible:border-secondary-400"
+					id="inputSearch"
+					type="text"
+					autofocus
+					placeholder="Search..."
+				/>
+				<button type="button" id="btnClearSearch">
+					<span class="sr-only">Clear search</span>
+					<Icon class="size-8" name="mdi:close" aria-hidden="true" />
+				</button>
+			</form>
+			<div class="flex flex-col gap-3">
+				<div class="peer flex gap-1 text-sm empty:hidden" id="searchResultsInfo"></div>
+				<div
+					class="scrollable flex h-[60dvh] flex-col gap-4 overflow-y-auto transition-all duration-300 empty:h-0"
+					id="searchResults">
+				</div>
+				<Button class="justify-center peer-empty:hidden" id="btnLoadMoreResults" outline={true}
+					>Load more results</Button
+				>
+				<!-- <button
+					id="btnLoadMoreResults"
+					class="mt-6 w-full rounded-md border border-grayish-500 p-2 text-sm hover:border-secondary-600 hover:text-secondary-600 hover:shadow-md disabled:cursor-not-allowed disabled:border-grayish-400 disabled:text-grayish-400 peer-empty:hidden dark:hover:border-secondary-500 dark:hover:text-secondary-500 dark:disabled:border-grayish-600 dark:disabled:text-grayish-600"
+					type="button"
+					disabled>Load more results</button
+				> -->
+			</div>
+		</div>
+	</div>
+</dialog>
+
+<template id="searchResultTemplate">
+	<div class="flex flex-col gap-0">
+		<header
+			class="relative flex gap-2 border border-grayish-200 bg-grayish-50 p-2 hover:border-primary-600 dark:border-grayish-800 dark:bg-grayish-900 dark:hover:border-primary-500">
+			<Icon class="size-8 shrink-0" name="mdi:file-document" aria-hidden="true" />
+			<a class="no-underline after:absolute after:inset-0" href="#">Result 1 Document</a>
+		</header>
+	</div>
+</template>
+<template id="searchSubResultTemplate">
+	<div
+		class="group flex gap-2 border border-grayish-200 bg-grayish-50 p-2 pl-6 hover:border-primary-600 dark:border-grayish-800 dark:bg-grayish-900 dark:hover:border-primary-500">
+		<Icon class="size-8 shrink-0" name="mdi:file-document-arrow-right" aria-hidden="true" />
+		<div class="relative flex flex-col gap-1 after:absolute after:inset-0">
+			<a
+				class="no-underline group-hover:text-primary-600 dark:group-hover:text-primary-500"
+				href="#">Result 1 Sub Heading</a
+			>
+			<p
+				class="text-sm [&_mark]:bg-inherit [&_mark]:text-secondary-700 dark:[&_mark]:text-secondary-300">
+				Lorem ipsum dolor sit amet <mark>consectetur</mark> adipisicing elit. Totam voluptas delectus
+				nostrum dolorem. Velit beatae id officia veritatis quae? Eos consectetur iste excepturi fuga
+				ullam rem est quas obcaecati impedit!
+			</p>
+		</div>
+	</div>
+</template>
+
+<script is:inline>
+	let startingFrom = 0
+	const btnSearch = document.getElementById("btnSearch")
+	const btnClearSearch = document.getElementById("btnClearSearch")
+	const btnLoadMoreResults = document.getElementById("btnLoadMoreResults")
+	const inputSearch = document.getElementById("inputSearch")
+	const searchResultsInfo = document.getElementById("searchResultsInfo")
+	const searchResults = document.getElementById("searchResults")
+	const searchResultTemplate = document.getElementById("searchResultTemplate")
+	const searchSubResultTemplate = document.getElementById("searchSubResultTemplate")
+	const dlgSearch = document.getElementById("dlgSearch")
+	const dlgContainer = document.getElementById("dlgContainer")
+
+	if (btnSearch && dlgSearch) {
+		btnSearch.addEventListener("click", () => {
+			dlgSearch.showModal()
+		})
+	}
+
+	if (dlgSearch) {
+		dlgSearch.addEventListener("click", () => {
+			dlgSearch.close()
+		})
+	}
+
+	if (dlgContainer) {
+		dlgContainer.addEventListener("click", (event) => {
+			event.stopPropagation()
+		})
+	}
+
+	const clearSearchResults = () => {
+		updateSearchInfo(0, 0, "")
+		searchResults.innerHTML = ""
+		btnLoadMoreResults.disabled = true
+		inputSearch.focus()
+	}
+
+	if (btnClearSearch) {
+		btnClearSearch.addEventListener("click", () => {
+			inputSearch.form.reset()
+			clearSearchResults()
+		})
+	}
+
+	const loadResults = (resultsData) => {
+		for (const data of resultsData) {
+			const searchResultTemplateClone = searchResultTemplate.content.cloneNode(true)
+			searchResultTemplateClone.querySelector("header > a").href = data.url
+			searchResultTemplateClone.querySelector("header > a").innerHTML = data.meta.title
+
+			for (const subResult of data.sub_results) {
+				const searchSubResultTemplateClone = searchSubResultTemplate.content.cloneNode(true)
+				searchSubResultTemplateClone.querySelector("a").href = subResult.url
+				searchSubResultTemplateClone.querySelector("a").innerHTML = subResult.title
+				searchSubResultTemplateClone.querySelector("p").innerHTML = subResult.excerpt
+				searchResultTemplateClone.querySelector("div").appendChild(searchSubResultTemplateClone)
+			}
+
+			searchResults.appendChild(searchResultTemplateClone)
+		}
+	}
+
+	const updateSearchInfo = (resultsShown, resultsCount, searchTerm) => {
+		searchResultsInfo.innerText =
+			resultsCount === 0
+				? ""
+				: `Showing ${resultsShown} of ${resultsCount} result${resultsCount === 1 ? "" : "s"} for ${searchTerm}`
+	}
+
+	let search
+	inputSearch?.addEventListener("input", async (e) => {
+		if (e.target.value.trim() === "") {
+			clearSearchResults()
+			return
+		}
+
+		// only load the pagefind script once
+		if (e.target.dataset.loaded !== "true") {
+			e.target.dataset.loaded = "true"
+			// load the pagefind script
+			window.pagefind = await import("/pagefind/pagefind.js")
+		}
+
+		// search the index using the input value
+		search = await window.pagefind.debouncedSearch(e.target.value)
+
+		if (search !== null) {
+			clearSearchResults()
+
+			startingFrom = 0
+			updateSearchInfo(
+				startingFrom + 5 >= search.results.length ? search.results.length : startingFrom + 5,
+				search.results.length,
+				e.target.value
+			)
+
+			loadResults(await Promise.all(search.results.slice(startingFrom, 5).map((r) => r.data())))
+			startingFrom += 5
+
+			btnLoadMoreResults.disabled = search.results.length <= startingFrom
+		}
+	})
+
+	btnLoadMoreResults?.addEventListener("click", async () => {
+		updateSearchInfo(
+			startingFrom + 5 >= search.results.length ? search.results.length : startingFrom + 5,
+			search.results.length,
+			inputSearch.value
+		)
+		loadResults(
+			await Promise.all(search.results.slice(startingFrom, startingFrom + 5).map((r) => r.data()))
+		)
+		startingFrom += 5
+		btnLoadMoreResults.disabled = search.results.length <= startingFrom
+	})
+</script>

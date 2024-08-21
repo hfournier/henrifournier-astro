@@ -9,25 +9,21 @@ const hexExpandId = `hexExpand-${id}`
 <div
 	id={hexExpandId}
 	data-hex-id={hexExpandId}
-	class="hex-container group relative mx-auto mb-8 grid place-items-center"
->
+	class="hex-container group relative mx-auto mb-8 grid place-items-center">
 	<h2
-		class="text-center text-2xl font-medium opacity-0 motion-safe:group-[.expand]:animate-[fadeIn_250ms_ease-in-out_1000ms_forwards] motion-reduce:opacity-100 sm:text-3xl md:text-4xl"
-	>
+		class="text-center text-2xl font-medium opacity-0 motion-safe:group-[.expand]:animate-[fadeIn_250ms_ease-in-out_1000ms_forwards] motion-reduce:opacity-100 sm:text-3xl md:text-4xl">
 		<slot />
 	</h2>
 
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[fadeOut_500ms_ease-in-out_forwards] motion-reduce:opacity-0"
-	>
+		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[fadeOut_500ms_ease-in-out_forwards] motion-reduce:opacity-0">
 		<svg
 			version="1.1"
 			xmlns="http://www.w3.org/2000/svg"
 			xmlns:xlink="http://www.w3.org/1999/xlink"
 			viewBox="0 0 1050 916.0254"
 			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true"
-		>
+			aria-hidden="true">
 			<g>
 				<path
 					class="stroke-primary-600 stroke-[70px]"
@@ -38,16 +34,14 @@ const hexExpandId = `hexExpand-${id}`
 		</svg>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandL_500ms_ease-in-out_750ms_forwards] motion-reduce:translate-x-[calc(-50%_+_16px)]"
-	>
+		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandL_500ms_ease-in-out_750ms_forwards] motion-reduce:translate-x-[calc(-50%_+_16px)]">
 		<svg
 			version="1.1"
 			xmlns="http://www.w3.org/2000/svg"
 			xmlns:xlink="http://www.w3.org/1999/xlink"
 			viewBox="0 0 1050 916.0254"
 			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true"
-		>
+			aria-hidden="true">
 			<g>
 				<path
 					class="hex-l-bracket stroke-primary-600 stroke-[70px]"
@@ -58,16 +52,14 @@ const hexExpandId = `hexExpand-${id}`
 		</svg>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandR_500ms_ease-in-out_750ms_forwards] motion-reduce:translate-x-[calc(50%_-_16px)]"
-	>
+		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandR_500ms_ease-in-out_750ms_forwards] motion-reduce:translate-x-[calc(50%_-_16px)]">
 		<svg
 			version="1.1"
 			xmlns="http://www.w3.org/2000/svg"
 			xmlns:xlink="http://www.w3.org/1999/xlink"
 			viewBox="0 0 1050 916.0254"
 			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true"
-		>
+			aria-hidden="true">
 			<g>
 				<path
 					class="hex-r-bracket stroke-primary-600 stroke-[70px]"
@@ -78,16 +70,14 @@ const hexExpandId = `hexExpand-${id}`
 		</svg>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandTR_500ms_ease-in-out_750ms_forwards] motion-reduce:-translate-y-16 motion-reduce:translate-x-16 motion-reduce:opacity-0"
-	>
+		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandTR_500ms_ease-in-out_750ms_forwards] motion-reduce:-translate-y-16 motion-reduce:translate-x-16 motion-reduce:opacity-0">
 		<svg
 			version="1.1"
 			xmlns="http://www.w3.org/2000/svg"
 			xmlns:xlink="http://www.w3.org/1999/xlink"
 			viewBox="0 0 1050 916.0254"
 			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true"
-		>
+			aria-hidden="true">
 			<g>
 				<path
 					class="hex-tr-bracket stroke-primary-600 stroke-[70px]"
@@ -98,16 +88,14 @@ const hexExpandId = `hexExpand-${id}`
 		</svg>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandBR_500ms_ease-in-out_750ms_forwards] motion-reduce:translate-x-16 motion-reduce:translate-y-16 motion-reduce:opacity-0"
-	>
+		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandBR_500ms_ease-in-out_750ms_forwards] motion-reduce:translate-x-16 motion-reduce:translate-y-16 motion-reduce:opacity-0">
 		<svg
 			version="1.1"
 			xmlns="http://www.w3.org/2000/svg"
 			xmlns:xlink="http://www.w3.org/1999/xlink"
 			viewBox="0 0 1050 916.0254"
 			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true"
-		>
+			aria-hidden="true">
 			<g>
 				<path
 					class="hex-br-bracket stroke-primary-600 stroke-[70px]"
@@ -118,16 +106,14 @@ const hexExpandId = `hexExpand-${id}`
 		</svg>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandBL_500ms_ease-in-out_750ms_forwards] motion-reduce:-translate-x-16 motion-reduce:translate-y-16 motion-reduce:opacity-0"
-	>
+		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandBL_500ms_ease-in-out_750ms_forwards] motion-reduce:-translate-x-16 motion-reduce:translate-y-16 motion-reduce:opacity-0">
 		<svg
 			version="1.1"
 			xmlns="http://www.w3.org/2000/svg"
 			xmlns:xlink="http://www.w3.org/1999/xlink"
 			viewBox="0 0 1050 916.0254"
 			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true"
-		>
+			aria-hidden="true">
 			<g>
 				<path
 					class="hex-bl-bracket stroke-primary-600 stroke-[70px]"
@@ -138,16 +124,14 @@ const hexExpandId = `hexExpand-${id}`
 		</svg>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandTL_500ms_ease-in-out_750ms_forwards] motion-reduce:-translate-x-16 motion-reduce:-translate-y-16 motion-reduce:opacity-0"
-	>
+		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandTL_500ms_ease-in-out_750ms_forwards] motion-reduce:-translate-x-16 motion-reduce:-translate-y-16 motion-reduce:opacity-0">
 		<svg
 			version="1.1"
 			xmlns="http://www.w3.org/2000/svg"
 			xmlns:xlink="http://www.w3.org/1999/xlink"
 			viewBox="0 0 1050 916.0254"
 			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true"
-		>
+			aria-hidden="true">
 			<g>
 				<path
 					class="hex-tl-bracket stroke-primary-600 stroke-[70px]"

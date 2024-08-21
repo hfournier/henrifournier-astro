@@ -6,27 +6,15 @@ import Header from "@components/Header.astro"
 import BaseHead from "@components/BaseHead.astro"
 ---
 
-<html lang="en" class="scrollable scroll-smooth">
+<html lang="en" class="scrollable motion-safe:scroll-smooth">
 	<head>
 		<BaseHead><slot name="head" slot="head" /></BaseHead>
 	</head>
 	<body
 		id="top"
-		class="grid min-h-dvh grid-cols-1 grid-rows-[auto_minmax(0,_1fr)_auto] bg-grayish-50 text-grayish-900 dark:bg-grayish-900 dark:text-grayish-100"
-	>
-		<header
-			class="mx-auto flex w-full max-w-6xl items-center justify-between p-4 sm:px-8 sm:py-6 md:px-16 md:py-8 lg:px-20"
-			aria-label="Header"
-		>
-			<Header />
-		</header>
+		class="grid min-h-dvh grid-cols-[[full-width-start]_minmax(1rem,_1fr)_[content-start]_min(100%_-_2rem,_1280px)_[content-end]_minmax(1rem,_1fr)_[full-width-end]] grid-rows-[auto_minmax(0,_1fr)_auto] bg-grayish-50 text-grayish-900 dark:bg-grayish-950 dark:text-grayish-100">
+		<Header class="col-[content]" />
 		<slot />
-		<footer
-			class="mx-auto flex w-full flex-col items-center gap-6 bg-grayish-800 py-6 text-grayish-300"
-			aria-label="Footer"
-		>
-			<Footer />
-		</footer>
-		<!-- <Toaster /> -->
+		<Footer class="col-[full-width]" />
 	</body>
 </html>

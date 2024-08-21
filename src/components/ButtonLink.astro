@@ -1,0 +1,29 @@
+---
+interface Props extends Omit<astroHTML.JSX.AnchorHTMLAttributes, "class"> {
+	class?: string
+	outline?: boolean
+}
+const { class: classList, outline = false, ...attrs } = Astro.props
+---
+
+<a
+	class:list={[
+		"max-w-fit whitespace-nowrap rounded border-2 border-secondary-700 px-3 py-1 text-sm font-semibold uppercase no-underline hover:border-secondary-800 hover:shadow-md hover:shadow-secondary-500/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-600 md:px-4 md:py-2 md:text-base dark:border-secondary-600 dark:hover:border-secondary-500 dark:hover:shadow-secondary-500/50 dark:focus-visible:outline-primary-500",
+		{ "bg-secondary-700": !outline },
+		{ "text-white": !outline },
+		{ "hover:bg-secondary-800": !outline },
+		{ "hover:text-white": !outline },
+		{ "dark:bg-secondary-600": !outline },
+		{ "dark:text-black": !outline },
+		{ "dark:hover:bg-secondary-500": !outline },
+		{ "dark:hover:text-black": !outline },
+		{ "!text-secondary-700": outline },
+		{ "hover:!no-underline": outline },
+		{ "dark:!text-white": outline },
+		{ "dark:outline-secondary-600": outline },
+		{ "dark:hover:outline-secondary-500": outline },
+		classList
+	]}
+	{...attrs}>
+	<slot />
+</a>

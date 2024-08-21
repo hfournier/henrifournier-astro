@@ -1,13 +1,22 @@
 import { defineConfig } from "astro/config"
 import tailwind from "@astrojs/tailwind"
 import icon from "astro-icon"
-
 import netlify from "@astrojs/netlify"
+import mdx from "@astrojs/mdx"
+import { remarkReadingTime } from "./remark-reading-time.mjs"
+
+import db from "@astrojs/db"
 
 // https://astro.build/config
 export default defineConfig({
 	site: "https://henrifournier.dev",
 	output: "hybrid",
+	experimental: {
+		contentLayer: true,
+		contentIntellisense: true,
+		actions: true,
+		serverIslands: true
+	},
 	integrations: [
 		tailwind({
 			applyBaseStyles: false
@@ -15,35 +24,51 @@ export default defineConfig({
 		icon({
 			include: {
 				devicon: [
-					"javascript",
-					"netlify",
 					"alpinejs",
 					"angular",
-					"svelte",
 					"astro",
-					"typescript",
 					"bootstrap",
-					"nodejs",
-					"tailwindcss",
+					"css3",
 					"github",
+					"html5",
+					"javascript",
 					"mongodb",
-					"nestjs"
+					"nestjs",
+					"netlify",
+					"nodejs",
+					"svelte",
+					"tailwindcss",
+					"typescript"
 				],
 				logos: ["stripe"],
 				mdi: [
+					"arrow-up-thin",
+					"book-clock-outline",
+					"chevron-down",
 					"close",
-					"email",
-					"phone",
-					"linkedin",
-					"twitter",
-					"facebook",
-					"github",
-					"filter-menu-outline",
 					"close-circle",
-					"arrow-up-thin"
+					"comment-minus",
+					"comment-plus",
+					"email",
+					"facebook",
+					"file-document",
+					"file-document-arrow-right",
+					"filter-menu-outline",
+					"github",
+					"linkedin",
+					"phone",
+					"search",
+					"send",
+					"timelapse",
+					"twitter"
 				]
 			}
-		})
+		}),
+		mdx(),
+		db()
 	],
-	adapter: netlify()
+	adapter: netlify(),
+	markdown: {
+		remarkPlugins: [remarkReadingTime]
+	}
 })

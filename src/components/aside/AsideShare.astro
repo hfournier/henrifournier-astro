@@ -13,38 +13,38 @@ const { title } = Astro.props as Props
 	<ul class="flex flex-wrap gap-4 pl-4">
 		<li>
 			<a
+				class="hover:text-primary-600 dark:hover:text-primary-400"
 				href={`https://www.linkedin.com/shareArticle?mini=true&ro=true&trk=EasySocialShareButtons&title=${encodeURIComponent(
 					title.replaceAll(" ", "+")
-				)}&url=${encodeURIComponent(Astro.url.href)}`}
-			>
+				)}&url=${encodeURIComponent(Astro.url.href)}`}>
 				<span class="sr-only">Share on LinkedIn</span>
 				<Icon name="mdi:linkedin" class="size-8" aria-hidden="true" />
 			</a>
 		</li>
 		<li>
 			<a
+				class="hover:text-primary-600 dark:hover:text-primary-400"
 				href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
 					title.replaceAll(" ", "+")
-				)}&url=${encodeURIComponent(Astro.url.href)}`}
-			>
+				)}&url=${encodeURIComponent(Astro.url.href)}`}>
 				<span class="sr-only">Share on Twitter</span>
 				<Icon name="mdi:twitter" class="size-8" aria-hidden="true" />
 			</a>
 		</li>
 		<li>
 			<a
-				href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`}
-			>
+				class="hover:text-primary-600 dark:hover:text-primary-400"
+				href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`}>
 				<span class="sr-only">Share on Facebook</span>
 				<Icon name="mdi:facebook" class="size-8" aria-hidden="true" />
 			</a>
 		</li>
 		<li>
 			<a
+				class="hover:text-primary-600 dark:hover:text-primary-400"
 				href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(
 					Astro.url.href
-				)}`}
-			>
+				)}`}>
 				<span class="sr-only">Share by email</span>
 				<Icon name="mdi:email" class="size-8" aria-hidden="true" />
 			</a>

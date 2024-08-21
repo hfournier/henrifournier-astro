@@ -21,9 +21,10 @@ const { headings } = Astro.props as Props
 							{ "!pl-0": heading.depth === 1 },
 							{ "!pl-4": heading.depth === 2 },
 							{ "!pl-8": heading.depth === 3 }
-						]}
-					>
-						<a class="no-underline underline-offset-2 hover:underline" href={`#${heading.slug}`}>
+						]}>
+						<a
+							class="no-underline decoration-primary-600 underline-offset-2 hover:underline dark:decoration-primary-400"
+							href={`#${heading.slug}`}>
 							{heading.text}
 						</a>
 					</li>

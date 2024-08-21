@@ -26,9 +26,8 @@ const sortedBlogs = blogs.sort(
 					index < 10 && (
 						<li class="text-sm leading-tight">
 							<a
-								class="no-underline underline-offset-2 hover:underline"
-								href={`/blog/${blog.slug}`}
-							>
+								class="no-underline decoration-primary-600 underline-offset-2 hover:underline dark:decoration-primary-400"
+								href={`/blog/${blog.slug}`}>
 								{blog.data.title}
 							</a>
 						</li>

@@ -1,0 +1,325 @@
+---
+title: Build an Astro Modal Dialog Component
+description: "Learn how to leverage the built-in functionality of the <dialog> element to create an Astro modal dialog component to use in all your future projects"
+createdAt: 2024-08-07
+author: henri-fournier
+featuredMedia:
+  src: cover.png
+  alt: Hexagon background with a gradient, the HenriFournier.dev logo and the title of the post
+categories:
+  - development
+tags:
+  - astro
+  - tailwindcss
+  - html
+  - css
+seo:
+  title: Build an Astro Modal Dialog Component
+  description: "Learn how to leverage the built-in functionality of the <dialog> element to create an Astro modal dialog component to use in all your future projects"
+  openGraph:
+    title: Build an Astro Modal Dialog Component
+    type: article
+    image: og.png
+    imageAlt: Hexagon background with a gradient, the HenriFournier.dev logo and the title of the post
+    optional:
+      description: "Learn how to leverage the built-in functionality of the <dialog> element to create an Astro modal dialog component to use in all your future projects"
+---
+
+import { Image } from "astro:assets"
+import build_astro_dialog_screenshot_1 from "build-astro-dialog-screenshot-1.png"
+import build_astro_dialog_screenshot_2 from "build-astro-dialog-screenshot-2.png"
+import build_astro_dialog_screenshot_3 from "build-astro-dialog-screenshot-3.png"
+
+## The Problem
+
+Maybe you are fairly new to web development, or maybe you've been using a framework or UI library that comes with a modal dialog component, or maybe you cobbled together your own modal dialog component long ago and have been using it ever since... whatever the case, you've now reached a crossroad. You're developing a project in Astro and you need a modal dialog component, but you're trying to minimize the amount of code you're going to have to ship to the browser. What should you do?
+
+## The Solution
+
+You could reach for a framework or library or existing component, but solving this problem is surprisingly simple in Astro with modern HTML, CSS and a tiny bit of JavaScript.
+Ready? Let's do this!
+
+### Introducing the &lt;dialog&gt; HTML Element
+
+Sometimes it's hard to keep up with all the new developments and the continuing evolution of HTML, CSS and Javascript, so it might be surprising to learn that the `<dialog>` element has had [baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility) support since March of 2022 already. I know, right? What may be less surprising is that when it comes to modal dialogs, the `<dialog>` element now does a lot of the heavy lifting for us. Out of the box, `<dialog>` has the <abbr>ARIA</abbr> `role="dialog"` attribute set and when we invoke it using `showModal()`:
+- The `aria-modal="true"` attribute is set automatically
+- The dialog is displayed in the [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer), so no more messing around with z-indexes
+- Everything else on the page is rendered inaccessible by way of the [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) attribute
+- The `<dialog>` can be anywhere on the page
+- The `<dialog>` can be dismissed with the Esc key
+- The `<dialog>` can be closed with a `<button>` in a `<form method="dialog">` element (no JS needed)
+- The `::backdrop` pseudo-element can be styled with CSS
+
+We get all that behavior for free by using the `<dialog>` element instead of a regular `<div>`.
+
+OK, enough jibber-jabber... let's see what a minimal example of the `<dialog>` element looks like:
+
+```html
+// src/components/Dialog.astro
+
+<dialog id="dlgAstro">
+  <p>Hello Astro Community!</p>
+  <form method="dialog">
+    <button>Close</button>
+  </form>
+</dialog>
+```
+
+```astro
+---
+// src/pages.index.astro
+
+import BaseLayout from "../layouts/BaseLayout.astro"
+import Dialog from "../components/Dialog.astro"
+---
+
+<BaseLayout>
+  <h1 class="text-4xl font-black">Build an Astro Modal Dialog Component with Tailwind CSS</h1>
+  <button class="bg-indigo-600 px-4 py-2 rounded text-white shadow-lg" id="btnShowModal" type="button">Show Modal</button>
+  <Dialog />
+</BaseLayout>
+
+<script>
+  const button = document.getElementById("btnShowModal") as HTMLButtonElement
+  const dialog = document.getElementById("dlgAstro") as HTMLDialogElement
+  button.addEventListener("click", () => {
+    dialog.showModal()
+  })
+</script>
+```
+
+<Image class="mx-auto" src={build_astro_dialog_screenshot_1} alt="Basic Astro Modal Dialog without any styling" />
+
+A few things to note in the above example:
+- The only JS we need to make this work is a click listener on the `<button>` to call `showModal()`.
+- We don't get any styling for free, so our `<dialog>` is a bit of an ugly-duckling.
+- We also don't have much styling on the `::backdrop` pseudo-element, so the undelying page is not obscured in any meaningful way.
+
+Let's fix the latter point with Tailwind CSS and add some Astro props to make the dialog more appealing, useful and reusable.
+
+```astro
+---
+// src/components/Dialog.astro
+import { Icon } from "astro-icon/components"
+
+export interface Props extends Omit<astroHTML.JSX.DialogHTMLAttributes, "class"> {
+	title: string
+	class?: string
+}
+const { title, class: classList, ...attrs } = Astro.props
+---
+
+<dialog
+	class:list={[
+		"w-[90dvw] bg-transparent backdrop:bg-neutral-950/70 backdrop:backdrop-blur-sm md:w-[75dvw] lg:w-[50dvw]",
+		classList
+	]}
+	{...attrs}
+	aria-label={title}>
+	<form
+		class="grid grid-cols-1 grid-rows-[auto,_1fr] divide-y-[1px] divide-neutral-300 rounded-lg border border-neutral-300 bg-transparent dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-900"
+		method="dialog">
+		<header
+			class="flex items-center justify-between rounded-t-lg bg-neutral-100 px-4 py-3 dark:bg-neutral-950">
+			<h3 class="text-2xl font-medium">{title}</h3>
+			<button
+				class="rounded-full p-2 text-neutral-600 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus-visible:outline-primary-500"
+				autofocus>
+				<span class="sr-only">Close</span>
+				<Icon class="size-6" aria-hidden="true" name="mdi:close" />
+			</button>
+		</header>
+		<div
+			class="max-h-[70dvh] bg-neutral-50 p-4 dark:bg-neutral-900 rounded-b-lg">
+			<slot />
+		</div>
+	</form>
+</dialog>
+```
+
+Wow! There's a lot going on there, so let's break it all down. Starting with the props declaration:
+
+```ts
+export interface Props extends Omit<astroHTML.JSX.DialogHTMLAttributes, "class"> {
+	title: string
+	class?: string
+}
+const { title, class: classList, ...attrs } = Astro.props
+```
+
+If you're not familar with this way of declaring props, it might look a bit intimidating; but don't worry, it's pretty straight forward. With this `interface Props extends astroHTML.JSX.DialogHTMLAttributes` code, we're declaring that our `<Dialog />` component will have all the same attributes as the regular [HTMLDialogElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement), except for the `class` attribute, which we are ommitting with `Omit<..., "class">`. We then add a `title` prop and our own optional `class` prop. Lastly, we deconstruct `Astro.props` into `title` and `classList` (since "class" is a reserved word) and all the other props are captured by `...attrs`.
+
+With our props interface defined, we can use our `<Dialog />` component like so:
+
+```html
+<Dialog id="dlgAstro" title="Hello Astro Community!">
+  Amet laboris nisi cillum adipisicing irure anim enim aute velit ...
+</Dialog>
+```
+
+where we're passing in a `title` and an `id`. Eventhough we didn't explicitly declare `id` in the interface, it will be captured with `...attrs`, as mentioned above. Anything we include in between our `<Dialog></Dialog>` tags, will be rendered in our component's `<slot />`. Let's have a look at that next:
+
+```html
+<dialog
+  class:list={[
+    "w-[90dvw] bg-transparent backdrop:bg-neutral-950/70 backdrop:backdrop-blur-sm md:w-[75dvw] lg:w-[50dvw]",
+    classList
+  ]}
+  {...attrs}
+  aria-label={title}>
+    ...
+    <h3 class="text-2xl font-medium">{title}</h3>
+    ...
+    <slot />
+  ...
+</dialog>
+```
+
+In the above simplified code snippet, we can see that the `title` prop is used to set the `aria-label` attribute of the `<dialog>` as well as the `<h3>` heading content. We're also using the [spread-operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) with `{...attrs}` to pass on all the other props, like `id`, to the `<dialog>` element. Our custom `classList` is added to the `class:list` array, which allows us to pass in other classes to the `<dialog>` element. Lastly, we have a `<slot />` element, which is used to render the content of our `<Dialog />` component.
+
+To give the dialog a more familair look, we create a `<header>` element that includes a styled `<h3>` element, as well as a "close" button. For the "close" button, we include a `<span>` element that has the `sr-only` class (screen readers only), for accessibility, and we're using the [astro-icon](https://www.astroicon.dev/) component to render a "close" SVG icon.
+
+```html
+<header
+  class="flex items-center justify-between rounded-t-lg bg-neutral-100 px-4 py-3 dark:bg-neutral-950">
+  <h3 class="text-2xl font-medium">{title}</h3>
+  <button
+    class="rounded-full p-2 text-neutral-600 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus-visible:outline-primary-500"
+    autofocus>
+    <span class="sr-only">Close</span>
+    <Icon class="size-6" aria-hidden="true" name="mdi:close" />
+  </button>
+</header>
+```
+
+On the Tailwind CSS side, I won't go through all the classes that are used in the above examples, but there are a couple that are worthy of further explanation. There are two classes, `backdrop:bg-neutral-950/70` and `backdrop:backdrop-blur-sm`, that are used to style the `<dialog>` [::backdrop](https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop) pseudo-element. In Tailwind CSS, we can style the `::backdrop` pseudo-element using the `backdrop:` modifier. As you may have already guessed, the first one is used to set the backdrop's background color to a very dark gray with an opacity of 70% and the second one is used to set a `backdrop-filter` with a slight blur.
+
+With all that in place, let's have a look at what our dialog looks like:
+
+<Image class="mx-auto" src={build_astro_dialog_screenshot_2} alt="Astro Modal Dialog Component with title, close button and content" />
+
+Yeah, that's much better, right? The backdrop has a darker semi-transparent background with a slight blur to focus the viewer's attention on the dialog.
+
+To take it a little bit further, we could add a footer with a couple of buttons, like Yes and No, or OK and Cancel, or whatever is needed.
+
+```html
+...
+<footer
+  class="flex items-center justify-end gap-2 rounded-b-lg bg-neutral-100 px-4 py-3 dark:bg-neutral-950">
+  <button
+    class="rounded border-2 border-neutral-600 bg-neutral-600 px-4 py-2 text-white hover:border-neutral-700 hover:bg-neutral-700 hover:shadow-lg"
+    value="Yes"
+    >Yes</button
+  >
+  <button
+    class="rounded border-2 border-neutral-600 bg-transparent px-4 py-2 text-neutral-600 hover:border-neutral-700 hover:text-neutral-700 hover:shadow-lg"
+    value="No"
+    >No</button
+  >
+</footer>
+...
+```
+
+<Image class="mx-auto" src={build_astro_dialog_screenshot_3} alt="Astro Modal Dialog Component with title, content and Yes/No buttons" />
+
+Since all the buttons are inside a `<form method="dialog">`, and they have a default type of `submit`, they will all close the dialog without the need of any JS. Of course, we could also use a `<button type="button">` instead and handle the click event and closing of the dialog ourselves. If we wanted to know which button was used to close the dialog, we can set the `value` attribute of the buttons, and listen for the "close" event on the dialog.
+
+```ts
+dialog.addEventListener("close", (event) => {
+  div.innerText = `Modal Result: ${event.target.returnValue} button`
+})
+```
+
+We could stop there, but we can do a little bit more to make it "_feel_" better. Here's what I mean. When invoking `showModal()`, the `<dialog>` instantly appears on the screen, and when we close it, it instantly disappears. Wouldn't it "_feel_" better if the dialog transitions were animated? Having them fade in and out smoothly, rather than just appearing and disappearing abruptly? Let's do that and add some polish to our shiny new `<Dialog />` component.
+
+```css
+<style>
+	:root {
+		--opening-duration: 0.3s;
+	}
+
+	dialog[open] {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	dialog {
+		opacity: 0;
+		transform: scale(0);
+		transition:
+			opacity var(--opening-duration) ease-out,
+			transform var(--opening-duration) ease-out,
+			overlay var(--opening-duration) ease-out allow-discrete,
+			display var(--opening-duration) ease-out allow-discrete;
+	}
+
+	@starting-style {
+		dialog[open] {
+			opacity: 0;
+			transform: scale(0);
+		}
+	}
+
+	dialog::backdrop {
+		opacity: 0;
+		transition:
+			opacity var(--opening-duration) ease-out,
+			overlay var(--opening-duration) ease-out allow-discrete,
+			display var(--opening-duration) ease-out allow-discrete;
+	}
+
+	dialog[open]::backdrop {
+		opacity: 1;
+	}
+
+	@starting-style {
+		dialog[open]::backdrop {
+			opacity: 0;
+		}
+	}
+</style>
+```
+
+Although that may look like a lot of CSS, it's only doing two things. It's transitioning the scale and opacity of the `<dialog>` and `::backdrop` from 0 to 1 when the `[open]` attribute is set and back again when it's removed (on close). That's all. However, there are a few things in there that may not be familar to everyone. Until recently, there was no easy way to animate an element that was starting from `display: none`, like a `<dialog>`, because the browser had no initial values to transition from. The [@starting-style](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) CSS at-rule was designed to address that very issue. As the name implies, it allows you to specify what the starting styles of the selected elements should be when transitioning from `display: none` to say `display: block`. Another relatively new item is the [transition-behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior) property, which needs to be set to `allow-discrete` on both `display` and `overlay`. With starting styles in place, you can now animate the dialog and backdrop to transition in and out smoothly. Unfortunately, `@starting-style` is not yet supported in FireFox, so FireFox users will not see the animation, but the `<Dialog />` component will still work. Also, `@starting-style` is not yet supported in Tailwind CSS either, which is why I decided to use a `<style>` block to keep all the dialog animation code together for ease of readability and maintenance.
+
+That's it! If you'd like to have a look at the full code, I've set up a [StackBlitz](https://stackblitz.com/edit/github-isr5xg?file=src%2Fcomponents%2FDialog.astro) for you to play around with and experiment. Enjoy!
+
+## Bonus: Light Dismiss
+
+You may have noticed that you can't close a modal by clicking on the backdrop, typically referred to as a light dismiss. That's the expected behavior of a modal dialog. However, we can easily override that behavior with an event listener (see below). But if you're overriding the default behavior, then that's a strong indicator that you may be using the wrong element. Instead of `<dialog>`, you may want to have a look at using [popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover) instead.
+
+```astro
+---
+   ...
+---
+
+<dialog id="myDialog">
+  <!-- ... -->
+</dialog>
+
+<script>
+  const myDialog = document.getElementById("myDialog") as HTMLDialogElement;
+  // light dismiss
+  myDialog.addEventListener("click", ({ target }) => {
+    if (target.nodeName === 'DIALOG') {
+      target.close('dismiss')
+    }
+  })
+</script>
+```
+
+To handle the light dismiss, we simply add a "click" event handler to our `<dialog>` element. We then deconstruct the event object to extract the `target` property. If `target.nodeName` is "DIALOG", then we know that the backdrop was clicked, and we can close the dialog. We can pass an optional string value to the `close()` method to indicate how the dialog was closed.
+
+## Summary
+
+In this article, we explored how to build an Astro Modal Dialog Component with Tailwind CSS and a tiny bit of JavaScript. We learned that the `<dialog>` element provides a lot of built-in functionality that we used to have to code ourselves. We also learned that some recent additions to CSS allow us to animate the dialog and its backdrop, so that they transition in and out smoothly. You can use the lessons learned here to build your own Astro Modal Dialog Component that can be used repeatedly in your future projects.
+
+## Resources
+
+If you'd like to dive deeper into the `<dialog>` element, I encourage you to check out these resources:
+
+- [HTMLDialogElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement) (MDN)
+- [&lt;dialog&gt;: The Dialog element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) (MDN)
+- [Pop n' Lock Dialog Mini Web Machine](https://youtu.be/f3N-6MzK8Z0?list=PLNYkxOF6rcIDCWoS_GSIwA24gZcwtLCZj) (YouTube video by Adam Argyle)
+- [dialog = the easiest way to make a popup modal](https://www.youtube.com/watch?v=TAB_v6yBXIE) (YouTube video by Kevin Powell)
+- [Styling modals just got easier!](https://www.youtube.com/watch?v=RO40Opyizeg) (YouTube video by Kevin Powell)

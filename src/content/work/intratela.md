@@ -24,4 +24,4 @@ Develop a simple modern website for an IT firm that does not take itself too ser
 
 ### Highlights
 
-- Customized colour coordinated SVG artwork
+- Customized color coordinated SVG artwork

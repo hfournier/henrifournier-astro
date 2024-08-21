@@ -1,0 +1,25 @@
+<div
+	class="-z-20 col-start-1 row-span-10 row-start-1 mx-auto w-0.5 bg-grayish-200/25 md:col-start-2 dark:bg-grayish-800/25">
+</div>
+<div
+	class="my-timeline -z-10 col-start-1 row-span-10 row-start-1 mx-auto w-0.5 origin-top bg-primary-600 md:col-start-2">
+</div>
+
+<style>
+	.my-timeline {
+		transform: scaleY(0);
+		animation: expand-timeline linear both;
+		animation-timeline: view(block);
+		animation-range: entry-crossing 10% entry-crossing 105%;
+	}
+
+	@keyframes expand-timeline {
+		from {
+			transform: scaleY(0);
+		}
+
+		to {
+			transform: scaleY(1);
+		}
+	}
+</style>

@@ -1,0 +1,86 @@
+<div
+	class="relative col-start-1 row-start-1 mt-[1.125rem] h-10 bg-grayish-50 py-2 md:col-start-2 md:mt-11 dark:bg-grayish-950">
+	<div class="hexagon absolute h-6 bg-grayish-200/25 dark:bg-grayish-800/25"></div>
+	<div class="my-timeline-hex hexagon h-6 bg-primary-600"></div>
+</div>
+<div
+	class="relative col-start-1 row-start-2 mt-[1.125rem] h-10 bg-grayish-50 py-2 md:col-start-2 md:mt-11 dark:bg-grayish-950">
+	<div class="hexagon absolute h-6 bg-grayish-200/25 dark:bg-grayish-800/25"></div>
+	<div class="my-timeline-hex hexagon h-6 bg-primary-600"></div>
+</div>
+<div
+	class="relative col-start-1 row-start-3 mt-[1.125rem] h-10 bg-grayish-50 py-2 md:col-start-2 md:mt-11 dark:bg-grayish-950">
+	<div class="hexagon absolute h-6 bg-grayish-200/25 dark:bg-grayish-800/25"></div>
+	<div class="my-timeline-hex hexagon h-6 bg-primary-600"></div>
+</div>
+<div
+	class="relative col-start-1 row-start-4 mt-[1.125rem] h-10 bg-grayish-50 py-2 md:col-start-2 md:mt-11 dark:bg-grayish-950">
+	<div class="hexagon absolute h-6 bg-grayish-200/25 dark:bg-grayish-800/25"></div>
+	<div class="my-timeline-hex hexagon h-6 bg-primary-600"></div>
+</div>
+<div
+	class="relative col-start-1 row-start-5 mt-[1.125rem] h-10 bg-grayish-50 py-2 md:col-start-2 md:mt-11 dark:bg-grayish-950">
+	<div class="hexagon absolute h-6 bg-grayish-200/25 dark:bg-grayish-800/25"></div>
+	<div class="my-timeline-hex hexagon h-6 bg-primary-600"></div>
+</div>
+<div
+	class="relative col-start-1 row-start-6 mt-[1.125rem] h-10 bg-grayish-50 py-2 md:col-start-2 md:mt-11 dark:bg-grayish-950">
+	<div class="hexagon absolute h-6 bg-grayish-200/25 dark:bg-grayish-800/25"></div>
+	<div class="my-timeline-hex hexagon h-6 bg-primary-600"></div>
+</div>
+<div
+	class="relative col-start-1 row-start-7 mt-[1.125rem] h-10 bg-grayish-50 py-2 md:col-start-2 md:mt-11 dark:bg-grayish-950">
+	<div class="hexagon absolute h-6 bg-grayish-200/25 dark:bg-grayish-800/25"></div>
+	<div class="my-timeline-hex hexagon h-6 bg-primary-600"></div>
+</div>
+<div
+	class="relative col-start-1 row-start-8 mt-[1.125rem] h-10 bg-grayish-50 py-2 md:col-start-2 md:mt-11 dark:bg-grayish-950">
+	<div class="hexagon absolute h-6 bg-grayish-200/25 dark:bg-grayish-800/25"></div>
+	<div class="my-timeline-hex hexagon h-6 bg-primary-600"></div>
+</div>
+<div
+	class="relative col-start-1 row-start-9 mt-[1.125rem] h-10 bg-grayish-50 py-2 md:col-start-2 md:mt-11 dark:bg-grayish-950">
+	<div class="hexagon absolute h-6 bg-grayish-200/25 dark:bg-grayish-800/25"></div>
+	<div class="my-timeline-hex hexagon h-6 bg-primary-600"></div>
+</div>
+<div
+	class="relative col-start-1 row-start-10 mt-[1.125rem] h-10 bg-grayish-50 py-2 md:col-start-2 md:mt-11 dark:bg-grayish-950">
+	<div class="hexagon absolute h-6 bg-grayish-200/25 dark:bg-grayish-800/25"></div>
+	<div class="my-timeline-hex hexagon h-6 bg-primary-600"></div>
+</div>
+
+<style>
+	.my-timeline {
+		transform: scaleY(0);
+		animation: expand-timeline linear both;
+		animation-timeline: view(block);
+		animation-range: entry-crossing 10% entry-crossing 105%;
+	}
+
+	.my-timeline-hex {
+		opacity: 0;
+		animation: show-hexagon linear both;
+		animation-timeline: view(block);
+		animation-range: contain 20% contain 28%;
+	}
+
+	@keyframes expand-timeline {
+		from {
+			transform: scaleY(0);
+		}
+
+		to {
+			transform: scaleY(1);
+		}
+	}
+
+	@keyframes show-hexagon {
+		from {
+			opacity: 0;
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
+</style>

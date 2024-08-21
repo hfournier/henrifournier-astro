@@ -1,9 +1,9 @@
 ---
-import Section from "./Section.astro"
+import Section from "../Section.astro"
 
 import { getCollection } from "astro:content"
 import WorkItem from "./WorkItem.astro"
-import WorkDialog from "./WorkDialog.astro"
+import WorkItemDialog from "./WorkItemDialog.astro"
 
 const works = await getCollection("work")
 ---
@@ -16,10 +16,9 @@ const works = await getCollection("work")
 	</p>
 
 	<div
-		class="my-16 grid w-full auto-cols-fr auto-rows-fr gap-x-[3.75rem] gap-y-2 md:gap-x-11 lg:gap-x-8 xl:gap-x-10"
-	>
+		class="my-16 grid w-full auto-cols-fr auto-rows-fr gap-x-[3.75rem] gap-y-2 md:gap-x-11 lg:gap-x-8 xl:gap-x-10">
 		{works.map((work) => <WorkItem {work} />)}
 	</div>
 
-	{works.map((work) => <WorkDialog {work} />)}
+	{works.map((work) => <WorkItemDialog {work} />)}
 </Section>
