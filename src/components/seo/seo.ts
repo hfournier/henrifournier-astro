@@ -261,11 +261,3 @@ const px = z.custom<`${number}px`>((val) => {
 })
 
 export type px = z.infer<typeof px> // `${number}px`
-
-interface Meta extends HTMLMetaElement {
-	property: string
-}
-
-const meta = z.custom<astroHTML.JSX.MetaHTMLAttributes>((val) => {
-	return true
-})
