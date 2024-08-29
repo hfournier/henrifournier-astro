@@ -13,8 +13,8 @@ const { post } = Astro.props
 const comments = await db
 	.select()
 	.from(Comment)
-	.where(eq(Comment.postSlug, post.slug))
-	// .where(and(eq(Comment.status, "approved"), eq(Comment.postSlug, post.slug)))
+	// .where(eq(Comment.postSlug, post.slug))
+	.where(and(eq(Comment.status, "approved"), eq(Comment.postSlug, post.slug)))
 	.orderBy(Comment.createdAt)
 ---
 

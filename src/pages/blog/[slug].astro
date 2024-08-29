@@ -14,10 +14,10 @@ import AsideTags from "@components/aside/AsideTags.astro"
 import Seo from "@components/seo/Seo.astro"
 import { Icon } from "astro-icon/components"
 import Comments from "@components/Comments.astro"
-import Emoji from "@components/Emoji.astro"
+// import Emoji from "@components/Emoji.astro"
 
 export const getStaticPaths = (async () => {
-	const blogs = await getCollection("blogs")
+	const blogs = await getCollection("blogs", (entry) => entry.data.draft !== true)
 	return blogs.map((entry) => {
 		return {
 			params: { slug: entry.slug },
@@ -32,8 +32,8 @@ const author = entry.data.author ? await getEntry("authors", entry.data.author.i
 
 const { Content, headings, remarkPluginFrontmatter } = await entry.render()
 
-const rocket = "🚀"
-const rocketCode = 0x0001f680
+// const rocket = "🚀"
+// const rocketCode = 0x0001f680
 ---
 
 <BlogLayout>
