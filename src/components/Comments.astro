@@ -1,45 +1,25 @@
 ---
 import type { CollectionEntry } from "astro:content"
-import { db, and, eq, Comment } from "astro:db"
 import { Icon } from "astro-icon/components"
 import InputTextarea from "./form/InputTextarea.astro"
 import InputText from "./form/InputText.astro"
 import Button from "./form/Button.astro"
-
-export const prerender = false
+import CommentList from "./CommentList.astro"
 
 type Props = {
 	post: CollectionEntry<"blogs">
 }
 
 const { post } = Astro.props
-
-const comments = await db
-	.select()
-	.from(Comment)
-	.where(eq(Comment.postSlug, post.slug))
-	// .where(and(eq(Comment.status, "approved"), eq(Comment.postSlug, post.slug)))
-	.orderBy(Comment.createdAt)
 ---
 
 <section class="my-12 space-y-4 rounded border border-secondary-200 p-4 dark:border-secondary-800">
-	<div class="flex items-center gap-4">
-		<h2 class="font-baloo2 text-3xl font-bold">Comments</h2>
-		<button type="button">
-			<span class="sr-only">Add a comment</span>
-			<Icon
-				class="size-7 hover:text-secondary-600 dark:hover:text-secondary-400"
-				name="mdi:comment-plus"
-				aria-hidden="true"
-				title="Add a comment"
-			/>
-		</button>
-	</div>
+	<h2 class="font-baloo2 text-3xl font-bold">Comments</h2>
 	<p>
-		{comments && comments.length === 0 ? "Be the first to" : "Please"} leave me a comment about <span
-			class="fonrt-baloo2 text-secondary-600 dark:text-secondary-400">
+		Please share your thoughts about <span
+			class="font-baloo2 text-secondary-600 dark:text-secondary-400">
 			{post.data.title}</span
-		> and let me know what you thought of the article. Thank you.
+		> by leaving me a comment. Thank you.
 	</p>
 	<details class="group peer">
 		<summary class="list-none py-2">
@@ -96,31 +76,21 @@ const comments = await db
 			</Button>
 		</form>
 	</div>
-	{
-		comments && comments.length > 0 && (
-			<>
-				<div class="my-4 space-y-4">
-					{comments &&
-						comments.length > 0 &&
-						comments.map((comment) => (
-							<div class="space-y-3 rounded border border-grayish-200 bg-grayish-100 p-4 text-grayish-700 dark:border-grayish-700 dark:bg-grayish-900 dark:text-grayish-200">
-								<p class="">{comment.text}</p>
-								<footer class="flex gap-1.5 text-sm text-grayish-600 dark:text-grayish-300">
-									<div class="">Written by {comment.name ?? "Anonymous"}</div> on
-									<time class="" datetime={comment.createdAt.toISOString()}>
-										{comment.createdAt.toLocaleDateString(undefined, {
-											month: "short",
-											day: "numeric",
-											year: "numeric"
-										})}
-									</time>
-								</footer>
-							</div>
-						))}
-				</div>
-			</>
-		)
-	}
+	<ul
+		class="space-y-1 rounded border-red-600 dark:border-red-400 [&:not(:empty)]:border [&:not(:empty)]:p-2"
+		id="commentErrors">
+	</ul>
+	<div
+		class="rounded border-secondary-200 text-sm text-secondary-600 dark:border-secondary-800 dark:text-secondary-400 [&:not(:empty)]:border [&:not(:empty)]:p-2"
+		id="commentSuccess">
+	</div>
+	<CommentList {post} server:defer>
+		<div class="flex items-center gap-2" slot="fallback">
+			<Icon class="size-8" name="mdi:comment" />
+			Loading comments...
+		</div>
+	</CommentList>
+
 	<p class="text-sm text-grayish-600 dark:text-grayish-300">
 		Note: rude, inappropriate, or offensive comments will be deleted at my discretion.
 	</p>
@@ -135,15 +105,33 @@ const comments = await db
 	formComment.addEventListener("submit", async (event) => {
 		event.preventDefault()
 		const formData = new FormData(formComment)
-		// TODO: sanitize inputs
-		const { data, error } = await actions.comment(formData)
-		if (data) {
-			formComment.reset()
-			console.log(`Result: ${data}`)
-		}
+		try {
+			const commentSuccess = document.getElementById("commentSuccess") as HTMLDivElement
+			commentSuccess.innerHTML = ""
+			const commentErrors = document.getElementById("commentErrors") as HTMLUListElement
+			commentErrors.innerHTML = ""
+			const { data, error } = await actions.addComment(formData)
 
-		if (error && isInputError(error)) {
-			console.error(error.fields)
+			if (error) {
+				if (isInputError(error)) {
+					Object.entries(error.fields).forEach(([key, value]) => {
+						value.forEach((errorMsg) => {
+							const li = document.createElement("li")
+							li.classList.add("text-sm", "text-red-600", "dark:text-red-400")
+							li.innerHTML = errorMsg
+							commentErrors.appendChild(li)
+						})
+					})
+					console.error("Comment submission input error: ", error.fields)
+				} else {
+					console.error("Comment submission other error: ", error)
+				}
+			} else {
+				formComment.reset()
+				commentSuccess.innerHTML = "Your comment has been submitted for approval. Thank you!"
+			}
+		} catch (error) {
+			console.error("Comment submission server error: ", error)
 		}
 	})
 </script>

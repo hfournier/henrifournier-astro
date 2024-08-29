@@ -11,18 +11,18 @@
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.3",
-		"@astrojs/db": "^0.13.2",
-		"@astrojs/mdx": "^3.1.4",
+		"@astrojs/db": "^0.14.0",
+		"@astrojs/mdx": "^3.1.5",
 		"@astrojs/netlify": "^5.5.1",
 		"@astrojs/tailwind": "^5.1.0",
-		"@iconify-json/devicon": "^1.1.50",
+		"@iconify-json/devicon": "^1.1.51",
 		"@iconify-json/logos": "^1.1.44",
 		"@iconify-json/mdi": "^1.1.68",
-		"astro": "^4.14.3",
-		"astro-icon": "^1.1.0",
+		"astro": "^4.15.1",
+		"astro-icon": "^1.1.1",
 		"mdast-util-to-string": "^4.0.0",
 		"reading-time": "^1.5.0",
-		"sharp": "^0.33.4",
+		"sharp": "^0.33.5",
 		"typescript": "^5.5.4"
 	},
 	"pnpm": {
@@ -31,7 +31,7 @@
 		}
 	},
 	"devDependencies": {
-		"@tailwindcss/typography": "^0.5.14",
+		"@tailwindcss/typography": "^0.5.15",
 		"pagefind": "^1.1.0",
 		"prettier": "^3.3.3",
 		"prettier-plugin-astro": "^0.14.1",

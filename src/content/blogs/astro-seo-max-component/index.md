@@ -2,6 +2,7 @@
 title: Astro SEO Max Component
 description: Add SEO metadata to your Astro project without having to think about `<meta>` tags. Just enter the metadata into a type-safe prop in the frontmatter.
 createdAt: 2024-05-23
+draft: true
 author: henri-fournier
 featuredMedia:
   src: cover.png
