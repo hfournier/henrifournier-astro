@@ -1,0 +1,475 @@
+[
+	{
+		"id": "U+1F44B",
+		"codePoint": "U+1F44B",
+		"name": "Waving hand",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{
+		"id": "U+1F44D",
+		"codePoint": "U+1F44D",
+		"name": "Thumbs up",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{
+		"id": "U+1F44E",
+		"codePoint": "U+1F44E",
+		"name": "Thumbs down",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{
+		"id": "U+261D",
+		"codePoint": "U+261D",
+		"name": "Index pointing up",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{
+		"id": "U+1F91C",
+		"codePoint": "U+1F91C",
+		"name": "Right-facing fist",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{
+		"id": "U+1F91B",
+		"codePoint": "U+1F91B",
+		"name": "Left-facing fist",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{
+		"id": "U+1F44F",
+		"codePoint": "U+1F44F",
+		"name": "Clapping Hands",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{
+		"id": "U+1F64C",
+		"codePoint": "U+1F64C",
+		"name": "Raising Hands",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{
+		"id": "U+1F64F",
+		"codePoint": "U+1F64F",
+		"name": "Folded Hands",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{ "id": "U+1F9E0", "codePoint": "U+1F9E0", "name": "Brain", "category": "people" },
+	{ "id": "U+1F440", "codePoint": "U+1F440", "name": "Eyes", "category": "people" },
+	{
+		"id": "U+1F9D3",
+		"codePoint": "U+1F9D3",
+		"name": "Older adult",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{
+		"id": "U+1F474",
+		"codePoint": "U+1F474",
+		"name": "Older man",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{
+		"id": "U+1F475",
+		"codePoint": "U+1F475",
+		"name": "Older woman",
+		"category": "people",
+		"allowSkinTone": true
+	},
+	{
+		"id": "U+1F9D1",
+		"codePoint": "U+1F9D1",
+		"name": "Person",
+		"category": "people",
+		"allowSkinTone": true,
+		"allowHairStyle": true,
+		"allowGender": true
+	},
+	{
+		"id": "U+1F9D4",
+		"codePoint": "U+1F9D4",
+		"name": "Bearded person",
+		"category": "people",
+		"allowSkinTone": true,
+		"allowGender": true
+	},
+	{
+		"id": "U+1F468",
+		"codePoint": "U+1F468",
+		"name": "Man",
+		"category": "people",
+		"allowSkinTone": true,
+		"allowHairStyle": true
+	},
+	{
+		"id": "U+1F469",
+		"codePoint": "U+1F469",
+		"name": "Woman",
+		"category": "people",
+		"allowSkinTone": true,
+		"allowHairStyle": true
+	},
+	{
+		"id": "U+1F340",
+		"codePoint": "U+1F340",
+		"name": "Four Leaf Clover",
+		"category": "nature"
+	},
+	{
+		"id": "U+1F308",
+		"codePoint": "U+1F308",
+		"name": "Rainbow",
+		"category": "nature"
+	},
+	{
+		"id": "U+26A1",
+		"codePoint": "U+26A1",
+		"name": "High Voltage Sign",
+		"category": "nature"
+	},
+	{
+		"id": "U+1F525",
+		"codePoint": "U+1F525",
+		"name": "Fire",
+		"category": "nature"
+	},
+	{
+		"id": "U+2615",
+		"codePoint": "U+2615",
+		"name": "Hot Beverage",
+		"category": "food"
+	},
+	{
+		"id": "U+1F37E",
+		"codePoint": "U+1F37E",
+		"name": "Bottle with Popping Cork",
+		"category": "food"
+	},
+	{
+		"id": "U+1F377",
+		"codePoint": "U+1F377",
+		"name": "Wine Glass",
+		"category": "food"
+	},
+	{
+		"id": "U+1F378",
+		"codePoint": "U+1F378",
+		"name": "Cocktail Glass",
+		"category": "food"
+	},
+	{
+		"id": "U+1F379",
+		"codePoint": "U+1F379",
+		"name": "Tropical Drink",
+		"category": "food"
+	},
+	{
+		"id": "U+1F37A",
+		"codePoint": "U+1F37A",
+		"name": "Beer Mug",
+		"category": "food"
+	},
+	{
+		"id": "U+1F37B",
+		"codePoint": "U+1F37B",
+		"name": "Clinking Beer Mugs",
+		"category": "food"
+	},
+	{
+		"id": "U+1F942",
+		"codePoint": "U+1F942",
+		"name": "Clinking Glasses",
+		"category": "food"
+	},
+	{
+		"id": "U+1F943",
+		"codePoint": "U+1F943",
+		"name": "Tumbler Glass",
+		"category": "food"
+	},
+	{
+		"id": "U+1F386",
+		"codePoint": "U+1F386",
+		"name": "Fireworks",
+		"category": "activity"
+	},
+	{
+		"id": "U+1F387",
+		"codePoint": "U+1F387",
+		"name": "Firework Sparkler",
+		"category": "activity"
+	},
+	{
+		"id": "U+1F9E8",
+		"codePoint": "U+1F9E8",
+		"name": "Firecracker",
+		"category": "activity"
+	},
+	{
+		"id": "U+2728",
+		"codePoint": "U+2728",
+		"name": "Sparkles",
+		"category": "activity"
+	},
+	{
+		"id": "U+1F389",
+		"codePoint": "U+1F389",
+		"name": "Party Popper",
+		"category": "activity"
+	},
+	{
+		"id": "U+1F38A",
+		"codePoint": "U+1F38A",
+		"name": "Confetti Ball",
+		"category": "activity"
+	},
+	{
+		"id": "U+1F3C6",
+		"codePoint": "U+1F3C6",
+		"name": "Trophy",
+		"category": "activity"
+	},
+	{
+		"id": "U+1F3AF",
+		"codePoint": "U+1F3AF",
+		"name": "Direct Hit",
+		"category": "activity"
+	},
+	{
+		"id": "U+1F9E9",
+		"codePoint": "U+1F9E9",
+		"name": "Jigsaw Puzzle Piece",
+		"category": "activity"
+	},
+	{
+		"id": "U+1F30D",
+		"codePoint": "U+1F30D",
+		"name": "Earth Globe Europe-Africa",
+		"category": "travel"
+	},
+	{
+		"id": "U+1F30E",
+		"codePoint": "U+1F30E",
+		"name": "Earth Globe Americas",
+		"category": "travel"
+	},
+	{
+		"id": "U+1F30F",
+		"codePoint": "U+1F30F",
+		"name": "Earth Globe Asia-Australia",
+		"category": "travel"
+	},
+	{
+		"id": "U+1F6CE",
+		"codePoint": "U+1F6CE",
+		"name": "Bellhop Bell",
+		"category": "travel"
+	},
+	{
+		"id": "U+1F6D1",
+		"codePoint": "U+1F6D1",
+		"name": "Octagonal Sign",
+		"category": "travel"
+	},
+	{
+		"id": "U+1F6A7",
+		"codePoint": "U+1F6A7",
+		"name": "Construction Sign",
+		"category": "travel"
+	},
+	{
+		"id": "U+1F6EB",
+		"codePoint": "U+1F6EB",
+		"name": "Airplane Departure",
+		"category": "travel"
+	},
+	{
+		"id": "U+1F680",
+		"codePoint": "U+1F680",
+		"name": "Rocket",
+		"category": "travel"
+	},
+	{
+		"id": "U+1F6F8",
+		"codePoint": "U+1F6F8",
+		"name": "Flying Saucer",
+		"category": "travel"
+	},
+	{
+		"id": "U+1F453",
+		"codePoint": "U+1F453",
+		"name": "Eyeglasses",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F576",
+		"codePoint": "U+1F576",
+		"name": "Dark Sunglasses",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F97D",
+		"codePoint": "U+1F97D",
+		"name": "Goggles",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F4E2",
+		"codePoint": "U+1F4E2",
+		"name": "Public Address Loudspeaker",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F4E3",
+		"codePoint": "U+1F4E3",
+		"name": "Cheering Megaphone",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F4EF",
+		"codePoint": "U+1F4EF",
+		"name": "Postal Horn",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F514",
+		"codePoint": "U+1F514",
+		"name": "Bell",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F941",
+		"codePoint": "U+1F941",
+		"name": "Drum with Drumsticks",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F4D3",
+		"codePoint": "U+1F4D3",
+		"name": "Notebook",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F516",
+		"codePoint": "U+1F516",
+		"name": "Bookmark",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F4CC",
+		"codePoint": "U+1F4CC",
+		"name": "Pushpin",
+		"category": "objects"
+	},
+	{
+		"id": "U+231A",
+		"codePoint": "U+231A",
+		"name": "Watch",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F4B0",
+		"codePoint": "U+1F4B0",
+		"name": "Money Bag",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F50E",
+		"codePoint": "U+1F50E",
+		"name": "Right-Pointing Magnifying Glass",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F4A1",
+		"codePoint": "U+1F4A1",
+		"name": "Electric Light Bulb",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F511",
+		"codePoint": "U+1F511",
+		"name": "Key",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F4A3",
+		"codePoint": "U+1F4A3",
+		"name": "Bomb",
+		"category": "objects"
+	},
+	{
+		"id": "U+2699",
+		"codePoint": "U+2699",
+		"name": "Gear",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F517",
+		"codePoint": "U+1F517",
+		"name": "Link Symbol",
+		"category": "objects"
+	},
+	{
+		"id": "U+1FA79",
+		"codePoint": "U+1FA79",
+		"name": "Adhesive Bandage",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F9F7",
+		"codePoint": "U+1F9F7",
+		"name": "Safety Pin",
+		"category": "objects"
+	},
+	{
+		"id": "U+1F4AF",
+		"codePoint": "U+1F4AF",
+		"name": "Hundred Points Symbol",
+		"category": "symbols"
+	},
+	{
+		"id": "U+1F4A5",
+		"codePoint": "U+1F4A5",
+		"name": "Collision Symbol",
+		"category": "symbols"
+	},
+	{
+		"id": "U+1F4AD",
+		"codePoint": "U+1F4AD",
+		"name": "Thought Balloon",
+		"category": "symbols"
+	},
+	{
+		"id": "U+2714",
+		"codePoint": "U+2714",
+		"name": "Heavy Check Mark",
+		"category": "symbols"
+	},
+	{
+		"id": "U+1F4AD",
+		"codePoint": "U+1F4AD",
+		"name": "Thought Balloon",
+		"category": "symbols"
+	},
+	{
+		"id": "U+1F4AD",
+		"codePoint": "U+1F4AD",
+		"name": "Thought Balloon",
+		"category": "symbols"
+	},
+	{
+		"id": "U+1F6A9",
+		"codePoint": "U+1F6A9",
+		"name": "Triangular Flag on Post",
+		"category": "flags"
+	}
+]

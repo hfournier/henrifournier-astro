@@ -17,7 +17,7 @@ import Button from "./form/Button.astro"
 </button>
 
 <dialog
-	class="max-h-[90dvh] w-[640px] max-w-[95dvw] bg-transparent backdrop:bg-grayish-500/50 backdrop:backdrop-blur-sm"
+	class="max-h-[90dvh] w-[640px] max-w-[95dvw] overscroll-y-contain bg-transparent backdrop:bg-grayish-500/50 backdrop:backdrop-blur-sm"
 	id="dlgSearch"
 	aria-label="Search">
 	<div
@@ -46,11 +46,13 @@ import Button from "./form/Button.astro"
 			<div class="flex flex-col gap-3">
 				<div class="peer flex gap-1 text-sm empty:hidden" id="searchResultsInfo"></div>
 				<div
-					class="scrollable flex h-[60dvh] flex-col gap-4 overflow-y-auto transition-all duration-300 empty:h-0"
+					class="scrollable flex h-[60dvh] flex-col gap-4 overflow-y-auto transition-[height] duration-300 empty:h-0"
 					id="searchResults">
 				</div>
-				<Button class="justify-center peer-empty:hidden" id="btnLoadMoreResults" outline={true}
-					>Load more results</Button
+				<Button
+					class="justify-center disabled:cursor-not-allowed disabled:border-grayish-400 disabled:text-grayish-400 peer-empty:hidden dark:disabled:border-grayish-600 dark:disabled:text-grayish-600"
+					id="btnLoadMoreResults"
+					outline={true}>Load more results</Button
 				>
 				<!-- <button
 					id="btnLoadMoreResults"
@@ -76,9 +78,9 @@ import Button from "./form/Button.astro"
 	<div
 		class="group flex gap-2 border border-grayish-200 bg-grayish-50 p-2 pl-6 hover:border-primary-600 dark:border-grayish-800 dark:bg-grayish-900 dark:hover:border-primary-500">
 		<Icon class="size-8 shrink-0" name="mdi:file-document-arrow-right" aria-hidden="true" />
-		<div class="relative flex flex-col gap-1 after:absolute after:inset-0">
+		<div class="relative flex flex-col gap-1">
 			<a
-				class="no-underline group-hover:text-primary-600 dark:group-hover:text-primary-500"
+				class="no-underline after:absolute after:inset-0 group-hover:text-primary-600 dark:group-hover:text-primary-500"
 				href="#">Result 1 Sub Heading</a
 			>
 			<p

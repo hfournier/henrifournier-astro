@@ -139,8 +139,7 @@ export default {
 				}
 			},
 			fontFamily: {
-				baloo2: ['"Baloo 2"'],
-				bubblegum: ['"Bubblegum Sans"']
+				baloo2: ['"Baloo 2"']
 			},
 			gridColumnStart: {
 				15: "15",

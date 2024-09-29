@@ -21,7 +21,8 @@ const { label, class: classList, ...attributes } = Astro.props
 		>{label}</label
 	>
 	<div
-		class="absolute -bottom-4 left-4 hidden text-xs text-red-600 peer-[&:user-invalid]:block dark:text-red-400">
+		class="absolute -bottom-4 left-4 hidden text-xs text-red-600 peer-[&:user-invalid]:block dark:text-red-400"
+	>
 		{
 			attributes && attributes.type === "email"
 				? "A valid email address is required"

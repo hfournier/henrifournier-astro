@@ -1,4 +1,5 @@
 import { seoSchema } from "@components/seo/seo"
+import { emojiCategories } from "@utils/emoji"
 import { file } from "astro/loaders"
 import { z, defineCollection, type SchemaContext, reference } from "astro:content"
 
@@ -66,6 +67,23 @@ const workSchema = ({ image }: SchemaContext) =>
 		tags: z.array(z.string()).optional()
 	})
 
+export type EmojiType = z.infer<typeof emojiSchema>
+const emojiSchema = z.object({
+	id: z.string(),
+	codePoint: z.string(),
+	name: z.string(),
+	category: z.enum([emojiCategories[0].id, ...emojiCategories.slice(1).map((c) => c.id)]),
+	allowSkinTone: z.boolean().optional(),
+	allowHairStyle: z.boolean().optional(),
+	allowGender: z.boolean().optional()
+})
+
+const emojiExtraSchema = z.object({
+	id: z.string(),
+	codePoint: z.string(),
+	name: z.string()
+})
+
 const hexagonSchema = z.object({
 	id: z.string(),
 	cells: z.array(
@@ -78,7 +96,32 @@ const hexagonSchema = z.object({
 	)
 })
 
+const emojiCollection = defineCollection({
+	type: "content_layer",
+	loader: file("src/emojis/emojis.json"),
+	schema: emojiSchema
+})
+
+const emojiHairStyleCollection = defineCollection({
+	type: "content_layer",
+	loader: file("src/emojis/hair-styles.json"),
+	schema: emojiExtraSchema
+})
+
+const emojiGenderCollection = defineCollection({
+	type: "content_layer",
+	loader: file("src/emojis/genders.json"),
+	schema: emojiExtraSchema
+})
+
+const emojiSkinTonesCollection = defineCollection({
+	type: "content_layer",
+	loader: file("src/emojis/skin-tones.json"),
+	schema: emojiExtraSchema
+})
+
 const hexagonsCollection = defineCollection({
+	type: "content_layer",
 	// The file loader loads a single file which contains multiple entries. The path is relative to the project root, or an absolute path.
 	// The data must be an array of objects, each with a unique `id` property, or an object with IDs as keys and entries as values.
 	loader: file("src/data/hexagons.json"),
@@ -116,5 +159,9 @@ export const collections = {
 	categories: categoriesCollection,
 	tags: tagsCollection,
 	work: workCollection,
+	emojis: emojiCollection,
+	genders: emojiGenderCollection,
+	"hair-styles": emojiHairStyleCollection,
+	"skin-tones": emojiSkinTonesCollection,
 	hexagons: hexagonsCollection
 }

@@ -12,7 +12,7 @@ export default async function seed() {
 		{
 			name: "Bob Johnson",
 			email: "bobjohnson@example.com",
-			text: "I was struggling to get the modal to work with my Astro project, but this article helped me figure it out. Thanks for the clear instructions!",
+			text: "I was struggling to get the &lt;b&gt;modal&lt;/b&gt; to work with my **Astro** project, but this article helped me figure it out. `&lt;script&gt;alert(&#39;test&#39;)&lt;/script&gt;` Thanks for the clear instructions!\n> Thanks for the clear instructions!\n```&lt;script&gt;alert(&#39;test&#39;)&lt;/script&gt;```",
 			postSlug: "build-astro-modal-dialog-component",
 			createdAt: new Date("2024-08-02T00:00:00.000Z"),
 			status: "approved"
@@ -52,7 +52,7 @@ export default async function seed() {
 		{
 			name: "Bob Johnson",
 			email: "bobjohnson@example.com",
-			text: "I appreciate the article on using Astro SEO Max Component. It was a great resource for adding SEO metadata to my Astro project.",
+			text: "I appreciate the article on using **Astro SEO Max Component**. It was a great resource for adding SEO metadata to my Astro project.",
 			postSlug: "astro-seo-max-component",
 			createdAt: new Date("2024-06-27T00:00:00.000Z"),
 			status: "approved"

@@ -1,5 +1,6 @@
 <button
 	class="rounded-sm focus:outline-none focus-visible:outline-offset-2 focus-visible:outline-primary-600 lg:hidden dark:focus-visible:outline-primary-500"
+	id="main-nav-toggle"
 	type="button"
 	popovertarget="main-nav">
 	<svg
@@ -40,16 +41,16 @@
 		transition: stroke-dashoffset var(--transition-duration);
 	}
 
-	[popover]:popover-open + button > svg {
+	[popover]:popover-open + button#main-nav-toggle > svg {
 		transform: rotate(45deg);
 	}
 
-	[popover]:popover-open + button > svg .top-line,
-	[popover]:popover-open + button > svg .bottom-line {
+	[popover]:popover-open + button#main-nav-toggle > svg .top-line,
+	[popover]:popover-open + button#main-nav-toggle > svg .bottom-line {
 		stroke-dashoffset: -99px;
 	}
 
-	[popover]:popover-open + button > svg .middle-line {
+	[popover]:popover-open + button#main-nav-toggle > svg .middle-line {
 		transform: rotate(90deg);
 	}
 </style>

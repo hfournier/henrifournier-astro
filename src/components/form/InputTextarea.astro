@@ -1,25 +1,306 @@
 ---
-interface Props extends astroHTML.JSX.TextareaHTMLAttributes {
+import EmojiPicker from "@components/EmojiPicker.astro"
+import { Icon } from "astro-icon/components"
+
+type Props = Omit<astroHTML.JSX.TextareaHTMLAttributes, "class" | "id"> & {
+	id: string
 	label: string
 	class?: string
+	allowMarkdown?: boolean
 }
-const { label, class: classList, ...attributes } = Astro.props
+const { id, label, class: classList, allowMarkdown = false, ...attributes } = Astro.props
 ---
 
-<div class="relative grow">
-	<textarea
-		class:list={[
-			"scrollable peer w-full rounded border-2 border-grayish-400 bg-grayish-50 px-3.5 pt-2 text-grayish-900 placeholder-transparent valid:border-grayish-300 focus:border-secondary-600 focus:outline-none dark:bg-grayish-800 dark:text-grayish-100 dark:focus:border-secondary-300 [&:user-invalid]:border-red-600 dark:[&:user-invalid]:border-red-300",
-			classList
-		]}
-		{...attributes}></textarea>
-	<label
-		for={attributes.id}
-		class="pointer-events-none absolute -top-2.5 left-2 rounded bg-grayish-50 px-2 text-sm text-grayish-600 transition-all after:pl-0.5 after:text-red-600 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-500 after:peer-required:content-['*'] peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-secondary-700 dark:bg-grayish-800 dark:text-grayish-300 dark:after:text-red-300 dark:peer-placeholder-shown:text-grayish-300 dark:peer-focus:text-secondary-300"
-		>{label}</label
-	>
-	<div
-		class="absolute -bottom-3 left-4 hidden text-xs text-red-600 peer-[&:user-invalid]:block dark:text-red-400">
-		{`A ${label.toLocaleLowerCase()} is required`}
+<div>
+	{
+		allowMarkdown && (
+			<>
+				<div id="toolbar" class="mb-4 flex gap-1">
+					<button
+						class="rounded border border-transparent p-1.5 text-grayish-600 enabled:hover:border-grayish-500 enabled:hover:bg-grayish-50 enabled:hover:text-secondary-600 disabled:opacity-50 dark:text-grayish-400 dark:enabled:hover:bg-grayish-900 dark:enabled:hover:text-secondary-400"
+						type="button"
+						id="btnFormatBold"
+						title="Bold"
+						disabled>
+						<span class="sr-only">Format as bold</span>
+						<Icon class="size-6" name="mdi:format-bold" aria-hidden="true" />
+					</button>
+					<button
+						class="rounded border border-transparent p-1.5 text-grayish-600 enabled:hover:border-grayish-500 enabled:hover:bg-grayish-50 enabled:hover:text-secondary-600 disabled:opacity-50 dark:text-grayish-400 dark:enabled:hover:bg-grayish-900 dark:enabled:hover:text-secondary-400"
+						type="button"
+						id="btnFormatItalic"
+						title="Italic"
+						disabled>
+						<span class="sr-only">Format as italic</span>
+						<Icon class="size-6" name="mdi:format-italic" aria-hidden="true" />
+					</button>
+					<button
+						class="rounded border border-transparent p-1.5 text-grayish-600 enabled:hover:border-grayish-500 enabled:hover:bg-grayish-50 enabled:hover:text-secondary-600 disabled:opacity-50 dark:text-grayish-400 dark:enabled:hover:bg-grayish-900 dark:enabled:hover:text-secondary-400"
+						type="button"
+						id="btnFormatDel"
+						title="Strikethrough"
+						disabled>
+						<span class="sr-only">Format as strikethrough</span>
+						<Icon class="size-6" name="mdi:format-strikethrough-variant" aria-hidden="true" />
+					</button>
+					<button
+						class="rounded border border-transparent p-1.5 text-grayish-600 enabled:hover:border-grayish-500 enabled:hover:bg-grayish-50 enabled:hover:text-secondary-600 disabled:opacity-50 dark:text-grayish-400 dark:enabled:hover:bg-grayish-900 dark:enabled:hover:text-secondary-400"
+						type="button"
+						id="btnFormatCode"
+						title="Code"
+						disabled>
+						<span class="sr-only">Format as inline code</span>
+						<Icon class="size-6" name="mdi:code-tags" aria-hidden="true" />
+					</button>
+					<button
+						class="rounded border border-transparent p-1.5 text-grayish-600 enabled:hover:border-grayish-500 enabled:hover:bg-grayish-50 enabled:hover:text-secondary-600 disabled:opacity-50 dark:text-grayish-400 dark:enabled:hover:bg-grayish-900 dark:enabled:hover:text-secondary-400"
+						type="button"
+						id="btnFormatCodeBlock"
+						title="Code Block">
+						<span class="sr-only">Format as code block</span>
+						<Icon class="size-6" name="mdi:code-block-tags" aria-hidden="true" />
+					</button>
+					<button
+						class="rounded border border-transparent p-1.5 text-grayish-600 enabled:hover:border-grayish-500 enabled:hover:bg-grayish-50 enabled:hover:text-secondary-600 disabled:opacity-50 dark:text-grayish-400 dark:enabled:hover:bg-grayish-900 dark:enabled:hover:text-secondary-400"
+						type="button"
+						id="btnFormatBlockQuote"
+						title="Block Quote">
+						<span class="sr-only">Format as block quote</span>
+						<Icon class="size-6" name="mdi:format-quote-open" aria-hidden="true" />
+					</button>
+					<button
+						class="rounded border border-transparent p-1.5 text-grayish-600 enabled:hover:border-grayish-500 enabled:hover:bg-grayish-50 enabled:hover:text-secondary-600 disabled:opacity-50 dark:text-grayish-400 dark:enabled:hover:bg-grayish-900 dark:enabled:hover:text-secondary-400"
+						type="button"
+						id="btnEmojiPicker"
+						title="Emoji picker">
+						<span class="sr-only">Emoji picker</span>
+						<Icon class="size-6" name="mdi:emoji-outline" aria-hidden="true" />
+					</button>
+				</div>
+				<EmojiPicker />
+			</>
+		)
+	}
+	<div class="group relative flex grow items-stretch">
+		{
+			allowMarkdown && (
+				<div
+					class="scrollable absolute inset-0.5 overflow-y-auto whitespace-pre-wrap rounded bg-grayish-100 px-3.5 pt-2 transition-opacity duration-200 group-focus-within:opacity-0 dark:bg-grayish-900 [&_blockquote]:border-l-4 [&_blockquote]:border-l-grayish-500 [&_blockquote]:pl-4"
+					id="markdown"
+					data-markdown={allowMarkdown ? "true" : null}
+				/>
+			)
+		}
+		<div
+			class="invisible max-h-24 w-full break-words rounded border-2 border-grayish-400 px-3.5 pt-2"
+			data-ta-div={`div-${id}`}>
+		</div>
+		<textarea
+			class:list={[
+				"scrollable peer -ml-[100%] h-auto max-h-24 w-full overflow-y-auto rounded border-2 border-grayish-400 bg-grayish-100 px-3.5 pt-2 text-grayish-900 placeholder-transparent transition-opacity duration-300 valid:border-grayish-300 focus:border-secondary-600 focus:outline-none dark:bg-grayish-900 dark:text-grayish-100 dark:focus:border-secondary-300 [&:user-invalid]:border-red-600 dark:[&:user-invalid]:border-red-300",
+				classList
+			]}
+			{id}
+			{...attributes}
+			data-ta={`textarea-${id}`}
+			data-markdown={allowMarkdown ? "true" : null}></textarea>
+		<label
+			for={id}
+			class="pointer-events-none absolute -top-2.5 left-2 rounded bg-grayish-50 px-2 text-sm text-grayish-600 transition-all after:pl-0.5 after:text-red-600 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-500 after:peer-required:content-['*'] peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-secondary-700 dark:bg-grayish-800 dark:text-grayish-300 dark:after:text-red-300 dark:peer-placeholder-shown:text-grayish-300 dark:peer-focus:text-secondary-300"
+			>{label}</label
+		>
+		<div
+			class="absolute -bottom-3 left-4 hidden text-xs text-red-600 peer-[&:user-invalid]:block dark:text-red-400">
+			{`A ${label.toLocaleLowerCase()} is required`}
+		</div>
 	</div>
 </div>
+
+<script>
+	import { convertMarkdown, escapeHTML } from "@utils/converters"
+
+	const textarea = document.querySelector<HTMLTextAreaElement>("textarea[data-ta]")
+	if (textarea) {
+		textarea.addEventListener("input", () => {
+			const div = document.querySelector<HTMLDivElement>("div[data-ta-div]")
+			if (div) {
+				div.innerText = textarea.value + String.fromCharCode(10)
+			}
+		})
+
+		if (textarea.dataset.markdown === "true") {
+			const btnFormatBold = document.querySelector<HTMLButtonElement>("#btnFormatBold")
+			const btnFormatItalic = document.querySelector<HTMLButtonElement>("#btnFormatItalic")
+			const btnFormatDel = document.querySelector<HTMLButtonElement>("#btnFormatDel")
+			const btnFormatCode = document.querySelector<HTMLButtonElement>("#btnFormatCode")
+			const btnFormatCodeBlock = document.querySelector<HTMLButtonElement>("#btnFormatCodeBlock")
+			const btnFormatBlockQuote = document.querySelector<HTMLButtonElement>("#btnFormatBlockQuote")
+			const btnEmojiPicker = document.querySelector<HTMLButtonElement>("#btnEmojiPicker")
+			const dlgEmojiPicker = document.querySelector<HTMLDialogElement>("#dlgEmojiPicker")
+
+			const injectMarkdown = (ta: HTMLTextAreaElement, mdChar: string) => {
+				if (ta?.selectionStart !== ta?.selectionEnd) {
+					const previousSelectionStart = ta?.selectionStart
+					const previousSelectionEnd = ta?.selectionEnd
+					ta.value =
+						ta?.value.slice(0, ta?.selectionStart) +
+						mdChar +
+						ta?.value.slice(ta?.selectionStart, ta?.selectionEnd) +
+						mdChar +
+						ta?.value.slice(ta?.selectionEnd)
+					ta.selectionStart = previousSelectionStart + mdChar.length
+					ta.selectionEnd = previousSelectionEnd + mdChar.length
+				}
+				ta.focus()
+			}
+			const updateToolbar = (ta: HTMLTextAreaElement) => {
+				if (ta.selectionStart === ta.selectionEnd) {
+					btnFormatBold!.disabled = true
+					btnFormatItalic!.disabled = true
+					btnFormatDel!.disabled = true
+					btnFormatCode!.disabled = true
+				} else {
+					btnFormatBold!.disabled = false
+					btnFormatItalic!.disabled = false
+					btnFormatDel!.disabled = false
+					btnFormatCode!.disabled = false
+				}
+			}
+			textarea.addEventListener("keyup", (event) => {
+				const ta = event.target as HTMLTextAreaElement
+				if (ta.selectionStart === ta.selectionEnd) {
+					updateToolbar(ta)
+				}
+			})
+
+			textarea.addEventListener("mouseup", (event) => {
+				const ta = event.target as HTMLTextAreaElement
+				if (ta.selectionStart === ta.selectionEnd) {
+					updateToolbar(ta)
+				}
+			})
+
+			textarea.addEventListener("select", (event) => {
+				updateToolbar(event.target as HTMLTextAreaElement)
+			})
+
+			const divMarkdown = document.querySelector<HTMLDivElement>("div[data-markdown='true']")
+			textarea.addEventListener("blur", () => {
+				if (divMarkdown) {
+					divMarkdown.innerHTML = convertMarkdown(escapeHTML(textarea.value))
+					divMarkdown.style.removeProperty("z-index")
+				}
+			})
+
+			if (divMarkdown) {
+				divMarkdown.addEventListener("click", () => {
+					textarea.focus()
+					divMarkdown.style.setProperty("z-index", "-10")
+				})
+			}
+
+			if (btnFormatBold) {
+				btnFormatBold.addEventListener("click", () => {
+					injectMarkdown(textarea, "**")
+				})
+			}
+
+			if (btnFormatItalic) {
+				btnFormatItalic.addEventListener("click", () => {
+					injectMarkdown(textarea, "*")
+				})
+			}
+
+			if (btnFormatDel) {
+				btnFormatDel.addEventListener("click", () => {
+					injectMarkdown(textarea, "~")
+				})
+			}
+
+			if (btnFormatCode) {
+				btnFormatCode.addEventListener("click", () => {
+					injectMarkdown(textarea, "`")
+				})
+			}
+
+			if (btnFormatCodeBlock) {
+				btnFormatCodeBlock.addEventListener("click", () => {
+					injectMarkdown(textarea, "\n```\n")
+				})
+			}
+
+			if (btnFormatBlockQuote) {
+				btnFormatBlockQuote.addEventListener("click", () => {
+					if (textarea?.selectionStart === 0) {
+						textarea.value =
+							(textarea.value.charAt(textarea?.selectionStart) === "\n" ? "> \n" : "> ") +
+							textarea?.value
+					} else {
+						const previousLinesIndex = textarea?.value.lastIndexOf(
+							"\n",
+							textarea.value.charAt(textarea?.selectionStart) === "\n"
+								? textarea?.selectionStart - 1
+								: textarea?.selectionStart
+						)
+						const previousLines =
+							previousLinesIndex === -1 ? "" : textarea?.value.substring(0, previousLinesIndex + 1)
+						const nextLinesIndex = textarea?.value.indexOf("\n", textarea?.selectionStart)
+						const nextLines = nextLinesIndex === -1 ? "" : textarea?.value.substring(nextLinesIndex)
+						const currentLine = textarea?.value.substring(
+							previousLinesIndex === -1 ? 0 : previousLinesIndex + 1,
+							nextLinesIndex === -1 ? undefined : nextLinesIndex
+						)
+						const currentLineBefore =
+							previousLines.length === 0 ||
+							previousLines.endsWith("\n\n") ||
+							(previousLines.endsWith("\n") && previousLines.length === 1)
+								? "> "
+								: "\n> "
+						const currentLineAfter =
+							nextLines.length === 0 ||
+							nextLines.startsWith("\n\n") ||
+							(nextLines.startsWith("\n") && nextLines.length === 1)
+								? ""
+								: "\n"
+						textarea.value = "".concat(
+							previousLines,
+							currentLineBefore,
+							currentLine,
+							currentLineAfter,
+							nextLines
+						)
+					}
+					textarea.focus()
+				})
+			}
+
+			if (dlgEmojiPicker) {
+				if (btnEmojiPicker) {
+					btnEmojiPicker.addEventListener("click", () => {
+						dlgEmojiPicker.showModal()
+					})
+					textarea.focus()
+				}
+
+				const btnAddEmoji = document.querySelector<HTMLButtonElement>("#btnAddEmoji")
+				if (btnAddEmoji) {
+					btnAddEmoji.addEventListener("click", () => {
+						const selectedEmoji = document.querySelector<HTMLDivElement>("#selectedEmoji")
+						if (selectedEmoji) {
+							const previousSelectionStart = textarea?.selectionStart
+							textarea.value =
+								textarea?.value.slice(0, textarea?.selectionStart) +
+								selectedEmoji.innerText +
+								textarea?.value.slice(textarea?.selectionEnd)
+							textarea.selectionStart = previousSelectionStart + selectedEmoji.innerText.length
+							textarea.selectionEnd = textarea.selectionStart
+							if (divMarkdown) {
+								divMarkdown.innerHTML = convertMarkdown(escapeHTML(textarea.value))
+							}
+						}
+					})
+				}
+			}
+		}
+	}
+</script>

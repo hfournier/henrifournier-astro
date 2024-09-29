@@ -1,4 +1,5 @@
 ---
+import { convertMarkdown } from "@utils/converters"
 import type { CollectionEntry } from "astro:content"
 import { db, and, eq, Comment } from "astro:db"
 
@@ -31,7 +32,10 @@ const comments = await db
 					comments.length > 0 &&
 					comments.map((comment) => (
 						<li class="space-y-3 rounded border border-grayish-200 bg-grayish-100 p-4 text-grayish-700 dark:border-grayish-700 dark:bg-grayish-900 dark:text-grayish-200">
-							<p class="">{comment.text}</p>
+							<div
+								class="whitespace-pre-wrap [&>pre>code]:bg-transparent [&_blockquote]:border-l-4 [&_blockquote]:border-l-grayish-500 [&_blockquote]:pl-4 [&_code]:rounded [&_code]:bg-grayish-200 [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-medium [&_code]:text-black [&_code]:before:content-[''] [&_code]:after:content-[''] dark:[&_code]:bg-grayish-800 dark:[&_code]:text-grayish-100 [&_pre]:rounded [&_pre]:border [&_pre]:border-grayish-300 [&_pre]:p-2 dark:[&_pre]:border-grayish-700"
+								set:html={convertMarkdown(comment.text)}
+							/>
 							<footer class="flex gap-1.5 text-sm text-grayish-600 dark:text-grayish-300">
 								<div class="">Written by {comment.name ?? "Anonymous"}</div> on
 								<time class="" datetime={comment.createdAt.toISOString()}>

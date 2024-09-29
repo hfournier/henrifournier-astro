@@ -39,17 +39,3 @@ const { title } = Astro.props
 		</div>
 	</div>
 </div>
-
-<style>
-	:root {
-		--perspective: 400px;
-		--rotateX: 0;
-		--rotateY: 0;
-		--angle: 5deg;
-	}
-
-	.tilting-card {
-		transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(var(--rotateY));
-		transition: transform 350ms ease;
-	}
-</style>
