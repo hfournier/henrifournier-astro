@@ -2,6 +2,7 @@ import { ActionError, defineAction } from "astro:actions"
 import { z } from "astro:schema"
 import { getEntry } from "astro:content"
 import { Comment, db } from "astro:db"
+import { escapeHTML } from "@utils/converters"
 
 export const server = {
 	addComment: defineAction({
@@ -24,6 +25,7 @@ export const server = {
 		handler: async (newComment) => {
 			if (newComment.postSlug && newComment.text) {
 				// TODO: sanitize inputs
+				newComment.text = escapeHTML(newComment.text)
 				const post = await getEntry("blogs", newComment.postSlug)
 				if (!post) {
 					throw new ActionError({
