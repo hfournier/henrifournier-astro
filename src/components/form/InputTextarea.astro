@@ -92,12 +92,12 @@ const { id, label, class: classList, allowMarkdown = false, ...attributes } = As
 			)
 		}
 		<div
-			class="invisible max-h-24 w-full break-words rounded border-2 border-grayish-400 px-3.5 pt-2"
+			class="invisible max-h-48 w-full break-words rounded border-2 border-grayish-400 px-3.5 pt-2"
 			data-ta-div={`div-${id}`}>
 		</div>
 		<textarea
 			class:list={[
-				"scrollable peer -ml-[100%] h-auto max-h-24 w-full overflow-y-auto rounded border-2 border-grayish-400 bg-grayish-100 px-3.5 pt-2 text-grayish-900 placeholder-transparent transition-opacity duration-300 valid:border-grayish-300 focus:border-secondary-600 focus:outline-none dark:bg-grayish-900 dark:text-grayish-100 dark:focus:border-secondary-300 [&:user-invalid]:border-red-600 dark:[&:user-invalid]:border-red-300",
+				"scrollable peer -ml-[100%] h-auto max-h-48 w-full overflow-y-auto rounded border-2 border-grayish-400 bg-grayish-100 px-3.5 pt-2 text-grayish-900 placeholder-transparent transition-opacity duration-300 valid:border-grayish-300 focus:border-secondary-600 focus:outline-none dark:bg-grayish-900 dark:text-grayish-100 dark:focus:border-secondary-300 [&:user-invalid]:border-red-600 dark:[&:user-invalid]:border-red-300",
 				classList
 			]}
 			{id}

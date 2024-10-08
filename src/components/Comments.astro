@@ -39,7 +39,8 @@ const { post } = Astro.props
 		</summary>
 	</details>
 	<div
-		class="max-h-0 overflow-hidden transition-[max-height] duration-200 ease-in peer-open:max-h-[22rem] peer-open:duration-300 peer-open:ease-in-out md:peer-open:max-h-56">
+		class="max-h-0 overflow-hidden transition-[max-height] duration-200 ease-in peer-open:max-h-[22rem] peer-open:duration-300 peer-open:ease-in-out md:peer-open:max-h-56"
+		id="divComment">
 		<form
 			class="group/form grid gap-x-4 gap-y-6 rounded border-2 border-grayish-300 bg-grayish-100 p-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] dark:border-grayish-600 dark:bg-grayish-900 md:[&>div:first-child]:col-span-4"
 			id="formComment">
@@ -134,4 +135,15 @@ const { post } = Astro.props
 			console.error("Comment submission server error: ", error)
 		}
 	})
+
+	const textarea = document.querySelector<HTMLTextAreaElement>("textarea[data-ta]")
+	if (textarea) {
+		textarea.addEventListener("input", () => {
+			const divComment = document.querySelector<HTMLDivElement>("div#divComment")
+			if (divComment) {
+				divComment.style.maxHeight =
+					textarea?.clientHeight + (document.body.clientWidth < 768 ? 310 : 182) + "px"
+			}
+		})
+	}
 </script>

@@ -24,8 +24,10 @@ export const server = {
 		}),
 		handler: async (newComment) => {
 			if (newComment.postSlug && newComment.text) {
-				// TODO: sanitize inputs
 				newComment.text = escapeHTML(newComment.text)
+				if (newComment.name) {
+					newComment.name = escapeHTML(newComment.name)
+				}
 				const post = await getEntry("blogs", newComment.postSlug)
 				if (!post) {
 					throw new ActionError({

@@ -1,0 +1,21 @@
+---
+import { Image } from "astro:assets"
+import { Icon } from "astro-icon/components"
+import bmc_qr from "@assets/bmc_qr.png"
+import AsideLayout from "@layouts/AsideLayout.astro"
+---
+
+<AsideLayout title="Support me:">
+	<div class="flex flex-col items-center gap-6 px-4 pt-2">
+		<p class="text-sm">If you appreciate this content, please consider making a contribution.</p>
+		<a
+			class="flex items-center gap-2 rounded-full bg-yellow-500 px-4 py-2 font-semibold text-black"
+			href="https://buymeacoffee.com/henrifournierdev">
+			<Icon class="size-8 text-white" name="bmc-cup" aria-hidden="true" />
+			Buy me a smoothie
+		</a>
+
+		<Image class="aspect-square w-1/2" src={bmc_qr} alt="Buy me a coffee QR code" />
+		<p class="text-sm">Thank you.</p>
+	</div>
+</AsideLayout>

@@ -1,5 +1,4 @@
 import { seoSchema } from "@components/seo/seo"
-import { emojiCategories } from "@utils/emoji"
 import { file } from "astro/loaders"
 import { z, defineCollection, type SchemaContext, reference } from "astro:content"
 
@@ -70,12 +69,20 @@ const workSchema = ({ image }: SchemaContext) =>
 export type EmojiType = z.infer<typeof emojiSchema>
 const emojiSchema = z.object({
 	id: z.string(),
-	codePoint: z.string(),
+	codePoint: z.string().or(z.array(z.string())),
 	name: z.string(),
-	category: z.enum([emojiCategories[0].id, ...emojiCategories.slice(1).map((c) => c.id)]),
+	category: reference("emoji-categories"),
+	subCategory: z.string().optional(),
+	aka: z.array(z.string()).optional(),
+	shortCodes: z.array(z.string()).optional(),
 	allowSkinTone: z.boolean().optional(),
 	allowHairStyle: z.boolean().optional(),
 	allowGender: z.boolean().optional()
+})
+
+const emojiCategorySchema = z.object({
+	id: z.string(),
+	title: z.string()
 })
 
 const emojiExtraSchema = z.object({
@@ -100,6 +107,12 @@ const emojiCollection = defineCollection({
 	type: "content_layer",
 	loader: file("src/emojis/emojis.json"),
 	schema: emojiSchema
+})
+
+const emojiCategoryCollection = defineCollection({
+	type: "content_layer",
+	loader: file("src/emojis/categories.json"),
+	schema: emojiCategorySchema
 })
 
 const emojiHairStyleCollection = defineCollection({
@@ -160,6 +173,7 @@ export const collections = {
 	tags: tagsCollection,
 	work: workCollection,
 	emojis: emojiCollection,
+	"emoji-categories": emojiCategoryCollection,
 	genders: emojiGenderCollection,
 	"hair-styles": emojiHairStyleCollection,
 	"skin-tones": emojiSkinTonesCollection,

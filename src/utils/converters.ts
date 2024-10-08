@@ -29,7 +29,9 @@ export const escapeHTML = (html: string | null) => {
 	return html
 		.replaceAll("&", "&amp;")
 		.replaceAll("<", "&lt;")
-		.replaceAll(">", "&gt;")
+		.replaceAll(/(?<!^)>/gm, "&gt;")
+		.replaceAll("{", "&lbrace;")
+		.replaceAll("}", "&rbrace;")
 		.replaceAll("'", "&#39;")
 		.replaceAll('"', "&quot;")
 }

@@ -1,0 +1,11 @@
+[
+	{ "id": "smileys", "title": "Smileys" },
+	{ "id": "people", "title": "People" },
+	{ "id": "nature", "title": "Animals & Nature" },
+	{ "id": "food-drink", "title": "Food & Drink" },
+	{ "id": "activity", "title": "Activity & Sports" },
+	{ "id": "travel-places", "title": "Travel & Places" },
+	{ "id": "objects", "title": "Objects" },
+	{ "id": "symbols", "title": "Symbols" },
+	{ "id": "flags", "title": "Flags" }
+]
