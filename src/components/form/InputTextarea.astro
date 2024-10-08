@@ -87,12 +87,14 @@ const { id, label, class: classList, allowMarkdown = false, ...attributes } = As
 				<div
 					class="scrollable absolute inset-0.5 overflow-y-auto whitespace-pre-wrap rounded bg-grayish-100 px-3.5 pt-2 transition-opacity duration-200 group-focus-within:opacity-0 dark:bg-grayish-900 [&_blockquote]:border-l-4 [&_blockquote]:border-l-grayish-500 [&_blockquote]:pl-4"
 					id="markdown"
+					aria-hidden="true"
 					data-markdown={allowMarkdown ? "true" : null}
 				/>
 			)
 		}
 		<div
 			class="invisible max-h-48 w-full break-words rounded border-2 border-grayish-400 px-3.5 pt-2"
+			aria-hidden="true"
 			data-ta-div={`div-${id}`}>
 		</div>
 		<textarea

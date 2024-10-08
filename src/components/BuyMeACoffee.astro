@@ -15,7 +15,13 @@ import AsideLayout from "@layouts/AsideLayout.astro"
 			Buy me a smoothie
 		</a>
 
-		<Image class="aspect-square w-1/2" src={bmc_qr} alt="Buy me a coffee QR code" />
+		<Image
+			class="aspect-square w-1/2"
+			src={bmc_qr}
+			alt="Buy me a coffee QR code"
+			sizes="(max-width: 432px) 184px, (max-width: 639px) 288px, (max-width: 767px) 352px, (max-width: 1023px) 136px, 131px"
+			widths={[131, 136, 184, 288, 352, bmc_qr.width]}
+		/>
 		<p class="text-sm">Thank you.</p>
 	</div>
 </AsideLayout>

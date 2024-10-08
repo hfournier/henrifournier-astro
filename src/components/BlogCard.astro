@@ -17,7 +17,14 @@ const { link, title, slug, mediaSrc, mediaAlt = "TODO: Add alt text" } = Astro.p
 		<header class="flex flex-col gap-4">
 			{
 				mediaSrc && (
-					<Image class="rounded-md" src={mediaSrc} alt={mediaAlt} transition:name={`fm-${slug}`} />
+					<Image
+						class="rounded-md"
+						src={mediaSrc}
+						alt={mediaAlt}
+						transition:name={`fm-${slug}`}
+						widths={[355, 366, 434, 527]}
+						sizes="(max-width: 432px) 366px, (max-width: 639px) 527px, (max-width: 767px) 527px, (max-width: 1023px) 434px, (max-width: 1279px) 527px, 355px"
+					/>
 				)
 			}
 			<h2

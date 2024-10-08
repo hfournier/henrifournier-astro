@@ -56,6 +56,8 @@ const { Content, headings, remarkPluginFrontmatter } = await entry.render()
 							class="rounded-lg"
 							src={entry.data.featuredMedia.src}
 							alt={entry.data.featuredMedia.alt || "Alt text mising"}
+							widths={[400, 607, 735, 757, 876]}
+							sizes="(max-width: 432px) 400px, (max-width: 639px) 607px, (max-width: 767px) 735px, (max-width: 1023px) 607px, (max-width: 1279px) 757px, 876px"
 							loading="eager"
 							transition:name={`fm-${entry.slug}`}
 						/>
@@ -99,7 +101,7 @@ const { Content, headings, remarkPluginFrontmatter } = await entry.render()
 					</div>
 					<span class="hidden text-secondary-700 lg:inline-block dark:text-secondary-300"> | </span>
 					<div class="flex gap-1">
-						<Icon class="size-5" name="mdi:book-clock-outline" />
+						<Icon class="size-5" name="mdi:book-clock-outline" aria-hidden="true" />
 						<span class="text-sm">{remarkPluginFrontmatter.minutesRead}</span>
 					</div>
 				</div>
@@ -120,5 +122,10 @@ const { Content, headings, remarkPluginFrontmatter } = await entry.render()
 		</Aside>
 	</div>
 
-	<Comments post={entry} />
+	<Comments post={entry} server:defer>
+		<div class="flex items-center gap-2" slot="fallback">
+			<Icon class="size-8" name="mdi:comment" />
+			Loading comments...
+		</div>
+	</Comments>
 </BlogLayout>
