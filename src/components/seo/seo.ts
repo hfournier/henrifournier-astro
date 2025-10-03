@@ -20,9 +20,10 @@ export const seoSchema = ({ image }: SchemaContext) =>
 				url: z.string().url().optional(),
 				image: z
 					.preprocess((val) => (val ? val : defaultOgImage), image())
-					.refine((im: ImageMetadata) => im.height >= 200 && im.width >= 200, {
+					.refine((im: ImageMetadata) => {
+						return im.height >= 200 && im.width >= 200, {
 						message: "The minimum allowed Open Graph image dimension is 200 x 200 pixels"
-					}),
+					}}),
 				imageAlt: z.string().optional(),
 				optional: ogOptionalSchema.optional(),
 				article: articleSchema.optional(),

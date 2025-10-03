@@ -1,3 +1,5 @@
+import type { EmojiType } from "src/content/config"
+
 export const getEmoji = (codePoint: number | number[] | string | string[]) => {
 	switch (typeof codePoint) {
 		case "number":
@@ -31,6 +33,29 @@ export const getEmoji = (codePoint: number | number[] | string | string[]) => {
 					return ""
 				}
 			}
+	}
+}
+
+export const storeRecentEmoji = (emoji: EmojiType) => {
+	if (emoji) {
+		const recentEmojis = localStorage.getItem("recent-emojis")
+		if (recentEmojis) {
+			let recentEmojisArray = JSON.parse(recentEmojis) as EmojiType[]
+			recentEmojisArray = recentEmojisArray.filter((value) => value.id !== emoji.id)
+			recentEmojisArray.unshift(emoji)
+			localStorage.setItem("recent-emojis", JSON.stringify(recentEmojisArray.slice(0, 9)))
+		} else {
+			localStorage.setItem("recent-emojis", JSON.stringify([emoji]))
+		}
+	}
+}
+
+export const restoreRecentEmojis = () => {
+	const recentEmojis = localStorage.getItem("recent-emojis")
+	if (recentEmojis) {
+		return JSON.parse(recentEmojis) as EmojiType[]
+	} else {
+		return []
 	}
 }
 

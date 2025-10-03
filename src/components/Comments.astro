@@ -85,7 +85,12 @@ const { post } = Astro.props
 		class="rounded border-secondary-200 text-sm text-secondary-600 dark:border-secondary-800 dark:text-secondary-400 [&:not(:empty)]:border [&:not(:empty)]:p-2"
 		id="commentSuccess">
 	</div>
-	<CommentList {post} />
+	<CommentList {post} server:defer>
+		<div class="flex items-center gap-2" slot="fallback">
+			<Icon class="size-8" name="mdi:comment" />
+			Loading comments...
+		</div>
+	</CommentList>
 
 	<p class="text-sm text-grayish-600 dark:text-grayish-300">
 		Note: rude, inappropriate, or offensive comments will be deleted at my discretion.

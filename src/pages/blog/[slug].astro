@@ -122,10 +122,5 @@ const { Content, headings, remarkPluginFrontmatter } = await entry.render()
 		</Aside>
 	</div>
 
-	<Comments post={entry} server:defer>
-		<div class="flex items-center gap-2" slot="fallback">
-			<Icon class="size-8" name="mdi:comment" />
-			Loading comments...
-		</div>
-	</Comments>
+	<Comments post={entry} />
 </BlogLayout>

@@ -5,17 +5,10 @@ import netlify from "@astrojs/netlify"
 import mdx from "@astrojs/mdx"
 import { remarkReadingTime } from "./remark-reading-time.mjs"
 
-import db from "@astrojs/db"
-
 // https://astro.build/config
 export default defineConfig({
 	site: "https://henrifournier.dev",
-	output: "hybrid",
-	experimental: {
-		contentLayer: true,
-		contentIntellisense: true,
-		serverIslands: true
-	},
+	output: "static",
 	integrations: [
 		tailwind({
 			applyBaseStyles: false
@@ -53,6 +46,7 @@ export default defineConfig({
 					"comment",
 					"comment-minus",
 					"comment-plus",
+					"dots-vertical",
 					"email",
 					"emoji-outline",
 					"facebook",
@@ -74,8 +68,7 @@ export default defineConfig({
 				]
 			}
 		}),
-		mdx(),
-		db()
+		mdx()
 	],
 	adapter: netlify(),
 	markdown: {

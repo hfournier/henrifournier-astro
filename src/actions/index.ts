@@ -1,7 +1,7 @@
 import { ActionError, defineAction } from "astro:actions"
 import { z } from "astro:schema"
 import { getEntry } from "astro:content"
-import { Comment, db } from "astro:db"
+// import { Comment, db } from "astro:db"
 import { escapeHTML } from "@utils/converters"
 
 export const server = {
@@ -36,15 +36,15 @@ export const server = {
 					})
 				}
 
-				const result = await db.insert(Comment).values(newComment)
-				if (result) {
-					return result.lastInsertRowid
-				} else {
-					throw new ActionError({
-						code: "CONFLICT",
-						message: "Error adding comment"
-					})
-				}
+				// const result = await db.insert(Comment).values(newComment)
+				// if (result) {
+				// 	return result.lastInsertRowid
+				// } else {
+				// 	throw new ActionError({
+				// 		code: "CONFLICT",
+				// 		message: "Error adding comment"
+				// 	})
+				// }
 			} else {
 				throw new ActionError({
 					code: "BAD_REQUEST",

@@ -72,7 +72,8 @@ const { id, label, class: classList, allowMarkdown = false, ...attributes } = As
 						class="rounded border border-transparent p-1.5 text-grayish-600 enabled:hover:border-grayish-500 enabled:hover:bg-grayish-50 enabled:hover:text-secondary-600 disabled:opacity-50 dark:text-grayish-400 dark:enabled:hover:bg-grayish-900 dark:enabled:hover:text-secondary-400"
 						type="button"
 						id="btnEmojiPicker"
-						title="Emoji picker">
+						title="Emoji picker"
+						popovertarget="divEmojiPicker">
 						<span class="sr-only">Emoji picker</span>
 						<Icon class="size-6" name="mdi:emoji-outline" aria-hidden="true" />
 					</button>
@@ -120,6 +121,7 @@ const { id, label, class: classList, allowMarkdown = false, ...attributes } = As
 
 <script>
 	import { convertMarkdown, escapeHTML } from "@utils/converters"
+	import { getEmoji } from "@utils/emoji"
 
 	const textarea = document.querySelector<HTMLTextAreaElement>("textarea[data-ta]")
 	if (textarea) {
@@ -187,14 +189,14 @@ const { id, label, class: classList, allowMarkdown = false, ...attributes } = As
 			})
 
 			const divMarkdown = document.querySelector<HTMLDivElement>("div[data-markdown='true']")
-			textarea.addEventListener("blur", () => {
-				if (divMarkdown) {
-					divMarkdown.innerHTML = convertMarkdown(escapeHTML(textarea.value))
-					divMarkdown.style.removeProperty("z-index")
-				}
-			})
 
 			if (divMarkdown) {
+				textarea.addEventListener("blur", () => {
+					if (divMarkdown) {
+						divMarkdown.innerHTML = convertMarkdown(escapeHTML(textarea.value))
+						divMarkdown.style.removeProperty("z-index")
+					}
+				})
 				divMarkdown.addEventListener("click", () => {
 					textarea.focus()
 					divMarkdown.style.setProperty("z-index", "-10")
@@ -276,33 +278,22 @@ const { id, label, class: classList, allowMarkdown = false, ...attributes } = As
 				})
 			}
 
-			if (dlgEmojiPicker) {
-				if (btnEmojiPicker) {
-					btnEmojiPicker.addEventListener("click", () => {
-						dlgEmojiPicker.showModal()
-					})
-					textarea.focus()
+			document.addEventListener("hfdev-emoji-selected", (e) => {
+				const event = e as CustomEvent
+				if (event.detail.emoji) {
+					const selectedEmoji = getEmoji(event.detail.emoji.codePoint)
+					const previousSelectionStart = textarea?.selectionStart
+					textarea.value =
+						textarea?.value.slice(0, textarea?.selectionStart) +
+						selectedEmoji +
+						textarea?.value.slice(textarea?.selectionEnd)
+					textarea.selectionStart = previousSelectionStart + selectedEmoji.length
+					textarea.selectionEnd = textarea.selectionStart
+					if (divMarkdown) {
+						divMarkdown.innerHTML = convertMarkdown(escapeHTML(textarea.value))
+					}
 				}
-
-				const btnAddEmoji = document.querySelector<HTMLButtonElement>("#btnAddEmoji")
-				if (btnAddEmoji) {
-					btnAddEmoji.addEventListener("click", () => {
-						const selectedEmoji = document.querySelector<HTMLDivElement>("#selectedEmoji")
-						if (selectedEmoji) {
-							const previousSelectionStart = textarea?.selectionStart
-							textarea.value =
-								textarea?.value.slice(0, textarea?.selectionStart) +
-								selectedEmoji.innerText +
-								textarea?.value.slice(textarea?.selectionEnd)
-							textarea.selectionStart = previousSelectionStart + selectedEmoji.innerText.length
-							textarea.selectionEnd = textarea.selectionStart
-							if (divMarkdown) {
-								divMarkdown.innerHTML = convertMarkdown(escapeHTML(textarea.value))
-							}
-						}
-					})
-				}
-			}
+			})
 		}
 	}
 </script>
