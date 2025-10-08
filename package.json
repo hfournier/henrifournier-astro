@@ -11,21 +11,20 @@
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.4",
-		"@astrojs/db": "^0.14.2",
-		"@astrojs/mdx": "^3.1.7",
-		"@astrojs/netlify": "^5.5.3",
-		"@astrojs/rss": "^4.0.7",
-		"@astrojs/sitemap": "^3.2.0",
-		"@astrojs/tailwind": "^5.1.1",
-		"@iconify-json/devicon": "^1.2.3",
-		"@iconify-json/logos": "^1.2.2",
-		"@iconify-json/mdi": "^1.2.0",
-		"astro": "^4.15.12",
-		"astro-icon": "^1.1.1",
+		"@astrojs/mdx": "^4.3.6",
+		"@astrojs/netlify": "^6.5.11",
+		"@astrojs/rss": "^4.0.12",
+		"@astrojs/sitemap": "^3.6.0",
+		"@iconify-json/devicon": "^1.2.45",
+		"@iconify-json/logos": "^1.2.9",
+		"@iconify-json/mdi": "^1.2.3",
+		"@tailwindcss/vite": "^4.1.14",
+		"astro": "^5.14.1",
+		"astro-icon": "^1.1.5",
 		"mdast-util-to-string": "^4.0.0",
 		"reading-time": "^1.5.0",
-		"sharp": "^0.33.5",
-		"typescript": "^5.6.2"
+		"sharp": "^0.34.4",
+		"typescript": "^5.9.3"
 	},
 	"pnpm": {
 		"overrides": {
@@ -33,11 +32,11 @@
 		}
 	},
 	"devDependencies": {
-		"@tailwindcss/typography": "^0.5.15",
-		"pagefind": "^1.1.1",
-		"prettier": "^3.3.3",
+		"@tailwindcss/typography": "^0.5.19",
+		"pagefind": "^1.4.0",
+		"prettier": "^3.6.2",
 		"prettier-plugin-astro": "^0.14.1",
-		"prettier-plugin-tailwindcss": "^0.6.8",
-		"tailwindcss": "^3.4.13"
+		"prettier-plugin-tailwindcss": "^0.6.14",
+		"tailwindcss": "^4.1.14"
 	}
 }

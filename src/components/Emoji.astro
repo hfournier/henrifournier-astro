@@ -1,9 +1,9 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { getEmoji } from "@utils/emoji"
 
-type Props = Omit<astroHTML.JSX.HTMLAttributes, "class" | "role" | "aria-label" | "aria-hidden"> & {
+type Props = Omit<HTMLAttributes<"span">, "role" | "aria-label" | "aria-hidden"> & {
 	codePoint: number | number[] | string | string[]
-	class?: string
 	label?: string
 }
 
@@ -19,7 +19,8 @@ const emoji = getEmoji(codePoint)
 			{...attrs}
 			role="img"
 			aria-label={label ? label : null}
-			aria-hidden={!label ? true : null}>
+			aria-hidden={!label ? true : null}
+		>
 			{emoji}
 		</span>
 	)

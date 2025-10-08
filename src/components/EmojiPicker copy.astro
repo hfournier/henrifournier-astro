@@ -1,0 +1,301 @@
+---
+import { Icon } from "astro-icon/components"
+import Emoji from "./Emoji.astro"
+import { getCollection, z } from "astro:content"
+import Button from "./form/Button.astro"
+
+const emojis = await getCollection("emojis")
+const skinTones = await getCollection("skin-tones")
+const hairStyles = await getCollection("hair-styles")
+const genders = await getCollection("genders")
+const categories = await getCollection("emoji-categories")
+---
+
+<dialog
+	class="w-full rounded-sm bg-grayish-300 p-4 sm:max-w-[487px] dark:bg-grayish-800"
+	id="dlgEmojiPicker">
+	<div class="relative space-y-4">
+		<button class="absolute -right-2 -top-5" id="btnCloseEmojiPicker" type="button"
+			><Icon class="size-5" name="mdi:close" /></button
+		>
+		<fieldset
+			class="scrollable aspect-4/3 overflow-y-auto rounded-xs border border-grayish-100 p-2 dark:border-grayish-900"
+			id="fsEmoji">
+			<legend class="px-2 font-baloo2 text-xl font-medium">Select an emoji</legend>
+			{
+				categories.map((category, index) => (
+					<>
+						<details class="group/details py-1" open={index === 0 ? "" : null}>
+							<summary class="group/summary flex w-full cursor-pointer list-none items-center justify-between">
+								{category.data.title}
+								<Icon
+									name="mdi:chevron-down"
+									class="size-6 shrink-0 origin-center transform text-grayish-700 transition-transform duration-300 group-open/details:-rotate-180 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100!"
+									aria-label={`Expand or Collapse ${category.data.title} section`}
+								/>
+							</summary>
+							<div class="flex flex-wrap">
+								<>
+									{emojis
+										.filter((emoji) => emoji.data.category.id === category.id)
+										.map((emoji) => (
+											<label class="flex items-center justify-center rounded-sm p-1.5 outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:bg-grayish-900">
+												<input
+													class="w-0 appearance-none"
+													type="radio"
+													name="emoji"
+													value={emoji.data.codePoint}
+													form=""
+													data-emoji={JSON.stringify(emoji.data)}
+												/>
+												<Emoji
+													class="text-3xl"
+													codePoint={emoji.data.codePoint}
+													label={emoji.data.name}
+													title={emoji.data.name}
+												/>
+											</label>
+										))}
+								</>
+							</div>
+						</details>
+					</>
+				))
+			}
+		</fieldset>
+		<fieldset
+			class="group flex gap-2 rounded-xs border border-grayish-100 p-2 disabled:opacity-40 dark:border-grayish-900"
+			id="fsSkinTone"
+			disabled>
+			<legend class="px-2 font-baloo2 font-medium">Select skin tone</legend>
+			<label
+				class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
+				<input
+					class="w-0 appearance-none"
+					type="radio"
+					name="skin-tone"
+					value="none"
+					form=""
+					checked
+				/>
+				<Icon class="size-5 text-grayish-900" name="mdi:circle-outline" />
+				<!-- <Emoji codePoint={["U+1F6AB"]} /> -->
+			</label>
+			{
+				skinTones.map((skinTone) => (
+					<label class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
+						<input
+							class="w-0 appearance-none"
+							type="radio"
+							name="skin-tone"
+							value={skinTone.data.codePoint}
+							form=""
+						/>
+						<Emoji class="text-xl" codePoint={skinTone.data.codePoint} label={skinTone.data.name} />
+					</label>
+				))
+			}
+		</fieldset>
+		<fieldset
+			class="group flex gap-2 rounded-xs border border-grayish-100 p-2 disabled:opacity-40 dark:border-grayish-900"
+			id="fsHairStyle"
+			disabled>
+			<legend class="pb-1 font-baloo2 font-medium">Select hair style</legend>
+			<label
+				class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
+				<input
+					class="w-0 appearance-none"
+					type="radio"
+					name="hair-style"
+					value="none"
+					form=""
+					checked
+				/>
+				<Icon class="size-5 text-grayish-900" name="mdi:circle-outline" />
+				<!-- <Emoji codePoint={["U+1F6AB"]} /> -->
+			</label>
+			{
+				hairStyles.map((hairStyle) => (
+					<label class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
+						<input
+							class="w-0 appearance-none"
+							type="radio"
+							name="hair-style"
+							value={hairStyle.data.codePoint}
+							form=""
+						/>
+						<Emoji
+							class="text-xl"
+							codePoint={hairStyle.data.codePoint}
+							label={hairStyle.data.name}
+						/>
+					</label>
+				))
+			}
+		</fieldset>
+		<fieldset
+			class="group flex gap-2 rounded-xs border border-grayish-100 p-2 disabled:opacity-40 dark:border-grayish-900"
+			id="fsGender"
+			disabled>
+			<legend class="pb-1 font-baloo2 font-medium">Select gender</legend>
+			<label
+				class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
+				<input
+					class="w-0 appearance-none"
+					type="radio"
+					name="gender"
+					value="none"
+					form=""
+					checked
+				/>
+				<Icon class="size-5 text-grayish-900" name="mdi:circle-outline" />
+				<!-- <Emoji codePoint={["U+1F6AB"]} /> -->
+			</label>
+			{
+				genders.map((gender) => (
+					<label class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
+						<input
+							class="w-0 appearance-none"
+							type="radio"
+							name="gender"
+							value={gender.data.codePoint}
+							form=""
+						/>
+						<Emoji class="text-xl" codePoint={gender.data.codePoint} label={gender.data.name} />
+					</label>
+				))
+			}
+		</fieldset>
+		<div class="flex items-center gap-2">
+			<div
+				class="flex grow items-center justify-between rounded-sm border border-grayish-100 px-1 py-0.5 text-3xl dark:border-grayish-900">
+				<div class="peer" id="selectedEmoji"></div>
+				<button
+					class="text-secondary-500 hover:text-secondary-600 peer-empty:pointer-events-none peer-empty:text-grayish-500 dark:hover:text-secondary-400"
+					type="button"
+					id="btnAddEmoji">
+					<span class="sr-only">Add emoji</span>
+					<Icon class="size-9" name="mdi:add-circle-outline" aria-hidden="true" title="Add emoji" />
+				</button>
+			</div>
+			<Button id="btnClose" type="button" outline={true}>Close</Button>
+		</div>
+	</div>
+</dialog>
+
+<script>
+	import { getEmoji } from "@utils/emoji"
+	import type { EmojiType } from "src/content/config"
+
+	const updateEmoji = () => {
+		const rdoEmoji = document.querySelector<HTMLInputElement>(
+			"input[type='radio'][name='emoji']:checked"
+		)
+		if (rdoEmoji && rdoEmoji.dataset.emoji) {
+			const emoji: EmojiType = JSON.parse(rdoEmoji.dataset.emoji)
+
+			const codePoints =
+				typeof emoji.codePoint === "string" ? [emoji.codePoint] : [...emoji.codePoint]
+
+			const rdoSkinTone = document.querySelector<HTMLInputElement>(
+				"input[type='radio'][name='skin-tone']:checked"
+			)
+			if (emoji.allowSkinTone && rdoSkinTone?.value !== "none") {
+				codePoints.push(rdoSkinTone?.value!)
+			}
+
+			const rdoHairStyle = document.querySelector<HTMLInputElement>(
+				"input[type='radio'][name='hair-style']:checked"
+			)
+			if (emoji.allowHairStyle && rdoHairStyle?.value !== "none") {
+				codePoints.push("U+200D")
+				codePoints.push(rdoHairStyle?.value!)
+			}
+
+			const rdoGender = document.querySelector<HTMLInputElement>(
+				"input[type='radio'][name='gender']:checked"
+			)
+			if (emoji.allowGender && rdoGender?.value !== "none") {
+				codePoints.push("U+200D")
+				codePoints.push(rdoGender?.value!)
+			}
+
+			const selectedEmoji = document.getElementById("selectedEmoji") as HTMLDivElement
+			selectedEmoji.innerText = getEmoji(
+				typeof codePoints === "string" ? (codePoints as string) : (codePoints as string[])
+			)
+		}
+	}
+
+	const clearEmoji = () => {
+		const selectedEmoji = document.getElementById("selectedEmoji") as HTMLDivElement
+		selectedEmoji.innerText = ""
+	}
+
+	const rdoEmojis = document.querySelectorAll<HTMLInputElement>("input[type='radio'][name='emoji']")
+	rdoEmojis?.forEach((rdo) => {
+		rdo.addEventListener("change", ({ target }) => {
+			const input = target as HTMLInputElement
+			if (input.dataset.emoji) {
+				const emoji: EmojiType = JSON.parse(input.dataset.emoji)
+				const fsSkinTone = document.getElementById("fsSkinTone") as HTMLFieldSetElement
+				fsSkinTone.disabled = !emoji.allowSkinTone
+				const fsHairStyle = document.getElementById("fsHairStyle") as HTMLFieldSetElement
+				fsHairStyle.disabled = !emoji.allowHairStyle
+				const fsGender = document.getElementById("fsGender") as HTMLFieldSetElement
+				fsGender.disabled = !emoji.allowGender
+
+				updateEmoji()
+			}
+		})
+	})
+
+	const defaultSkinTone = localStorage.getItem("skin-tone")
+	const rdoSkinTones = document.querySelectorAll<HTMLInputElement>(
+		"input[type='radio'][name='skin-tone']"
+	)
+	rdoSkinTones?.forEach((rdo) => {
+		rdo.addEventListener("change", () => {
+			updateEmoji()
+			localStorage.setItem("skin-tone", rdo.value)
+		})
+		rdo.checked = defaultSkinTone ? defaultSkinTone === rdo.value : rdo.value === "none"
+	})
+
+	const defaultHairStyle = localStorage.getItem("hair-style")
+	const rdoHairStyles = document.querySelectorAll<HTMLInputElement>(
+		"input[type='radio'][name='hair-style']"
+	)
+	rdoHairStyles?.forEach((rdo) => {
+		rdo.addEventListener("change", () => {
+			updateEmoji()
+			localStorage.setItem("hair-style", rdo.value)
+		})
+		rdo.checked = defaultHairStyle ? defaultHairStyle === rdo.value : rdo.value === "none"
+	})
+
+	const defaultGender = localStorage.getItem("gender")
+	const rdoGenders = document.querySelectorAll<HTMLInputElement>(
+		"input[type='radio'][name='gender']"
+	)
+	rdoGenders?.forEach((rdo) => {
+		rdo.addEventListener("change", () => {
+			updateEmoji()
+			localStorage.setItem("gender", rdo.value)
+		})
+		rdo.checked = defaultGender ? defaultGender === rdo.value : rdo.value === "none"
+	})
+
+	const dlgEmojiPicker = document.querySelector<HTMLDialogElement>("#dlgEmojiPicker")
+	dlgEmojiPicker?.addEventListener("close", () => {
+		clearEmoji()
+	})
+	const btnCloseEmojiPicker = document.querySelector<HTMLButtonElement>("#btnCloseEmojiPicker")
+	btnCloseEmojiPicker?.addEventListener("click", () => {
+		dlgEmojiPicker?.close()
+	})
+	const btnClose = document.querySelector<HTMLButtonElement>("#btnClose")
+	btnClose?.addEventListener("click", () => {
+		dlgEmojiPicker?.close()
+	})
+</script>

@@ -72,7 +72,7 @@ const emojiSchema = z.object({
 	codePoint: z.string().or(z.array(z.string())),
 	name: z.string(),
 	category: reference("emoji-categories"),
-	subCategory: z.string().optional(),
+	subCategory: z.union([z.string(), z.array(z.string())]).optional(),
 	aka: z.array(z.string()).optional(),
 	shortCodes: z.array(z.string()).optional(),
 	allowSkinTone: z.boolean().optional(),

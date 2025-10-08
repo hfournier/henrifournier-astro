@@ -1,0 +1,304 @@
+@import "tailwindcss";
+
+@source inline("col-start-{1..33..2} row-start-{1..8}");
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@property --perspective {
+	syntax: "<length>";
+	inherits: false;
+	initial-value: 400px;
+}
+@property --angle {
+	syntax: "<angle>";
+	inherits: false;
+	initial-value: 5deg;
+}
+@property --rotateX {
+	syntax: "<angle>";
+	inherits: false;
+	initial-value: 0deg;
+}
+@property --rotateY {
+	syntax: "<angle>";
+	inherits: false;
+	initial-value: 0deg;
+}
+
+@theme {
+	--font-baloo2: "Baloo 2";
+
+	--color-primary: #cc5500;
+	--color-grayish-sat: 5%;
+	--color-dark-step: 8.5%;
+	--color-light-step: 10.5%;
+
+	--color-primary-50: hsl(from var(--color-primary) h s calc(50% + var(--color-light-step) * 4.5));
+	--color-primary-100: hsl(from var(--color-primary) h s calc(50% + var(--color-light-step) * 4));
+	--color-primary-200: hsl(from var(--color-primary) h s calc(50% + var(--color-light-step) * 3));
+	--color-primary-300: hsl(from var(--color-primary) h s calc(50% + var(--color-light-step) * 2));
+	--color-primary-400: hsl(from var(--color-primary) h s calc(50% + var(--color-light-step)));
+	--color-primary-500: hsl(from var(--color-primary) h s 50%);
+	--color-primary-600: hsl(from var(--color-primary) h s calc(50% - var(--color-dark-step)));
+	--color-primary-700: hsl(from var(--color-primary) h s calc(50% - var(--color-dark-step) * 2));
+	--color-primary-800: hsl(from var(--color-primary) h s calc(50% - var(--color-dark-step) * 3));
+	--color-primary-900: hsl(from var(--color-primary) h s calc(50% - var(--color-dark-step) * 4));
+	--color-primary-950: hsl(from var(--color-primary) h s calc(50% - var(--color-dark-step) * 4.5));
+
+	--color-secondary-50: hsl(
+		from var(--color-primary) calc(h - 180) s calc(50% + var(--color-light-step) * 4.5)
+	);
+	--color-secondary-100: hsl(
+		from var(--color-primary) calc(h - 180) s calc(50% + var(--color-light-step) * 4)
+	);
+	--color-secondary-200: hsl(
+		from var(--color-primary) calc(h - 180) s calc(50% + var(--color-light-step) * 3)
+	);
+	--color-secondary-300: hsl(
+		from var(--color-primary) calc(h - 180) s calc(50% + var(--color-light-step) * 2)
+	);
+	--color-secondary-400: hsl(
+		from var(--color-primary) calc(h - 180) s calc(50% + var(--color-light-step))
+	);
+	--color-secondary-500: hsl(from var(--color-primary) calc(h - 180) s 50%);
+	--color-secondary-600: hsl(
+		from var(--color-primary) calc(h - 180) s calc(50% - var(--color-dark-step))
+	);
+	--color-secondary-700: hsl(
+		from var(--color-primary) calc(h - 180) s calc(50% - var(--color-dark-step) * 2)
+	);
+	--color-secondary-800: hsl(
+		from var(--color-primary) calc(h - 180) s calc(50% - var(--color-dark-step) * 3)
+	);
+	--color-secondary-900: hsl(
+		from var(--color-primary) calc(h - 180) s calc(50% - var(--color-dark-step) * 4)
+	);
+	--color-secondary-950: hsl(
+		from var(--color-primary) calc(h - 180) s calc(50% - var(--color-dark-step) * 4.5)
+	);
+
+	--color-grayish-50: hsl(
+		from var(--color-primary) h var(--color-grayish-sat) calc(50% + var(--color-light-step) * 4.5)
+	);
+	--color-grayish-100: hsl(
+		from var(--color-primary) h var(--color-grayish-sat) calc(50% + var(--color-light-step) * 4)
+	);
+	--color-grayish-200: hsl(
+		from var(--color-primary) h var(--color-grayish-sat) calc(50% + var(--color-light-step) * 3)
+	);
+	--color-grayish-300: hsl(
+		from var(--color-primary) h var(--color-grayish-sat) calc(50% + var(--color-light-step) * 2)
+	);
+	--color-grayish-400: hsl(
+		from var(--color-primary) h var(--color-grayish-sat) calc(50% + var(--color-light-step))
+	);
+	--color-grayish-500: hsl(from var(--color-primary) h var(--color-grayish-sat) 50%);
+	--color-grayish-600: hsl(
+		from var(--color-primary) h var(--color-grayish-sat) calc(50% - var(--color-dark-step))
+	);
+	--color-grayish-700: hsl(
+		from var(--color-primary) h var(--color-grayish-sat) calc(50% - var(--color-dark-step) * 2)
+	);
+	--color-grayish-800: hsl(
+		from var(--color-primary) h var(--color-grayish-sat) calc(50% - var(--color-dark-step) * 3)
+	);
+	--color-grayish-900: hsl(
+		from var(--color-primary) h var(--color-grayish-sat) calc(50% - var(--color-dark-step) * 4)
+	);
+	--color-grayish-950: hsl(
+		from var(--color-primary) h var(--color-grayish-sat) calc(50% - var(--color-dark-step) * 4.5)
+	);
+
+	--color-blob-from: var(--color-primary-600);
+	--color-blob-to: var(--color-grayish-50);
+	--color-shirt: var(--color-secondary-600);
+
+	--aspect-hexagon: 1 / cos(30deg);
+
+	@keyframes fadeIn {
+		to {
+			opacity: 1;
+		}
+	}
+	@keyframes fadeOut {
+		to {
+			opacity: 0;
+		}
+	}
+	@keyframes openGateLeft {
+		to {
+			transform: translateX(-60px);
+		}
+	}
+	@keyframes openGateRight {
+		to {
+			transform: translateX(60px);
+		}
+	}
+	@keyframes closeGate {
+		to {
+			transform: translateX(0);
+		}
+	}
+	@keyframes expandTL {
+		100% {
+			transform: translate(-128px, -128px);
+			opacity: 0;
+		}
+	}
+	@keyframes expandTR {
+		100% {
+			transform: translate(128px, -128px);
+			opacity: 0;
+		}
+	}
+	@keyframes expandL {
+		100% {
+			transform: translateX(calc(-50% + 16px));
+		}
+	}
+	@keyframes expandR {
+		100% {
+			transform: translateX(calc(50% - 16px));
+		}
+	}
+	@keyframes expandBL {
+		100% {
+			transform: translate(-128px, 128px);
+			opacity: 0;
+		}
+	}
+	@keyframes expandBR {
+		100% {
+			transform: translate(128px, 128px);
+			opacity: 0;
+		}
+	}
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentcolor);
+	}
+}
+
+@utility hexagon {
+	@apply aspect-hexagon;
+	clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
+}
+
+@utility hexarect {
+	clip-path: polygon(0% 50%, 0% 0%, 100% 0%, 100% 50%, 100% 100%, 0% 100%);
+}
+
+@utility up-arrow {
+	clip-path: polygon(
+		50% 0%,
+		90% 30%,
+		78% 42%,
+		58% 25%,
+		58% 100%,
+		42% 100%,
+		42% 25%,
+		22% 42%,
+		10% 30%
+	);
+}
+
+@utility curly-braces {
+	&::before {
+		content: "{";
+	}
+	&::after {
+		content: "}";
+	}
+}
+
+@utility square-braces {
+	&::before {
+		content: "[";
+	}
+	&::after {
+		content: "],";
+	}
+}
+
+@utility tilt-down {
+	--rotateX: calc(var(--angle) * -1);
+}
+
+@utility tilt-up {
+	--rotateX: var(--angle);
+}
+
+@utility tilt-left {
+	--rotateY: calc(var(--angle) * -1);
+}
+
+@utility tilt-right {
+	--rotateY: var(--angle);
+}
+
+@utility tilting-card {
+	transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(var(--rotateY));
+	transition: transform 350ms ease;
+}
+
+@layer base {
+	html[data-theme="dark"] {
+		--color-blob-to: var(--color-grayish-950);
+	}
+
+	.scrollable::-webkit-scrollbar {
+		@apply bg-grayish-100 dark:bg-grayish-800 h-2 w-2;
+	}
+	.scrollable::-webkit-scrollbar-track {
+		@apply bg-grayish-100 dark:bg-grayish-800 my-1 rounded-full;
+	}
+	.scrollable::-webkit-scrollbar-thumb {
+		@apply bg-grayish-300 hover:bg-grayish-400 dark:bg-grayish-600 dark:hover:bg-grayish-500 rounded-full;
+	}
+	.dark .scrollable::-webkit-scrollbar {
+		@apply bg-grayish-700;
+	}
+	.dark .scrollable::-webkit-scrollbar-track {
+		@apply bg-grayish-700;
+	}
+	.dark .scrollable::-webkit-scrollbar-thumb {
+		@apply bg-grayish-800 hover:bg-grayish-700;
+	}
+	@supports (scrollbar-color: darkgray lightgray) {
+		.scrollable {
+			scrollbar-width: thin;
+			scrollbar-color: var(--color-grayish-300) var(--color-grayish-100);
+		}
+		html[data-theme="dark"].scrollable,
+		[data-theme="dark"] .scrollable,
+		.dark .scrollable {
+			scrollbar-color: var(--color-grayish-600) var(--color-grayish-800);
+		}
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-baloo2;
+	}
+}
+
+@plugin "@tailwindcss/typography";

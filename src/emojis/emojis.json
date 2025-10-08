@@ -936,7 +936,7 @@
 		"aka": ["Devil", "Devil Horns", "Purple Devil", "Purple Goblin", "Sad Devil"],
 		"shortCodes": [":angry_face_with_horns:", ":imp:"],
 		"category": "smileys",
-		"subCategory": "concerned-negative"
+		"subCategory": ["costume-creature-animal", "concerned-negative"]
 	},
 	{
 		"id": "U+1F608",
@@ -946,15 +946,6 @@
 		"subCategory": "costume-creature-animal",
 		"aka": ["Devil", "Devil Horns", "Happy Devil", "Purple Devil", "Red Devil"],
 		"shortCodes": [":smiling_face_with_horns:", ":smiling_imp:"]
-	},
-	{
-		"id": "U+1F47F",
-		"codePoint": "U+1F47F",
-		"name": "Imp",
-		"category": "smileys",
-		"subCategory": "costume-creature-animal",
-		"aka": ["Devil", "Devil Horns", "Purple Devil", "Purple Goblin", "Sad Devil"],
-		"shortCodes": [":angry_face_with_horns:", ":imp:"]
 	},
 	{
 		"id": "U+1F480",
@@ -14874,15 +14865,6 @@
 		"subCategory": "asia-middle-east"
 	},
 	{
-		"id": "U+1F1F7_U+1F1FA",
-		"codePoint": ["U+1F1F7", "U+1F1FA"],
-		"name": "Flag: Russia",
-		"aka": ["Regional Indicator Symbol Letters RU", "Russian Flag"],
-		"shortCodes": [":flag_russia:", ":ru:", ":flag-ru:", ":flag_ru:"],
-		"category": "flags",
-		"subCategory": "asia-middle-east"
-	},
-	{
 		"id": "U+1F1F8_U+1F1E6",
 		"codePoint": ["U+1F1F8", "U+1F1E6"],
 		"name": "Flag: Saudi Arabia",
@@ -15409,7 +15391,7 @@
 		"aka": ["Regional Indicator Symbol Letters RU", "Russian Flag"],
 		"shortCodes": [":flag_russia:", ":ru:", ":flag-ru:", ":flag_ru:"],
 		"category": "flags",
-		"subCategory": "europe"
+		"subCategory": ["europe", "asia-middle-east"]
 	},
 	{
 		"id": "U+1F1F8_U+1F1EA",

@@ -4,7 +4,7 @@
 
 <button
 	id="btnDarkLight"
-	class="touch-manipulation rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-600 dark:focus-visible:outline-primary-500"
+	class="touch-manipulation rounded-full focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-600 dark:focus-visible:outline-primary-500"
 	title="Toggles light and dark mode"
 	aria-label="Toggle light and dark mode">
 	<svg
@@ -15,7 +15,7 @@
 		<mask class="origin-center" id="moon-mask">
 			<rect class="h-full w-full fill-white" x="0" y="0"></rect>
 			<circle
-				class="-translate-x-2 fill-black transition-transform delay-[250ms] duration-500 ease-[cubic-bezier(0,0,0,1)] motion-reduce:transition-none dark:translate-x-0 dark:delay-0 dark:duration-[250ms]"
+				class="-translate-x-2 fill-black transition-transform delay-250 duration-500 ease-[cubic-bezier(0,0,0,1)] motion-reduce:transition-none dark:translate-x-0 dark:delay-0 dark:duration-250"
 				cx="25"
 				cy="10"
 				r="6"></circle>
@@ -30,7 +30,7 @@
 		<g
 			class="opacity-0 transition-opacity duration-500 ease-[cubic-bezier(.25,0,.3,1)] motion-reduce:transition-none dark:opacity-100">
 			<g
-				class="origin-center -rotate-[25deg] stroke-current stroke-2 transition-transform duration-150 ease-[cubic-bezier(.5,1.5,.75,1.25)] motion-reduce:transition-none dark:rotate-0 dark:duration-500"
+				class="origin-center -rotate-25 stroke-current stroke-2 transition-transform duration-150 ease-[cubic-bezier(.5,1.5,.75,1.25)] motion-reduce:transition-none dark:rotate-0 dark:duration-500"
 				id="sun-beams">
 				<line x1="12" y1="1" x2="12" y2="3"></line>
 				<line x1="12" y1="21" x2="12" y2="23"></line>

@@ -1,100 +1,49 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { Icon } from "astro-icon/components"
 
-export interface Props extends Omit<astroHTML.JSX.DialogHTMLAttributes, "class"> {
+export interface Props extends HTMLAttributes<"dialog"> {
 	heading: string
-	class?: string
 }
-const { heading, class: classList, ...attrs } = Astro.props
+const { heading, id: popoverId, class: classList, ...attrs } = Astro.props
 ---
 
 <dialog
 	class:list={[
-		"w-[90dvw] bg-transparent backdrop:bg-grayish-950/70 backdrop:backdrop-blur-sm md:w-[75dvw] lg:w-[50dvw]",
+		"m-auto w-[90dvw] bg-transparent md:w-[75dvw] lg:w-[50dvw]",
+		"backdrop:bg-grayish-950/70 backdrop:opacity-0 backdrop:backdrop-blur-xs open:backdrop:opacity-100",
+		"backdrop:transition-[display,opacity,overlay] backdrop:transition-discrete backdrop:duration-300 backdrop:ease-out starting:open:backdrop:opacity-0",
+		"scale-0 opacity-0 open:scale-100 open:opacity-100",
+		"transition-[display,opacity,scale] transition-discrete duration-300 ease-out starting:open:scale-0 starting:open:opacity-0",
 		classList
 	]}
+	id={popoverId}
 	{...attrs}
-	aria-label={heading}>
-	<form
-		class="grid grid-cols-1 grid-rows-[auto,_1fr,_auto] divide-y-[1px] divide-grayish-300 rounded-lg border border-grayish-300 bg-transparent dark:divide-grayish-700 dark:border-grayish-700 dark:bg-grayish-900"
-		method="dialog">
+	aria-label={heading}
+	popover
+>
+	<div
+		class="divide-grayish-300 border-grayish-300 dark:divide-grayish-700 dark:border-grayish-700 dark:bg-grayish-900 grid grid-cols-1 grid-rows-[auto_1fr_auto] divide-y rounded-lg border bg-transparent"
+	>
 		<header
-			class="flex items-center justify-between rounded-t-lg bg-grayish-100 px-4 py-3 dark:bg-grayish-950">
+			class="bg-grayish-100 dark:bg-grayish-950 flex items-center justify-between rounded-t-lg px-4 py-3"
+		>
 			<h3 class="text-2xl font-medium">{heading}</h3>
 			<button
-				class="rounded-full p-2 text-grayish-600 outline-none hover:text-grayish-700 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary-600 dark:text-grayish-400 dark:hover:text-grayish-300 dark:focus-visible:outline-primary-500"
-				type="submit"
-				autofocus>
+				class="text-grayish-600 hover:text-grayish-700 focus-visible:outline-primary-600 dark:text-grayish-400 dark:hover:text-grayish-300 dark:focus-visible:outline-primary-500 rounded-full p-2 outline-hidden focus-visible:outline-2 focus-visible:outline-offset-0"
+				type="button"
+				autofocus
+				popovertarget={popoverId}
+				popovertargetaction="hide"
+			>
 				<span class="sr-only">Close</span>
 				<Icon class="size-6" aria-hidden="true" name="mdi:close" />
 			</button>
 		</header>
 		<div
-			class="scrollable max-h-[70dvh] overflow-y-auto overscroll-contain bg-grayish-50 p-4 dark:bg-grayish-900">
+			class="scrollable bg-grayish-50 dark:bg-grayish-900 max-h-[70dvh] overflow-y-auto overscroll-contain p-4"
+		>
 			<slot />
 		</div>
-	</form>
+	</div>
 </dialog>
-
-<style>
-	:root {
-		--opening-duration: 0.3s;
-	}
-
-	dialog[open] {
-		opacity: 1;
-		transform: scale(1);
-	}
-
-	dialog {
-		opacity: 0;
-		transform: scale(0);
-		transition:
-			opacity var(--opening-duration) ease-out,
-			transform var(--opening-duration) ease-out,
-			overlay var(--opening-duration) ease-out allow-discrete,
-			display var(--opening-duration) ease-out allow-discrete;
-	}
-
-	@starting-style {
-		dialog[open] {
-			opacity: 0;
-			transform: scale(0);
-		}
-	}
-
-	dialog::backdrop {
-		opacity: 0;
-		transition:
-			opacity var(--opening-duration) ease-out,
-			overlay var(--opening-duration) ease-out allow-discrete,
-			display var(--opening-duration) ease-out allow-discrete;
-	}
-
-	dialog[open]::backdrop {
-		opacity: 1;
-	}
-
-	@starting-style {
-		dialog[open]::backdrop {
-			opacity: 0;
-		}
-	}
-</style>
-
-<script>
-	const dialogs = document.querySelectorAll(
-		"dialog[id^='dlgWorkItem_']"
-	) as NodeListOf<HTMLDialogElement>
-	if (dialogs && dialogs.length > 0) {
-		for (const dialog of dialogs) {
-			dialog.addEventListener("click", () => {
-				dialog.close()
-			})
-
-			dialog.firstElementChild?.addEventListener("click", (e) => {
-				e.stopPropagation()
-			})
-		}
-	}
-</script>

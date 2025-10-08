@@ -62,14 +62,12 @@ const navItems: MenuItem[] = [
 		transform: translateY(0);
 	}
 	[popover] {
-		--duration: 0.5s;
 		opacity: 0;
 		transform: translateY(-100dvh);
-		transition:
-			opacity var(--duration) ease-in-out,
-			transform var(--duration) ease-in-out,
-			overlay var(--duration) ease-in-out allow-discrete,
-			display var(--duration) ease-in-out allow-discrete;
+		transition: opacity, transform, overlay, display;
+		transition-duration: 500ms;
+		transition-timing-function: ease-in-out;
+		transition-behavior: allow-discrete;
 	}
 	@starting-style {
 		[popover]:popover-open {

@@ -4,7 +4,7 @@ import Button from "./form/Button.astro"
 ---
 
 <button
-	class="touch-manipulation rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-600 dark:focus-visible:outline-primary-500"
+	class="touch-manipulation rounded-full focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-600 dark:focus-visible:outline-primary-500"
 	id="btnSearch"
 	type="button"
 	arial-label="Search">
@@ -17,7 +17,7 @@ import Button from "./form/Button.astro"
 </button>
 
 <dialog
-	class="max-h-[90dvh] w-[640px] max-w-[95dvw] overscroll-y-contain bg-transparent backdrop:bg-grayish-500/50 backdrop:backdrop-blur-sm"
+	class="max-h-[90dvh] w-[640px] max-w-[95dvw] overscroll-y-contain bg-transparent backdrop:bg-grayish-500/50 backdrop:backdrop-blur-xs"
 	id="dlgSearch"
 	aria-label="Search">
 	<div
@@ -32,7 +32,7 @@ import Button from "./form/Button.astro"
 				<Icon class="size-8" name="mdi:search" aria-hidden="true" />
 				<label for="inputSearch" class="sr-only">Search</label>
 				<input
-					class="w-full bg-inherit p-2 text-inherit outline-none placeholder:text-grayish-700 focus-visible:border-secondary-600 dark:placeholder:text-grayish-300 dark:focus-visible:border-secondary-400"
+					class="w-full bg-inherit p-2 text-inherit outline-hidden placeholder:text-grayish-700 focus-visible:border-secondary-600 dark:placeholder:text-grayish-300 dark:focus-visible:border-secondary-400"
 					id="inputSearch"
 					type="text"
 					autofocus

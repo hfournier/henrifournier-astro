@@ -1,8 +1,16 @@
 /**
- * Convert a string of Markdown into an equivalent string of HTML.
+ * Convert a string of Markdown into a string of HTML.
  *
  * @param {string | null} markdown The Markdown string to convert.
- * @returns {string} The HTML string equivalent to the input Markdown.
+ * @return {string} An HTML string representing the input Markdown, or an empty string
+ *    if `markdown` is `null` or `undefined`.
+ *
+ * Supported Markdown syntax includes:
+ *  - Blockquotes: `*{text}`
+ *  - Bold text: `**{text}**`
+ *  - Italic text: `*{text}*`
+ *  - Strikethrough text: `~{text}~`
+ *  - Code blocks: 
  */
 export const convertMarkdown = (markdown: string | null) => {
 	if (!markdown) return ""
@@ -17,12 +25,21 @@ export const convertMarkdown = (markdown: string | null) => {
 }
 
 /**
- * Escape a string of HTML so that it can be displayed as a text string instead
- * of being interpreted by a browser as HTML.
+ * Escape a string of HTML into a string of safe HTML.
  *
  * @param {string | null} html The HTML string to escape.
- * @return {string} An escaped version of the input string, or an empty string
+ * @return {string} A string of safe HTML, or an empty string
  *    if `html` is `null` or `undefined`.
+ *
+ * Supported HTML syntax includes:
+ *  - Ampersand (& -> &amp;)
+ *  - Less than (< -> &lt;)
+ *  - Greater than (>) -> &gt;)
+ *  - Left brace ({ -> &lbrace;)
+ *  - Right brace (} -> &rbrace;)
+ *  - Apostrophe (') -> &#39;)
+ *  - Double quote (" -> &quot;)
+ *
  */
 export const escapeHTML = (html: string | null) => {
 	if (!html) return ""
