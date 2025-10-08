@@ -1,8 +1,15 @@
 ---
+import Heading3 from "@components/heading/Heading3.astro"
+import type { CollectionEntry } from "astro:content"
+import { render } from "astro:content"
+
 type Props = {
+	experience: CollectionEntry<"experiences">
 	rowClass: string
 }
-const { rowClass } = Astro.props
+const { experience, rowClass } = Astro.props
+
+const { Content } = await render(experience)
 ---
 
 <div
@@ -11,6 +18,8 @@ const { rowClass } = Astro.props
 		"col-start-2 md:odd:col-start-3 md:even:col-start-1",
 		`${rowClass}`
 	]}
-	aria-hidden="true">
-	<slot />
+>
+	<Heading3>{experience.data.title}</Heading3>
+
+	<Content />
 </div>

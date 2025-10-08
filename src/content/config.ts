@@ -47,6 +47,12 @@ const categorySchema = ({ image }: SchemaContext) =>
 		seo: seoSchema({ image }).optional()
 	})
 
+const experienceSchema = 
+	z.object({
+		title: z.string(),
+		sortOrder: z.number(),
+	})
+
 const tagSchema = ({ image }: SchemaContext) =>
 	z.object({
 		name: z.string(),
@@ -156,6 +162,11 @@ const categoriesCollection = defineCollection({
 	schema: categorySchema
 })
 
+const experiencesCollection = defineCollection({
+	type: "content", // v2.5.0 and later
+	schema: experienceSchema
+})
+
 const tagsCollection = defineCollection({
 	type: "data", // v2.5.0 and later
 	schema: tagSchema
@@ -170,6 +181,7 @@ export const collections = {
 	authors: authorsCollection,
 	blogs: blogsCollection,
 	categories: categoriesCollection,
+	experiences: experiencesCollection,
 	tags: tagsCollection,
 	work: workCollection,
 	emojis: emojiCollection,
