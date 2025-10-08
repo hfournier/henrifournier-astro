@@ -12,7 +12,7 @@ const categories = await getCollection("emoji-categories")
 ---
 
 <div
-	class="w-full rounded bg-grayish-300 p-4 sm:max-w-[503px] dark:bg-grayish-800"
+	class="w-full rounded-sm bg-grayish-300 p-4 sm:max-w-[503px] dark:bg-grayish-800"
 	id="divEmojiPicker"
 	popover
 >
@@ -26,10 +26,10 @@ const categories = await getCollection("emoji-categories")
 		>
 		<div class="flex w-full items-center gap-2 pt-4">
 			<div
-				class="flex w-full items-center justify-between rounded-sm border border-grayish-100 bg-grayish-300 focus-within:border-secondary-600 dark:border-grayish-900 dark:bg-grayish-800 dark:focus-within:border-secondary-400"
+				class="flex w-full items-center justify-between rounded-xs border border-grayish-100 bg-grayish-300 focus-within:border-secondary-600 dark:border-grayish-900 dark:bg-grayish-800 dark:focus-within:border-secondary-400"
 			>
 				<input
-					class="peer h-10 w-full bg-transparent px-2 py-1 outline-none"
+					class="peer h-10 w-full bg-transparent px-2 py-1 outline-hidden"
 					type="search"
 					id="inputSearchEmoji"
 					placeholder="Search plain text or :shortcodes:"
@@ -47,7 +47,7 @@ const categories = await getCollection("emoji-categories")
 			</button>
 		</div>
 		<fieldset
-			class="scrollable aspect-[4/3] overflow-y-auto rounded-sm border border-grayish-100 px-4 py-2 dark:border-grayish-900"
+			class="scrollable aspect-4/3 overflow-y-auto rounded-xs border border-grayish-100 px-4 py-2 dark:border-grayish-900"
 			id="fsEmoji"
 		>
 			<legend class="px-2 font-baloo2 text-xl font-medium">Select an emoji</legend>
@@ -58,7 +58,7 @@ const categories = await getCollection("emoji-categories")
 					Search Results
 					<Icon
 						name="mdi:chevron-down"
-						class="size-6 flex-shrink-0 origin-center transform text-grayish-700 transition-transform duration-300 group-open/details:-rotate-180 group-focus-visible/summary:!text-grayish-900 dark:text-grayish-300 dark:group-focus-visible/summary:!text-grayish-100"
+						class="size-6 shrink-0 origin-center transform text-grayish-700 transition-transform duration-300 group-open/details:-rotate-180 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100!"
 						aria-label={`Expand or Collapse Search Results section`}
 					/>
 				</summary>
@@ -71,7 +71,7 @@ const categories = await getCollection("emoji-categories")
 					Recent
 					<Icon
 						name="mdi:chevron-down"
-						class="size-6 flex-shrink-0 origin-center transform text-grayish-700 transition-transform duration-300 group-open/details:-rotate-180 group-focus-visible/summary:!text-grayish-900 dark:text-grayish-300 dark:group-focus-visible/summary:!text-grayish-100"
+						class="size-6 shrink-0 origin-center transform text-grayish-700 transition-transform duration-300 group-open/details:-rotate-180 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100!"
 						aria-label={`Expand or Collapse Recent section`}
 					/>
 				</summary>
@@ -85,7 +85,7 @@ const categories = await getCollection("emoji-categories")
 								{category.data.title}
 								<Icon
 									name="mdi:chevron-down"
-									class="size-6 flex-shrink-0 origin-center transform text-grayish-700 transition-transform duration-300 group-open/details:-rotate-180 group-focus-visible/summary:!text-grayish-900 dark:text-grayish-300 dark:group-focus-visible/summary:!text-grayish-100"
+									class="size-6 shrink-0 origin-center transform text-grayish-700 transition-transform duration-300 group-open/details:-rotate-180 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100!"
 									aria-label={`Expand or Collapse ${category.data.title} section`}
 								/>
 							</summary>

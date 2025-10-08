@@ -60,7 +60,7 @@ const removeTag = (tagId: string) => {
 							<li class="flex items-center gap-2">
 								by
 								<a
-									class="group/author flex items-center gap-2 rounded px-2 no-underline outline outline-1 outline-grayish-300 hover:text-inherit hover:shadow hover:outline-2"
+									class="group/author flex items-center gap-2 rounded-sm px-2 no-underline outline-solid outline-1 outline-grayish-300 hover:text-inherit hover:shadow-sm hover:outline-2"
 									href={removeAuthor()}>
 									{author?.data.name ?? authorParam}
 									<Icon
@@ -74,7 +74,7 @@ const removeTag = (tagId: string) => {
 							<li class="flex items-center gap-2">
 								about
 								<a
-									class="group/category flex items-center gap-2 rounded px-2 no-underline outline outline-1 outline-grayish-300 hover:text-inherit hover:shadow hover:outline-2"
+									class="group/category flex items-center gap-2 rounded-sm px-2 no-underline outline-solid outline-1 outline-grayish-300 hover:text-inherit hover:shadow-sm hover:outline-2"
 									href={removeCategory()}>
 									{category?.data.name ?? categoryParam}
 									<Icon
@@ -89,9 +89,9 @@ const removeTag = (tagId: string) => {
 								matching
 								<ul class="flex gap-2">
 									{tags.map((tag) => (
-										<li class="flex items-center gap-1.5 before:[&:not(:first-child):not(:last-child)]:content-[','] before:[&:not(:first-child)]:last:content-['and']">
+										<li class="flex items-center gap-1.5 [&:not(:first-child):not(:last-child)]:before:content-[','] not-first:last:before:content-['and']">
 											<a
-												class="group/tags flex items-center gap-2 rounded px-2 no-underline outline outline-1 outline-grayish-300 hover:text-inherit hover:shadow hover:outline-2"
+												class="group/tags flex items-center gap-2 rounded-sm px-2 no-underline outline-solid outline-1 outline-grayish-300 hover:text-inherit hover:shadow-sm hover:outline-2"
 												href={removeTag(tag.id)}>
 												{tag.data.name}
 												<Icon

@@ -1,6 +1,7 @@
 ---
-interface Props extends Omit<astroHTML.JSX.AnchorHTMLAttributes, "class"> {
-	class?: string
+import type { HTMLAttributes } from "astro/types"
+
+interface Props extends HTMLAttributes<"a"> {
 	outline?: boolean
 }
 const { class: classList, outline = false, ...attrs } = Astro.props
@@ -8,7 +9,7 @@ const { class: classList, outline = false, ...attrs } = Astro.props
 
 <a
 	class:list={[
-		"max-w-fit whitespace-nowrap rounded border-2 border-secondary-700 px-3 py-1 text-sm font-semibold uppercase no-underline hover:border-secondary-800 hover:shadow-md hover:shadow-secondary-500/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-600 md:px-4 md:py-2 md:text-base dark:border-secondary-600 dark:hover:border-secondary-500 dark:hover:shadow-secondary-500/50 dark:focus-visible:outline-primary-500",
+		"border-secondary-700 hover:border-secondary-800 hover:shadow-secondary-500/50 focus-visible:outline-primary-600 dark:border-secondary-600 dark:hover:border-secondary-500 dark:hover:shadow-secondary-500/50 dark:focus-visible:outline-primary-500 max-w-fit rounded-sm border-2 px-3 py-1 text-sm font-semibold whitespace-nowrap uppercase no-underline hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 md:px-4 md:py-2 md:text-base",
 		{ "bg-secondary-700": !outline },
 		{ "text-white": !outline },
 		{ "hover:bg-secondary-800": !outline },
@@ -17,13 +18,14 @@ const { class: classList, outline = false, ...attrs } = Astro.props
 		{ "dark:text-black": !outline },
 		{ "dark:hover:bg-secondary-500": !outline },
 		{ "dark:hover:text-black": !outline },
-		{ "!text-secondary-700": outline },
-		{ "hover:!no-underline": outline },
-		{ "dark:!text-white": outline },
+		{ "text-secondary-700!": outline },
+		{ "hover:no-underline!": outline },
+		{ "dark:text-white!": outline },
 		{ "dark:outline-secondary-600": outline },
 		{ "dark:hover:outline-secondary-500": outline },
 		classList
 	]}
-	{...attrs}>
+	{...attrs}
+>
 	<slot />
 </a>

@@ -1,6 +1,6 @@
 ---
 import "../styles/fonts.css"
-import "../styles/tailwind.css"
+import "../styles/global.css"
 import Footer from "@components/Footer.astro"
 import Header from "@components/Header.astro"
 import BaseHead from "@components/BaseHead.astro"
@@ -12,7 +12,8 @@ import BaseHead from "@components/BaseHead.astro"
 	</head>
 	<body
 		id="top"
-		class="grid min-h-dvh grid-cols-[[full-width-start]_minmax(1rem,_1fr)_[content-start]_min(100%_-_2rem,_1280px)_[content-end]_minmax(1rem,_1fr)_[full-width-end]] grid-rows-[auto_minmax(0,_1fr)_auto] bg-grayish-50 text-grayish-900 dark:bg-grayish-950 dark:text-grayish-100">
+		class="bg-grayish-50 text-grayish-900 dark:bg-grayish-950 dark:text-grayish-100 grid min-h-dvh grid-cols-[[full-width-start]_minmax(1rem,1fr)_[content-start]_min(100vw-2rem,1280px)_[content-end]_minmax(1rem,1fr)_[full-width-end]] grid-rows-[auto_minmax(0,1fr)_auto]"
+	>
 		<Header class="col-[content]" />
 		<slot />
 		<Footer class="col-[full-width]" />

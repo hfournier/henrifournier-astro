@@ -1,6 +1,7 @@
 ---
-interface Props extends Omit<astroHTML.JSX.ButtonHTMLAttributes, "class"> {
-	class?: string
+import type { HTMLAttributes } from "astro/types"
+
+interface Props extends HTMLAttributes<"button"> {
 	outline?: boolean
 }
 const { class: classList, outline = false, ...attrs } = Astro.props
@@ -8,12 +9,13 @@ const { class: classList, outline = false, ...attrs } = Astro.props
 
 <button
 	class:list={[
-		"flex items-center gap-2 rounded-md border-2 px-4 py-1 outline-offset-2 outline-secondary-600 hover:shadow hover:shadow-secondary-500/50 focus-visible:outline focus-visible:outline-2 dark:outline-secondary-400",
+		"outline-secondary-600 hover:shadow-secondary-500/50 dark:outline-secondary-400 flex items-center gap-2 rounded-md border-2 px-4 py-1 outline-offset-2 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-solid",
 		!outline
-			? "border-grayish-800 bg-grayish-800 text-grayish-50 hover:border-secondary-700 hover:bg-secondary-700 hover:text-white dark:border-grayish-200 dark:bg-grayish-200 dark:text-grayish-950 dark:hover:border-secondary-400 dark:hover:bg-secondary-400 dark:hover:text-black"
+			? "border-grayish-800 bg-grayish-800 text-grayish-50 hover:border-secondary-700 hover:bg-secondary-700 dark:border-grayish-200 dark:bg-grayish-200 dark:text-grayish-950 dark:hover:border-secondary-400 dark:hover:bg-secondary-400 hover:text-white dark:hover:text-black"
 			: "border-grayish-800 text-grayish-800 hover:border-secondary-600 hover:text-secondary-600 dark:border-grayish-200 dark:text-grayish-200 dark:hover:border-secondary-300 dark:hover:text-secondary-300",
 		classList
 	]}
-	{...attrs}>
+	{...attrs}
+>
 	<slot />
 </button>

@@ -12,14 +12,14 @@ const categories = await getCollection("emoji-categories")
 ---
 
 <dialog
-	class="w-full rounded bg-grayish-300 p-4 sm:max-w-[487px] dark:bg-grayish-800"
+	class="w-full rounded-sm bg-grayish-300 p-4 sm:max-w-[487px] dark:bg-grayish-800"
 	id="dlgEmojiPicker">
 	<div class="relative space-y-4">
 		<button class="absolute -right-2 -top-5" id="btnCloseEmojiPicker" type="button"
 			><Icon class="size-5" name="mdi:close" /></button
 		>
 		<fieldset
-			class="scrollable aspect-[4/3] overflow-y-auto rounded-sm border border-grayish-100 p-2 dark:border-grayish-900"
+			class="scrollable aspect-4/3 overflow-y-auto rounded-xs border border-grayish-100 p-2 dark:border-grayish-900"
 			id="fsEmoji">
 			<legend class="px-2 font-baloo2 text-xl font-medium">Select an emoji</legend>
 			{
@@ -30,7 +30,7 @@ const categories = await getCollection("emoji-categories")
 								{category.data.title}
 								<Icon
 									name="mdi:chevron-down"
-									class="size-6 flex-shrink-0 origin-center transform text-grayish-700 transition-transform duration-300 group-open/details:-rotate-180 group-focus-visible/summary:!text-grayish-900 dark:text-grayish-300 dark:group-focus-visible/summary:!text-grayish-100"
+									class="size-6 shrink-0 origin-center transform text-grayish-700 transition-transform duration-300 group-open/details:-rotate-180 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100!"
 									aria-label={`Expand or Collapse ${category.data.title} section`}
 								/>
 							</summary>
@@ -39,7 +39,7 @@ const categories = await getCollection("emoji-categories")
 									{emojis
 										.filter((emoji) => emoji.data.category.id === category.id)
 										.map((emoji) => (
-											<label class="flex items-center justify-center rounded p-1.5 outline-none outline-0 outline-offset-1 outline-grayish-100 hover:bg-grayish-100 has-[input:checked]:outline has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:bg-grayish-900">
+											<label class="flex items-center justify-center rounded-sm p-1.5 outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:bg-grayish-900">
 												<input
 													class="w-0 appearance-none"
 													type="radio"
@@ -64,12 +64,12 @@ const categories = await getCollection("emoji-categories")
 			}
 		</fieldset>
 		<fieldset
-			class="group flex gap-2 rounded-sm border border-grayish-100 p-2 disabled:opacity-40 dark:border-grayish-900"
+			class="group flex gap-2 rounded-xs border border-grayish-100 p-2 disabled:opacity-40 dark:border-grayish-900"
 			id="fsSkinTone"
 			disabled>
 			<legend class="px-2 font-baloo2 font-medium">Select skin tone</legend>
 			<label
-				class="flex size-8 items-center justify-center rounded outline-none outline-0 outline-offset-1 outline-grayish-100 group-enabled:hover:cursor-pointer group-enabled:hover:bg-grayish-100 has-[input:checked]:outline has-[input:checked]:outline-2 dark:outline-grayish-900 dark:group-enabled:hover:bg-grayish-900">
+				class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
 				<input
 					class="w-0 appearance-none"
 					type="radio"
@@ -83,7 +83,7 @@ const categories = await getCollection("emoji-categories")
 			</label>
 			{
 				skinTones.map((skinTone) => (
-					<label class="flex size-8 items-center justify-center rounded outline-none outline-0 outline-offset-1 outline-grayish-100 group-enabled:hover:cursor-pointer group-enabled:hover:bg-grayish-100 has-[input:checked]:outline has-[input:checked]:outline-2 dark:outline-grayish-900 dark:group-enabled:hover:bg-grayish-900">
+					<label class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
 						<input
 							class="w-0 appearance-none"
 							type="radio"
@@ -97,12 +97,12 @@ const categories = await getCollection("emoji-categories")
 			}
 		</fieldset>
 		<fieldset
-			class="group flex gap-2 rounded-sm border border-grayish-100 p-2 disabled:opacity-40 dark:border-grayish-900"
+			class="group flex gap-2 rounded-xs border border-grayish-100 p-2 disabled:opacity-40 dark:border-grayish-900"
 			id="fsHairStyle"
 			disabled>
 			<legend class="pb-1 font-baloo2 font-medium">Select hair style</legend>
 			<label
-				class="flex size-8 items-center justify-center rounded outline-none outline-0 outline-offset-1 outline-grayish-100 group-enabled:hover:cursor-pointer group-enabled:hover:bg-grayish-100 has-[input:checked]:outline has-[input:checked]:outline-2 dark:outline-grayish-900 dark:group-enabled:hover:bg-grayish-900">
+				class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
 				<input
 					class="w-0 appearance-none"
 					type="radio"
@@ -116,7 +116,7 @@ const categories = await getCollection("emoji-categories")
 			</label>
 			{
 				hairStyles.map((hairStyle) => (
-					<label class="flex size-8 items-center justify-center rounded outline-none outline-0 outline-offset-1 outline-grayish-100 group-enabled:hover:cursor-pointer group-enabled:hover:bg-grayish-100 has-[input:checked]:outline has-[input:checked]:outline-2 dark:outline-grayish-900 dark:group-enabled:hover:bg-grayish-900">
+					<label class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
 						<input
 							class="w-0 appearance-none"
 							type="radio"
@@ -134,12 +134,12 @@ const categories = await getCollection("emoji-categories")
 			}
 		</fieldset>
 		<fieldset
-			class="group flex gap-2 rounded-sm border border-grayish-100 p-2 disabled:opacity-40 dark:border-grayish-900"
+			class="group flex gap-2 rounded-xs border border-grayish-100 p-2 disabled:opacity-40 dark:border-grayish-900"
 			id="fsGender"
 			disabled>
 			<legend class="pb-1 font-baloo2 font-medium">Select gender</legend>
 			<label
-				class="flex size-8 items-center justify-center rounded outline-none outline-0 outline-offset-1 outline-grayish-100 group-enabled:hover:cursor-pointer group-enabled:hover:bg-grayish-100 has-[input:checked]:outline has-[input:checked]:outline-2 dark:outline-grayish-900 dark:group-enabled:hover:bg-grayish-900">
+				class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
 				<input
 					class="w-0 appearance-none"
 					type="radio"
@@ -153,7 +153,7 @@ const categories = await getCollection("emoji-categories")
 			</label>
 			{
 				genders.map((gender) => (
-					<label class="flex size-8 items-center justify-center rounded outline-none outline-0 outline-offset-1 outline-grayish-100 group-enabled:hover:cursor-pointer group-enabled:hover:bg-grayish-100 has-[input:checked]:outline has-[input:checked]:outline-2 dark:outline-grayish-900 dark:group-enabled:hover:bg-grayish-900">
+					<label class="flex size-8 items-center justify-center rounded-sm outline-hidden outline-0 outline-offset-1 outline-grayish-100 hover:group-enabled:cursor-pointer hover:group-enabled:bg-grayish-100 has-[input:checked]:outline-solid has-[input:checked]:outline-2 dark:outline-grayish-900 dark:hover:group-enabled:bg-grayish-900">
 						<input
 							class="w-0 appearance-none"
 							type="radio"
@@ -168,7 +168,7 @@ const categories = await getCollection("emoji-categories")
 		</fieldset>
 		<div class="flex items-center gap-2">
 			<div
-				class="flex grow items-center justify-between rounded border border-grayish-100 px-1 py-0.5 text-3xl dark:border-grayish-900">
+				class="flex grow items-center justify-between rounded-sm border border-grayish-100 px-1 py-0.5 text-3xl dark:border-grayish-900">
 				<div class="peer" id="selectedEmoji"></div>
 				<button
 					class="text-secondary-500 hover:text-secondary-600 peer-empty:pointer-events-none peer-empty:text-grayish-500 dark:hover:text-secondary-400"

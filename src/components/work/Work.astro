@@ -16,8 +16,9 @@ const works = await getCollection("work")
 	</p>
 
 	<div
-		class="my-16 grid w-full auto-cols-fr auto-rows-fr gap-x-[3.75rem] gap-y-2 md:gap-x-11 lg:gap-x-8 xl:gap-x-10">
-		{works.map((work) => <WorkItem {work} />)}
+		class="my-16 grid w-full auto-rows-fr grid-cols-4 gap-4 sm:grid-cols-7 sm:gap-x-[min(2%,16px)] sm:gap-y-[min(calc(2%*2),calc(16px*2))] md:grid-cols-10 md:gap-y-[min(calc(2%*3),calc(16px*3))] lg:grid-cols-16"
+	>
+		{works.map((work, index) => <WorkItem {work} style={`--hex-index: ${index + 1};`} />)}
 	</div>
 
 	{works.map((work) => <WorkItemDialog {work} />)}

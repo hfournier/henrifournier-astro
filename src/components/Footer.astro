@@ -1,9 +1,8 @@
 ---
 import { Icon } from "astro-icon/components"
+import type { HTMLAttributes } from "astro/types"
 
-interface Props extends Omit<astroHTML.JSX.HtmlHTMLAttributes, "class"> {
-	class?: string
-}
+interface Props extends HTMLAttributes<"footer"> {}
 const { class: classList, ...attrs } = Astro.props
 
 const year = new Date().getFullYear().toString()
@@ -11,26 +10,28 @@ const year = new Date().getFullYear().toString()
 
 <footer
 	class:list={[
-		"mx-auto flex w-full flex-col items-center gap-6 bg-grayish-800 py-6 text-grayish-300",
+		"bg-grayish-800 text-grayish-300 mx-auto flex w-full flex-col items-center gap-6 py-6",
 		classList
 	]}
 	aria-label="Footer"
-	{...attrs}>
-	<div class="flex gap-10">
+	{...attrs}
+>
+	<div class="flex flex-wrap items-center justify-center gap-10">
 		<a class="rounded-full focus-visible:outline-offset-8" href="/contact">
 			<span class="sr-only">Email me</span>
 			<Icon
-				class="size-8 text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400"
+				class="text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400 size-8"
 				name="mdi:email"
 				aria-hidden="true"
 			/>
 		</a>
 		<a
 			class="rounded-full focus-visible:outline-offset-8"
-			href="https://ca.linkedin.com/in/henrifournier">
+			href="https://ca.linkedin.com/in/henrifournier"
+		>
 			<span class="sr-only">My LinkedIn profile</span>
 			<Icon
-				class="size-8 text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400"
+				class="text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400 size-8"
 				name="mdi:linkedin"
 				aria-hidden="true"
 			/>
@@ -38,7 +39,7 @@ const year = new Date().getFullYear().toString()
 		<a class="rounded-full focus-visible:outline-offset-8" href="https://github.com/hfournier">
 			<span class="sr-only">My Github profile</span>
 			<Icon
-				class="size-8 text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400"
+				class="text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400 size-8"
 				name="mdi:github"
 				aria-hidden="true"
 			/>
@@ -46,7 +47,7 @@ const year = new Date().getFullYear().toString()
 		<a class="rounded-full focus-visible:outline-offset-8" href="tel:+12503170583">
 			<span class="sr-only">Call me</span>
 			<Icon
-				class="size-8 text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400"
+				class="text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400 size-8"
 				name="mdi:phone"
 				aria-hidden="true"
 			/>
@@ -54,14 +55,14 @@ const year = new Date().getFullYear().toString()
 		<a class="rounded-full focus-visible:outline-offset-8" href="/rss.xml">
 			<span class="sr-only">RSS Feed</span>
 			<Icon
-				class="size-8 text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400"
+				class="text-grayish-100 hover:text-primary-600 dark:hover:text-primary-400 size-8"
 				name="mdi:rss"
 				aria-hidden="true"
 			/>
 		</a>
 	</div>
 
-	<div class="text-sm">
+	<div class="text-center text-sm">
 		Copyright &copy; {year} Henri Fournier. All rights Reserved.
 	</div>
 </footer>

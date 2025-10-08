@@ -13,7 +13,7 @@ type Props = {
 const { post } = Astro.props
 ---
 
-<section class="my-12 space-y-4 rounded border border-secondary-200 p-4 dark:border-secondary-800">
+<section class="my-12 space-y-4 rounded-sm border border-secondary-200 p-4 dark:border-secondary-800">
 	<h2 class="text-3xl font-bold">Comments</h2>
 	<p>
 		Please share your thoughts about <span
@@ -39,13 +39,13 @@ const { post } = Astro.props
 		</summary>
 	</details>
 	<div
-		class="max-h-0 overflow-hidden transition-[max-height] duration-200 ease-in peer-open:max-h-[22rem] peer-open:duration-300 peer-open:ease-in-out md:peer-open:max-h-56"
+		class="max-h-0 overflow-hidden transition-[max-height] duration-200 ease-in peer-open:max-h-88 peer-open:duration-300 peer-open:ease-in-out md:peer-open:max-h-56"
 		id="divComment">
 		<form
-			class="group/form grid gap-x-4 gap-y-6 rounded border-2 border-grayish-300 bg-grayish-100 p-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] dark:border-grayish-600 dark:bg-grayish-900 md:[&>div:first-child]:col-span-4"
+			class="group/form grid gap-x-4 gap-y-6 rounded-sm border-2 border-grayish-300 bg-grayish-100 p-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] dark:border-grayish-600 dark:bg-grayish-900 md:[&>div:first-child]:col-span-4"
 			id="formComment">
 			<InputTextarea
-				class="!bg-transparent [&+label]:bg-grayish-100 dark:[&+label]:bg-grayish-900"
+				class="bg-transparent! [&+label]:bg-grayish-100 dark:[&+label]:bg-grayish-900"
 				label="Comment"
 				id="text"
 				name="text"
@@ -53,14 +53,14 @@ const { post } = Astro.props
 				allowMarkdown={true}
 			/>
 			<InputText
-				class="!bg-transparent [&+label]:bg-grayish-100 dark:[&+label]:bg-grayish-900"
+				class="bg-transparent! [&+label]:bg-grayish-100 dark:[&+label]:bg-grayish-900"
 				label="Name"
 				id="name"
 				name="name"
 				type="text"
 			/>
 			<InputText
-				class="!bg-transparent [&+label]:bg-grayish-100 dark:[&+label]:bg-grayish-900"
+				class="bg-transparent! [&+label]:bg-grayish-100 dark:[&+label]:bg-grayish-900"
 				label="Email"
 				id="email"
 				name="email"
@@ -78,11 +78,11 @@ const { post } = Astro.props
 		</form>
 	</div>
 	<ul
-		class="space-y-1 rounded border-red-600 dark:border-red-400 [&:not(:empty)]:border [&:not(:empty)]:p-2"
+		class="space-y-1 rounded-sm border-red-600 dark:border-red-400 not-empty:border not-empty:p-2"
 		id="commentErrors">
 	</ul>
 	<div
-		class="rounded border-secondary-200 text-sm text-secondary-600 dark:border-secondary-800 dark:text-secondary-400 [&:not(:empty)]:border [&:not(:empty)]:p-2"
+		class="rounded-sm border-secondary-200 text-sm text-secondary-600 dark:border-secondary-800 dark:text-secondary-400 not-empty:border not-empty:p-2"
 		id="commentSuccess">
 	</div>
 	<CommentList {post} server:defer>

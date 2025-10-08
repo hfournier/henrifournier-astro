@@ -1,30 +1,31 @@
 ---
-interface Props extends astroHTML.JSX.InputHTMLAttributes {
+import type { HTMLAttributes } from "astro/types"
+
+interface Props extends HTMLAttributes<"input"> {
 	label: string
-	class?: string
 }
-const { label, class: classList, ...attributes } = Astro.props
+const { label, class: classList, ...attrs } = Astro.props
 ---
 
 <div class="relative grow">
 	<input
 		class:list={[
-			"peer h-10 w-full rounded border-2 border-grayish-400 bg-grayish-50 px-3.5 text-grayish-900 placeholder-transparent valid:border-grayish-300 focus:border-secondary-600 focus:outline-none dark:bg-grayish-800 dark:text-grayish-100 dark:focus:border-secondary-300 [&:user-invalid]:border-red-600 dark:[&:user-invalid]:border-red-300",
+			"peer border-grayish-400 bg-grayish-50 text-grayish-900 valid:border-grayish-300 focus:border-secondary-600 dark:bg-grayish-800 dark:text-grayish-100 dark:focus:border-secondary-300 h-10 w-full rounded-sm border-2 px-3.5 placeholder-transparent user-invalid:border-red-600 focus:outline-hidden dark:user-invalid:border-red-300",
 			classList
 		]}
-		{...attributes}
+		{...attrs}
 	/>
 
 	<label
-		for={attributes.id}
-		class="pointer-events-none absolute -top-2.5 left-2 rounded bg-grayish-50 px-2 text-sm text-grayish-600 transition-all after:pl-0.5 after:text-red-600 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-500 after:peer-required:content-['*'] peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-secondary-700 dark:bg-grayish-800 dark:text-grayish-300 dark:after:text-red-300 dark:peer-placeholder-shown:text-grayish-300 dark:peer-focus:text-secondary-300"
+		for={attrs.id}
+		class="bg-grayish-50 text-grayish-600 peer-placeholder-shown:text-grayish-500 peer-focus:text-secondary-700 dark:bg-grayish-800 dark:text-grayish-300 dark:peer-placeholder-shown:text-grayish-300 dark:peer-focus:text-secondary-300 pointer-events-none absolute -top-2.5 left-2 rounded-sm px-2 text-sm transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm after:pl-0.5 after:text-red-600 peer-required:after:content-['*'] dark:after:text-red-300"
 		>{label}</label
 	>
 	<div
-		class="absolute -bottom-4 left-4 hidden text-xs text-red-600 peer-[&:user-invalid]:block dark:text-red-400"
+		class="absolute -bottom-4 left-4 hidden text-xs text-red-600 peer-user-invalid:block dark:text-red-400"
 	>
 		{
-			attributes && attributes.type === "email"
+			attrs && attrs.type === "email"
 				? "A valid email address is required"
 				: `A ${label.toLocaleLowerCase()} is required`
 		}

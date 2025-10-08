@@ -1,19 +1,19 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import DarkLight from "./DarkLight.astro"
 import Logo from "./Logo.astro"
 import Nav from "./Nav.astro"
 import Search from "./Search.astro"
 
-interface Props extends Omit<astroHTML.JSX.HtmlHTMLAttributes, "class"> {
-	class?: string
-}
+interface Props extends HTMLAttributes<"header"> {}
 const { class: classList, ...attrs } = Astro.props
 ---
 
 <header
 	class:list={["flex items-center justify-between py-4 sm:py-6 md:px-4 md:py-8 lg:px-8", classList]}
 	aria-label="Header"
-	{...attrs}>
+	{...attrs}
+>
 	<Logo />
 
 	<div class="flex w-full items-center justify-end gap-4 lg:flex-row-reverse lg:justify-start">

@@ -1,18 +1,37 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { Image } from "astro:assets"
 import type { CollectionEntry } from "astro:content"
 
-type Props = { work: CollectionEntry<"work"> }
-const { work } = Astro.props
+type Props = { work: CollectionEntry<"work"> } & HTMLAttributes<"button">
+const { work, ...attrs } = Astro.props
 ---
 
 <button
-	class="hexagon hover:hexarect focus-visible:hexarect group col-span-3 row-span-2 rounded bg-grayish-700 p-0.5 transition-[clip-path] hover:z-20 focus-visible:z-20 [&:nth-child(1)]:col-start-1 [&:nth-child(1)]:row-start-1 sm:[&:nth-child(2)]:col-start-3 sm:[&:nth-child(2)]:row-start-2 md:[&:nth-child(2)]:col-start-5 md:[&:nth-child(2)]:row-start-1 sm:[&:nth-child(3)]:col-start-1 sm:[&:nth-child(3)]:row-start-3 md:[&:nth-child(3)]:col-start-3 md:[&:nth-child(3)]:row-start-2 lg:[&:nth-child(3)]:col-start-9 lg:[&:nth-child(3)]:row-start-1 sm:[&:nth-child(4)]:col-start-3 sm:[&:nth-child(4)]:row-start-4 md:[&:nth-child(4)]:col-start-1 md:[&:nth-child(4)]:row-start-3 lg:[&:nth-child(4)]:col-start-3 lg:[&:nth-child(4)]:row-start-2 sm:[&:nth-child(5)]:col-start-1 sm:[&:nth-child(5)]:row-start-5 md:[&:nth-child(5)]:col-start-5 md:[&:nth-child(5)]:row-start-3 lg:[&:nth-child(5)]:col-start-7 lg:[&:nth-child(5)]:row-start-2"
-	data-dialog={`dlgWorkItem_${work.slug}`}>
+	class:list={[
+		"hexagon hover:hexarect focus-visible:hexarect group/hexbutton bg-grayish-700 col-span-4 row-span-2 rounded-sm p-0.5 transition-[clip-path] hover:z-20 focus-visible:z-20",
+		"sm:nth-of-type-[2n]:col-start-4 sm:nth-of-type-[2n-1]:col-start-1",
+		"sm:nth-of-type-[2n-1]:row-start-[calc(((var(--hex-index)+1)/2)*2-1)]",
+		"sm:nth-of-type-[2n]:row-start-[calc((var(--hex-index)/2)*2)]",
+		"md:nth-of-type-[3n]:col-start-4 md:nth-of-type-[3n-1]:col-start-7 md:nth-of-type-[3n-2]:col-start-1",
+		"md:nth-of-type-[3n-2]:row-start-[calc(var(--hex-index)-var(--hex-index)/3)]",
+		"md:nth-of-type-[3n-1]:row-start-[calc(var(--hex-index)-var(--hex-index)/3)]",
+		"md:nth-of-type-[3n]:row-start-[calc(var(--hex-index)/3*2)]",
+		"lg:nth-of-type-[5n]:col-start-10 lg:nth-of-type-[5n-1]:col-start-4 lg:nth-of-type-[5n-2]:col-start-13 lg:nth-of-type-[5n-3]:col-start-7 lg:nth-of-type-[5n-4]:col-start-1",
+		"lg:nth-of-type-[5n-4]:row-start-[calc(var(--hex-index)/3+1)]",
+		"lg:nth-of-type-[5n-3]:row-start-[calc((var(--hex-index)-1)/3+1)]",
+		"lg:nth-of-type-[5n-2]:row-start-[calc((var(--hex-index)-2)/3+1)]",
+		"lg:nth-of-type-[5n-1]:row-start-[calc(var(--hex-index)/3+1)]",
+		"lg:nth-of-type-[5n]:row-start-[calc((var(--hex-index)-1)/3+1)]"
+	]}
+	popovertarget={`popover_${work.slug}`}
+	{...attrs}
+>
 	<div
-		class="hexagon group-hover:hexarect group-focus-visible:hexarect relative rounded bg-grayish-50 transition-[clip-path] dark:bg-grayish-900">
+		class="hexagon group-hover/hexbutton:hexarect group-focus-visible/hexbutton:hexarect bg-grayish-50 dark:bg-grayish-900 relative rounded-sm transition-[clip-path]"
+	>
 		<Image
-			class="hexagon group-hover:hexarect group-focus-visible:hexarect rounded object-cover p-2 transition-[clip-path]"
+			class="hexagon group-hover/hexbutton:hexarect group-focus-visible/hexbutton:hexarect rounded-sm object-cover p-2 transition-[clip-path]"
 			src={work.data.image}
 			alt={work.data.imageAlt}
 			widths={[256, 262, 338, 364, 387, 571, work.data.image.width]}
@@ -24,16 +43,3 @@ const { work } = Astro.props
 		</div>
 	</div>
 </button>
-
-<script>
-	const buttons = document.querySelectorAll("button.hexagon")
-	if (buttons && buttons.length > 0) {
-		for (const button of buttons) {
-			button.addEventListener("click", (e: Event) => {
-				const btn = e.currentTarget as HTMLButtonElement
-				const dialog = document.getElementById(btn.dataset.dialog as string) as HTMLDialogElement
-				dialog!.showModal()
-			})
-		}
-	}
-</script>

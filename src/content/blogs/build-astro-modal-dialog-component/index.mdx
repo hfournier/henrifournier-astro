@@ -75,7 +75,7 @@ import Dialog from "../components/Dialog.astro"
 
 <BaseLayout>
   <h1 class="text-4xl font-extrabold">Build an Astro Modal Dialog Component with Tailwind CSS</h1>
-  <button class="bg-indigo-600 px-4 py-2 rounded text-white shadow-lg" id="btnShowModal" type="button">Show Modal</button>
+  <button class="bg-indigo-600 px-4 py-2 rounded-sm text-white shadow-lg" id="btnShowModal" type="button">Show Modal</button>
   <Dialog />
 </BaseLayout>
 
@@ -100,24 +100,24 @@ Let's fix the latter point with Tailwind CSS and add some Astro props to make th
 ```astro
 ---
 // src/components/Dialog.astro
+import type { HTMLAttributes } from "astro/types"
 import { Icon } from "astro-icon/components"
 
-export interface Props extends Omit<astroHTML.JSX.DialogHTMLAttributes, "class"> {
+export interface Props extends HTMLAttributes<"dialog"> {
 	title: string
-	class?: string
 }
 const { title, class: classList, ...attrs } = Astro.props
 ---
 
 <dialog
 	class:list={[
-		"w-[90dvw] bg-transparent backdrop:bg-neutral-950/70 backdrop:backdrop-blur-sm md:w-[75dvw] lg:w-[50dvw]",
+		"w-[90dvw] bg-transparent backdrop:bg-neutral-950/70 backdrop:backdrop-blur-xs md:w-[75dvw] lg:w-[50dvw]",
 		classList
 	]}
 	{...attrs}
 	aria-label={title}>
 	<form
-		class="grid grid-cols-1 grid-rows-[auto,_1fr] divide-y-[1px] divide-neutral-300 rounded-lg border border-neutral-300 bg-transparent dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-900"
+		class="grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-neutral-300 rounded-lg border border-neutral-300 bg-transparent dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-900"
 		method="dialog">
 		<header
 			class="flex items-center justify-between rounded-t-lg bg-neutral-100 px-4 py-3 dark:bg-neutral-950">
@@ -140,14 +140,13 @@ const { title, class: classList, ...attrs } = Astro.props
 Wow! There's a lot going on there, so let's break it all down. Starting with the props declaration:
 
 ```ts
-export interface Props extends Omit<astroHTML.JSX.DialogHTMLAttributes, "class"> {
+export interface Props extends HTMLAttributes<"dialog"> {
 	title: string
-	class?: string
 }
 const { title, class: classList, ...attrs } = Astro.props
 ```
 
-If you're not familar with this way of declaring props, it might look a bit intimidating; but don't worry, it's pretty straight forward. With this `interface Props extends astroHTML.JSX.DialogHTMLAttributes` code, we're declaring that our `<Dialog />` component will have all the same attributes as the regular [HTMLDialogElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement), except for the `class` attribute, which we are ommitting with `Omit<..., "class">`. We then add a `title` prop and our own optional `class` prop. Lastly, we deconstruct `Astro.props` into `title` and `classList` (since "class" is a reserved word) and all the other props are captured by `...attrs`.
+If you're not familar with this way of declaring props, it might look a bit intimidating; but don't worry, it's pretty straight forward. With this `interface Props extends HTMLAttributes<"dialog">` code, we're declaring that our `<Dialog />` component will have all the same attributes as the regular [HTMLDialogElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement). We then add a required `title` prop. Lastly, we deconstruct `Astro.props` into `title` and `classList` (since "class" is a reserved word) and all the other props are captured by `...attrs`.
 
 With our props interface defined, we can use our `<Dialog />` component like so:
 
@@ -162,7 +161,7 @@ where we're passing in a `title` and an `id`. Eventhough we didn't explicitly de
 ```html
 <dialog
   class:list={[
-    "w-[90dvw] bg-transparent backdrop:bg-neutral-950/70 backdrop:backdrop-blur-sm md:w-[75dvw] lg:w-[50dvw]",
+    "w-[90dvw] bg-transparent backdrop:bg-neutral-950/70 backdrop:backdrop-blur-xs md:w-[75dvw] lg:w-[50dvw]",
     classList
   ]}
   {...attrs}
@@ -192,13 +191,13 @@ To give the dialog a more familair look, we create a `<header>` element that inc
 </header>
 ```
 
-On the Tailwind CSS side, I won't go through all the classes that are used in the above examples, but there are a couple that are worthy of further explanation. There are two classes, `backdrop:bg-neutral-950/70` and `backdrop:backdrop-blur-sm`, that are used to style the `<dialog>` [::backdrop](https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop) pseudo-element. In Tailwind CSS, we can style the `::backdrop` pseudo-element using the `backdrop:` modifier. As you may have already guessed, the first one is used to set the backdrop's background color to a very dark gray with an opacity of 70% and the second one is used to set a `backdrop-filter` with a slight blur.
+On the Tailwind CSS side, I won't go through all the classes that are used in the above examples, but there are a couple that are worthy of further explanation. There are two classes, `backdrop:bg-neutral-950/70` and `backdrop:backdrop-blur-xs`, that are used to style the `<dialog>` [::backdrop](https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop) pseudo-element. In Tailwind CSS, we can style the `::backdrop` pseudo-element using the `backdrop:` modifier. As you may have already guessed, the first one is used to set the backdrop's background color to a very dark gray with an opacity of 70% and the second one is used to set a `backdrop-filter` with a slight blur.
 
 With all that in place, let's have a look at what our dialog looks like:
 
 <Image class="mx-auto" src={build_astro_dialog_screenshot_2} alt="Astro Modal Dialog Component with title, close button and content" />
 
-Yeah, that's much better, right? The backdrop has a darker semi-transparent background with a slight blur to focus the viewer's attention on the dialog.
+Yeah, that's much better, right? The backdrop has a darker semi-transparent background with a slight blur-sm to focus the viewer's attention on the dialog.
 
 To take it a little bit further, we could add a footer with a couple of buttons, like Yes and No, or OK and Cancel, or whatever is needed.
 
@@ -207,12 +206,12 @@ To take it a little bit further, we could add a footer with a couple of buttons,
 <footer
   class="flex items-center justify-end gap-2 rounded-b-lg bg-neutral-100 px-4 py-3 dark:bg-neutral-950">
   <button
-    class="rounded border-2 border-neutral-600 bg-neutral-600 px-4 py-2 text-white hover:border-neutral-700 hover:bg-neutral-700 hover:shadow-lg"
+    class="rounded-sm border-2 border-neutral-600 bg-neutral-600 px-4 py-2 text-white hover:border-neutral-700 hover:bg-neutral-700 hover:shadow-lg"
     value="Yes"
     >Yes</button
   >
   <button
-    class="rounded border-2 border-neutral-600 bg-transparent px-4 py-2 text-neutral-600 hover:border-neutral-700 hover:text-neutral-700 hover:shadow-lg"
+    class="rounded-sm border-2 border-neutral-600 bg-transparent px-4 py-2 text-neutral-600 hover:border-neutral-700 hover:text-neutral-700 hover:shadow-lg"
     value="No"
     >No</button
   >

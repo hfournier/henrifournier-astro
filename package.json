@@ -15,10 +15,10 @@
 		"@astrojs/netlify": "^6.5.11",
 		"@astrojs/rss": "^4.0.12",
 		"@astrojs/sitemap": "^3.6.0",
-		"@astrojs/tailwind": "^6.0.2",
 		"@iconify-json/devicon": "^1.2.45",
 		"@iconify-json/logos": "^1.2.9",
 		"@iconify-json/mdi": "^1.2.3",
+		"@tailwindcss/vite": "^4.1.14",
 		"astro": "^5.14.1",
 		"astro-icon": "^1.1.5",
 		"mdast-util-to-string": "^4.0.0",
@@ -37,6 +37,6 @@
 		"prettier": "^3.6.2",
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-tailwindcss": "^0.6.14",
-		"tailwindcss": "^3.4.18"
+		"tailwindcss": "^4.1.14"
 	}
 }

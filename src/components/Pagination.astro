@@ -68,7 +68,7 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 	{
 		currentPage === firstPage ? (
 			<span
-				class="rounded border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				class="rounded-sm border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
 				aria-hidden="true"
 			>
 				<span class="sr-only">First page</span>
@@ -81,7 +81,7 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 			</span>
 		) : (
 			<a
-				class="rounded border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				class="rounded-sm border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
 				href={prevUrl?.replace(regexpPageNumber, "")}
 				aria-label="First Page"
 			>
@@ -98,7 +98,7 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 	{
 		!prevUrl ? (
 			<span
-				class="rounded border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				class="rounded-sm border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
 				aria-hidden="true"
 			>
 				<span class="sr-only">Previous page</span>
@@ -108,7 +108,7 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 			</span>
 		) : (
 			<a
-				class="rounded border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				class="rounded-sm border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
 				href={prevUrl}
 				aria-label="Previous Page"
 			>
@@ -123,12 +123,12 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 	{
 		paginationList.map((i) =>
 			i === currentPage ? (
-				<span class="min-w-[1.5rem] rounded border-2 border-grayish-300 p-1 text-center text-sm uppercase text-grayish-300">
+				<span class="min-w-6 rounded-sm border-2 border-grayish-300 p-1 text-center text-sm uppercase text-grayish-300">
 					{i}
 				</span>
 			) : (
 				<a
-					class="min-w-[1.5rem] rounded border-2 border-grayish-500 p-1 text-center text-sm uppercase no-underline hover:shadow-md data-[page='0']:hidden"
+					class="min-w-6 rounded-sm border-2 border-grayish-500 p-1 text-center text-sm uppercase no-underline hover:shadow-md data-[page='0']:hidden"
 					data-page={i}
 					href={
 						i === 1
@@ -147,7 +147,7 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 	{
 		!nextUrl ? (
 			<span
-				class="rounded border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				class="rounded-sm border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
 				aria-hidden="true"
 			>
 				<span class="sr-only">Next page</span>
@@ -157,7 +157,7 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 			</span>
 		) : (
 			<a
-				class="rounded border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				class="rounded-sm border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
 				href={nextUrl}
 				aria-label="Next Page"
 			>
@@ -171,7 +171,7 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 	{
 		currentPage === lastPage ? (
 			<span
-				class="rounded border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				class="rounded-sm border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
 				aria-hidden="true"
 			>
 				<span class="sr-only">Last page</span>
@@ -184,7 +184,7 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 			</span>
 		) : (
 			<a
-				class="rounded border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				class="rounded-sm border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
 				href={nextUrl?.replace(regexpPageNumber, `/${lastPage}`)}
 				aria-label="Last Page"
 			>

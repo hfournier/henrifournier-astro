@@ -1,15 +1,16 @@
 ---
-interface Props extends Omit<astroHTML.JSX.AnchorHTMLAttributes, "class"> {
-	class?: string
-}
+import type { HTMLAttributes } from "astro/types"
+
+interface Props extends HTMLAttributes<"a"> {}
 const { class: classList, ...attrs } = Astro.props
 ---
 
 <a
 	class:list={[
-		"whitespace-nowrap rounded-sm text-right text-lg font-bold text-primary-600 no-underline decoration-primary-700 underline-offset-4 hover:text-primary-700 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-700 aria-[current='page']:underline md:text-xl md:text-primary-600 dark:text-primary-600 dark:decoration-primary-600 dark:hover:text-primary-500 dark:focus-visible:text-primary-500 dark:focus-visible:outline-primary-500",
+		"text-primary-600 decoration-primary-700 hover:text-primary-700 focus-visible:outline-primary-700 md:text-primary-600 dark:text-primary-600 dark:decoration-primary-600 dark:hover:text-primary-500 dark:focus-visible:text-primary-500 dark:focus-visible:outline-primary-500 rounded-xs text-right text-lg font-bold whitespace-nowrap no-underline underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solid aria-[current='page']:underline md:text-xl",
 		classList
 	]}
-	{...attrs}>
+	{...attrs}
+>
 	<slot />
 </a>

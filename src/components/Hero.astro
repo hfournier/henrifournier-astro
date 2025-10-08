@@ -1,32 +1,17 @@
 ---
-// import hexagons from "@data/hexagons-old.json"
 import { Icon } from "astro-icon/components"
 import ButtonLink from "./ButtonLink.astro"
 import { getCollection } from "astro:content"
 
 const hexagons = await getCollection("hexagons")
-
-// enum HexTypes {
-// 	NONE = 0,
-// 	STROKE = 1,
-// 	FILL = 2,
-// 	LINK = 3
-// }
-
-// type Hexagon = {
-// 	type: HexTypes
-// 	alt?: string
-// 	link?: string
-// 	svg?: string
-// }
 ---
 
 <section class="mx-0 pb-12 sm:mx-4 md:mx-8 lg:mx-16" aria-labelledby="heading-hero">
 	<div class="flex flex-col items-center">
-		<h1 class="text-3xl font-semibold text-primary-600 md:text-4xl lg:text-5xl" id="heading-hero">
+		<h1 class="text-primary-600 text-3xl font-semibold md:text-4xl lg:text-5xl" id="heading-hero">
 			Lighter. Faster. Better.
 		</h1>
-		<p class="mt-2 text-grayish-700 md:text-xl dark:text-grayish-100">
+		<p class="text-grayish-700 dark:text-grayish-100 mt-2 md:text-xl">
 			Custom websites that work for <span class="font-bold">you</span>
 		</p>
 		<div class="mt-4 flex w-full items-center justify-center space-x-4">
@@ -65,7 +50,8 @@ const hexagons = await getCollection("hexagons")
 				></svg
 			>
 			<div
-				class="col-start-1 row-start-1 mt-3 grid auto-cols-min auto-rows-min gap-x-1 gap-y-px px-2 sm:mt-4 sm:gap-x-2 sm:gap-y-[3px] md:mt-5 md:px-4 lg:mt-7 lg:gap-x-3 lg:gap-y-1 lg:px-5 xl:gap-x-[13px] xl:gap-y-1.5 xl:px-6">
+				class="col-start-1 row-start-1 mt-3 grid auto-cols-min auto-rows-min gap-x-1 gap-y-px px-2 sm:mt-4 sm:gap-x-2 sm:gap-y-[3px] md:mt-5 md:px-4 lg:mt-7 lg:gap-x-3 lg:gap-y-1 lg:px-5 xl:gap-x-[13px] xl:gap-y-1.5 xl:px-6"
+			>
 				{
 					hexagons.map((hexRow, r) =>
 						hexRow.data.cells.map(
@@ -78,9 +64,11 @@ const hexagons = await getCollection("hexagons")
 												{ "bg-primary-600": hex.type === "fill" },
 												{ "bg-transparent": hex.type === "stroke" },
 												{ "bg-primary-50": hex.type === "icon" },
-												{ "hover:scale-105": hex.type === "fill" },
-												{ "hover:scale-110": hex.type === "icon" },
-												{ "[&>a:focus-visible]:outline-none": hex.type === "icon" },
+												{ "hover:scale-110": hex.type === "fill" },
+												{ "hover:z-5": hex.type === "fill" },
+												{ "hover:scale-125": hex.type === "icon" },
+												{ "hover:z-5": hex.type === "icon" },
+												{ "[&>a:focus-visible]:outline-hidden": hex.type === "icon" },
 												{ "has-[a:focus-visible]:bg-white": hex.type === "icon" },
 												{ "has-[a:focus-visible]:scale-150": hex.type === "icon" },
 												{ "has-[a:focus-visible]:z-10": hex.type === "icon" },
@@ -196,11 +184,12 @@ const hexagons = await getCollection("hexagons")
 													"motion-safe:animate-[fadeIn_250ms_3950ms_ease-out_forwards]":
 														r == 3 && (c == 0 || c == 16)
 												}
-											]}>
+											]}
+										>
 											{hex.type === "stroke" && (
 												<svg viewBox="0 0 300 259.8" aria-hidden="true">
 													<polygon
-														class="fill-transparent stroke-primary-600/50 stroke-[16] hover:fill-primary-600/20"
+														class="stroke-primary-600/50 hover:fill-primary-600/20 fill-transparent stroke-16"
 														points="0,129.9 75,0 225,0 300,129.9 225,259.8 75,259.8"
 													/>
 												</svg>
@@ -229,7 +218,8 @@ const hexagons = await getCollection("hexagons")
 				xml:space="preserve"
 				style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:10"
 				class="pointer-events-none z-10 col-start-1 row-start-1"
-				aria-label="Illustration of a software developer sitting in front of a laptop and two monitors">
+				aria-label="Illustration of a software developer sitting in front of a laptop and two monitors"
+			>
 				<g id="Developer" transform="matrix(.8 0 0 .8 127.996 135.195)">
 					<path
 						d="M347.935 720c-6.763-36.91-5.441-82.934-.939-122.034l78.975 6.571c-2.338 38.562.774 81.908 8.449 115.463h-86.485Z"
@@ -264,9 +254,10 @@ const hexagons = await getCollection("hexagons")
 							id="Beard"></path>
 					</g>
 					<path
+						class="fill-shirt"
 						id="Shirt"
 						d="m461.214 720-4.694-112.647c-16.294 11.542-61.419 10.236-120.156-19.713l69.465-191.499c14.798-23.866 31.826-42.157 51.63-53.507l97.627-39.427c1.419 31.127 75.343 39.342 84.914 39.342l.236-.002c10.484-.128 83.27-8.456 84.678-39.34l97.627 39.427c19.804 11.35 36.832 29.641 51.63 53.507l69.465 191.499c-58.737 29.949-103.862 31.255-120.156 19.713L818.786 720H461.214Z"
-						style="fill:var(--color-shirt)"></path>
+					></path>
 				</g>
 				<g id="Desk"
 					><path
@@ -290,7 +281,8 @@ const hexagons = await getCollection("hexagons")
 					<g id="logo" transform="matrix(0.133992,0,0,0.133992,529.643,120.429)">
 						<g
 							id="glow-hex"
-							transform="matrix(-5.55112e-17,-1.13219,1.13219,-5.55112e-17,78.0906,1413.41)">
+							transform="matrix(-5.55112e-17,-1.13219,1.13219,-5.55112e-17,78.0906,1413.41)"
+						>
 							<path
 								d="M878.065,-21.47L1000.45,49.189L867.245,209.25L831.915,270.443L972.516,351.619L972.516,513.97L1043.18,513.97L1248.39,478.64L1248.39,619.96L1043.18,584.63L972.516,584.63L972.516,746.982L831.915,828.157L867.245,889.35L1000.45,1049.41L878.065,1120.07L806.052,924.68L770.722,863.487L630.122,944.663L489.521,863.487L454.191,924.68L382.178,1120.07L259.792,1049.41L392.998,889.35L428.328,828.157L287.727,746.982L287.727,584.63L217.068,584.63L11.848,619.96L11.848,478.64L217.068,513.97L287.727,513.97L287.727,351.619L428.328,270.443L392.998,209.25L259.792,49.189L382.178,-21.47L454.191,173.92L489.521,235.113L630.122,153.937L770.722,235.113L806.052,173.92L878.065,-21.47Z"
 								fill="url(#radGradGlow)"></path>
@@ -303,7 +295,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 								<g transform="matrix(2.07814,0,0,1,-611.57,-1.42299e-05)">
@@ -312,7 +304,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 							</g>
@@ -323,7 +315,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 								<g transform="matrix(2.07814,0,0,1,-611.57,-1.42299e-05)">
@@ -332,7 +324,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 							</g>
@@ -343,7 +335,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 								<g transform="matrix(2.07814,0,0,1,-611.57,-1.42299e-05)">
@@ -352,7 +344,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 							</g>
@@ -363,7 +355,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 								<g transform="matrix(2.07814,0,0,1,-611.57,855.307)">
@@ -372,7 +364,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 							</g>
@@ -383,7 +375,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 								<g transform="matrix(2.07814,0,0,1,-611.57,855.307)">
@@ -392,7 +384,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 							</g>
@@ -403,7 +395,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateLeft_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 								<g transform="matrix(2.07814,0,0,1,-611.57,855.307)">
@@ -412,7 +404,7 @@ const hexagons = await getCollection("hexagons")
 										y="232.346"
 										width="38.496"
 										height="80"
-										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,_closeGate_500ms_4300ms_linear_forwards]"
+										class="fill-primary-600 motion-safe:animate-[openGateRight_500ms_2300ms_ease-out_forwards,closeGate_500ms_4300ms_linear_forwards]"
 									></rect>
 								</g>
 							</g>
