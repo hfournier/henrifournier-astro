@@ -302,3 +302,7 @@
 }
 
 @plugin "@tailwindcss/typography";
+
+:root {
+	interpolate-size: allow-keywords;
+}
