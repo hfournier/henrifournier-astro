@@ -6,14 +6,23 @@ interface Props {
 	slug: string
 	mediaSrc?: any
 	mediaAlt?: string
+	lazyLoad?: boolean
 }
 
-const { link, title, slug, mediaSrc, mediaAlt = "TODO: Add alt text" } = Astro.props
+const {
+	link,
+	title,
+	slug,
+	mediaSrc,
+	mediaAlt = "TODO: Add alt text",
+	lazyLoad = true
+} = Astro.props
 ---
 
 <a class="group" href={link}>
 	<article
-		class="prose flex flex-col gap-1 rounded-lg border border-grayish-300 p-4 shadow-md transition-transform dark:prose-invert hover:scale-105 prose-h2:m-0 prose-p:my-0 prose-p:leading-normal prose-img:my-0">
+		class="prose border-grayish-300 dark:prose-invert prose-h2:m-0 prose-p:my-0 prose-p:leading-normal prose-img:my-0 flex flex-col gap-1 rounded-lg border p-4 shadow-md transition-transform hover:scale-105"
+	>
 		<header class="flex flex-col gap-4">
 			{
 				mediaSrc && (
@@ -24,12 +33,14 @@ const { link, title, slug, mediaSrc, mediaAlt = "TODO: Add alt text" } = Astro.p
 						transition:name={`fm-${slug}`}
 						widths={[355, 366, 434, 527]}
 						sizes="(max-width: 432px) 366px, (max-width: 639px) 527px, (max-width: 767px) 527px, (max-width: 1023px) 434px, (max-width: 1279px) 527px, 355px"
+						loading={lazyLoad ? "lazy" : "eager"}
 					/>
 				)
 			}
 			<h2
-				class="text-balance text-2xl text-secondary-600 underline-offset-2 group-hover:underline dark:text-secondary-500"
-				transition:name={`h-${slug}`}>
+				class="text-secondary-600 dark:text-secondary-500 text-2xl text-balance underline-offset-2 group-hover:underline"
+				transition:name={`h-${slug}`}
+			>
 				{title}
 			</h2>
 		</header>
