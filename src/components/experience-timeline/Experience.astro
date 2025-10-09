@@ -1,10 +1,25 @@
 ---
-import Abbr from "../Abbr.astro"
-import Heading3 from "../heading/Heading3.astro"
+import { getCollection } from "astro:content"
 import Section from "../Section.astro"
 import Timeline from "./Timeline.astro"
-import TimelineHexagons from "./TimelineHexagons.astro"
 import TimelineRow from "./TimelineRow.astro"
+import TimelineHexagon from "./TimelineHexagon.astro"
+
+const experiences = (await getCollection("experiences")).sort(
+	(a, b) => a.data.sortOrder - b.data.sortOrder
+)
+const rowClasses = [
+	"row-start-1",
+	"row-start-2",
+	"row-start-3",
+	"row-start-4",
+	"row-start-5",
+	"row-start-6",
+	"row-start-7",
+	"row-start-8",
+	"row-start-9",
+	"row-start-10"
+]
 ---
 
 <Section id="experience" heading="Experience">
@@ -16,130 +31,14 @@ import TimelineRow from "./TimelineRow.astro"
 		&#x1F9E9;
 	</p>
 	<div
-		class="relative mt-8 grid grid-cols-[auto_minmax(0,1fr)] px-0 md:mt-16 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-4 [&_a]:rounded-[50%_50%_50%_50%/85%_85%_15%_15%] [&_a]:text-secondary-700 [&_a]:no-underline! [&_a]:hover:text-secondary-800 [&_a]:hover:underline! [&_a]:hover:decoration-secondary-800 dark:[&_a]:text-secondary-300 dark:[&_a]:hover:text-secondary-200 dark:[&_a]:hover:decoration-secondary-200">
-		<TimelineRow rowClass="row-start-1">
-			<Heading3>Jamstack Developer</Heading3>
-			<p>
-				The evolution from <a href="https://en.wikipedia.org/wiki/Solution_stack">Full Stack</a>
-				to <a href="https://jamstack.org/">Jamstack</a> wasn't a huge leap and one-click deployments
-				to
-				<a href="https://www.netlify.com/">Netlify</a> made life so much simpler. I thought that both
-				<a href="https://svelte.dev/">Svelte</a>/<a href="https://kit.svelte.dev/">SvelteKit</a>
-				and
-				<a href="https://www.11ty.dev/">Eleventy (11ty)</a>
-				(with
-				<a href="https://alpinejs.dev/">AlpineJS</a>) were more nimble, intuitive and required much
-				less boiler-plate coding than Angular. However, once I found <a href="https://astro.build/"
-					>Astro</a
-				> with <a href="https://tailwindcss.com/">Tailwind CSS</a>, there was no turning back. The
-				end result was lighter, faster, better web apps... and that's my jam.
-			</p>
-		</TimelineRow>
-		<TimelineRow rowClass="row-start-2">
-			<Heading3>Full Stack Developer</Heading3>
-			<p>
-				Yearning to get back to my software roots, I explored the rapidely evolving world of
-				<a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>-based web development and
-				settled on the
-				<Abbr title="MongDB, Express, Angular and NodeJS">MEAN</Abbr>
-				Stack. Since
-				<a href="https://angular.io/">Angular</a>
-				is built on
-				<a href="https://www.typescriptlang.org/">TypeScript</a>, it made the transition from C#
-				much easier, and compile-time type checking made for better websites. I eventually added
-				<a href="https://nestjs.com/">NestJS</a> to the mix, because it is very Angular-like and is also
-				based on TypeScript.
-			</p>
-		</TimelineRow>
-		<TimelineRow rowClass="row-start-3">
-			<Heading3>IT Consultant</Heading3>
-			<p>
-				Having spent 20 years developing software, I was feeling a little burnt out and uninspired.
-				So when opportunity knocked, I opened the door and walked into the world of <Abbr
-					title="Information technology">IT</Abbr
-				> consulting. Like software development, IT requires that you constantly learn and expand your
-				knowledge. Unlike software development, I found that IT work lacked the creative side where you
-				could build something out of nothing but your imagination and skills.
-			</p>
-		</TimelineRow>
-		<TimelineRow rowClass="row-start-4">
-			<Heading3>C# Developer</Heading3>
-			<p>
-				After Microsoft released <a href="https://en.wikipedia.org/wiki/.NET_Framework">.NET</a>, it
-				became apparent that
-				<a href="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)">C#</a>
-				would be a better development option, so my evolution continued. By this time, I had relocated
-				to Kelowna, BC, where I worked with other developers to launch
-				<Abbr title="Thompson Okanagan dot NET User Group">TODNUG</Abbr> to share our knowledge with
-				the community.
-			</p>
-		</TimelineRow>
-		<TimelineRow rowClass="row-start-5">
-			<Heading3>Delphi Developer</Heading3>
-			<p>
-				With Windows gaining momemtum, it was time to look for a new set of tools. Based on <a
-					href="https://en.wikipedia.org/wiki/Borland">Object Pascal</a
-				>,
-				<a href="https://en.wikipedia.org/wiki/Object_Pascal">Borland</a>'s
-				<a href="https://en.wikipedia.org/wiki/Delphi_(software)">Delphi</a>
-				was the natural choice for me. Being ahead of the curve, I co-founded the
-				<Abbr title="Toronto Area Delphi Developer Association">TaDDa!</Abbr> user group and presented
-				on various topics to share my new found knowledge, which lead to more international conferences.
-			</p>
-		</TimelineRow>
-		<TimelineRow rowClass="row-start-6">
-			<Heading3>Clipper Developer</Heading3>
-			<p>
-				As <Abbr title="Personal Computers">PCs</Abbr> became more prevalent in the market place, I capitalized
-				on my previous dBase skills and quickly learned to develop
-				<a href="https://en.wikipedia.org/wiki/MS-DOS"> MS-DOS</a>
-				applications in
-				<a href="https://en.wikipedia.org/wiki/Clipper_(programming_language)">Clipper</a>. I also
-				became well versed in
-				<Abbr title="Object Oriented Programming">OOP</Abbr> and spoke on the topic at international
-				conferences.
-			</p>
-		</TimelineRow>
-		<TimelineRow rowClass="row-start-7">
-			<Heading3>PL/1 & Cobol Programmer</Heading3>
-			<p>
-				With <Abbr title="Bachelor of Science in Computer Science">BSc (CS)</Abbr>
-				from <Abbr title="University of New Brunswick">UNB</Abbr>
-				added to the end of my name, I moved to Toronto and was employed as a
-				<a href="https://en.wikipedia.org/wiki/PL/I">PL/1</a>
-				and
-				<a href="https://en.wikipedia.org/wiki/COBOL">COBOL</a> programmer. Just over a year later, I
-				was hired as a sub-contrator by an agency and assigned to various client projects. After another
-				year, I was self-employed as a contract programmer.
-			</p>
-		</TimelineRow>
-		<TimelineRow rowClass="row-start-8">
-			<Heading3>dBase III Programmer</Heading3>
-			<p>
-				When the university introduced a course in <a href="https://en.wikipedia.org/wiki/DBase"
-					>dBase III</a
-				>, Computer Science students were not allowed to enroll, because it was only for business
-				students. However, I managed to learn it on my own and became proficient enough to land
-				summer jobs programming in dBase III.
-			</p>
-		</TimelineRow>
-		<TimelineRow rowClass="row-start-9">
-			<Heading3>Fortran Programmer</Heading3>
-			<p>
-				The first computer program I wrote was in <a href="https://en.wikipedia.org/wiki/Fortran"
-					>Fortran</a
-				>, on
-				<a href="https://en.wikipedia.org/wiki/Punched_card">punch cards</a>, which were fed into a
-				<a href="https://en.wikipedia.org/wiki/IBM_711">card reader</a>, and processed on the
-				university's IBM mainframe. It was the longest time I have ever spent trying to add two
-				numbers.
-			</p>
-		</TimelineRow>
-		<TimelineRow rowClass="row-start-10">
-			<Heading3>Grade 9 Student</Heading3>
-			<p>I tested high on an aptitude test for a career in Computer Science. OK. Good to know.</p>
-		</TimelineRow>
+		class="[&_a]:text-secondary-800 [&_a]:hover:text-secondary-900 [&_a]:hover:decoration-secondary-900 dark:[&_a]:text-secondary-200 dark:[&_a]:hover:text-secondary-100 dark:[&_a]:hover:decoration-secondary-100 relative mt-8 grid grid-cols-[auto_minmax(0,1fr)] px-0 md:mt-16 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-4 [&_a]:rounded-[50%_50%_50%_50%/85%_85%_15%_15%] [&_a]:underline! [&_a]:underline-offset-2!"
+	>
+		{
+			experiences.map((experience, index) => (
+				<TimelineRow {experience} rowClass={rowClasses[index]} />
+			))
+		}
 		<Timeline />
-		<TimelineHexagons />
+		{experiences.map((_, index) => <TimelineHexagon rowClass={rowClasses[index]} />)}
 	</div>
 </Section>

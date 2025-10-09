@@ -15,14 +15,16 @@ const { page } = Astro.props
 {
 	page && (
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-			{page.data.map((entry) => (
+			{page.data.map((entry, index) => (
 				<BlogCard
 					title={entry.data.title}
 					link={`/blog/${entry.slug}${Astro.url.search}`}
 					slug={entry.slug}
 					mediaSrc={entry.data.featuredMedia?.src}
-					mediaAlt={entry.data.featuredMedia?.alt}>
+					mediaAlt={entry.data.featuredMedia?.alt}
+				>
 					{entry.data.description}
+					lazyLoad={index >= 6}
 				</BlogCard>
 			))}
 		</div>
