@@ -9,7 +9,9 @@ const { title, level = 3 } = Astro.props
 const HeadingTag = `h${level}`
 ---
 
-<details class="group/details border-grayish-700 dark:border-grayish-300 rounded-sm border-2 p-4">
+<details
+	class="group/details border-grayish-700 dark:border-grayish-300 overflow-y-clip rounded-sm border-2 p-4"
+>
 	<summary
 		class="group/summary focus-visible:ring-grayish-800 focus-visible:ring-offset-grayish-50 prose-headings:my-0 dark:focus-visible:ring-grayish-200 dark:focus-visible:ring-offset-grayish-900 flex w-full cursor-pointer list-none items-center justify-between rounded-xs outline-hidden focus-visible:ring-2 focus-visible:ring-offset-4"
 	>
