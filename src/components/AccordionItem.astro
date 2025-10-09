@@ -9,19 +9,21 @@ const { title, level = 3 } = Astro.props
 const HeadingTag = `h${level}`
 ---
 
-<details class="group/details rounded-sm border-2 border-grayish-700 p-4 dark:border-grayish-300">
+<details class="group/details border-grayish-700 dark:border-grayish-300 rounded-sm border-2 p-4">
 	<summary
-		class="group/summary flex w-full cursor-pointer list-none items-center justify-between rounded-xs outline-hidden focus-visible:ring-2 focus-visible:ring-grayish-800 focus-visible:ring-offset-4 focus-visible:ring-offset-grayish-50 prose-headings:my-0 dark:focus-visible:ring-grayish-200 dark:focus-visible:ring-offset-grayish-900">
+		class="group/summary focus-visible:ring-grayish-800 focus-visible:ring-offset-grayish-50 prose-headings:my-0 dark:focus-visible:ring-grayish-200 dark:focus-visible:ring-offset-grayish-900 flex w-full cursor-pointer list-none items-center justify-between rounded-xs outline-hidden focus-visible:ring-2 focus-visible:ring-offset-4"
+	>
 		<HeadingTag
 			class:list={[
 				"text-grayish-700! group-focus-visible/summary:text-grayish-900! dark:text-grayish-300! dark:group-focus-visible/summary:text-grayish-100!"
-			]}>
+			]}
+		>
 			{title}
 		</HeadingTag>
 		<Icon
 			name="mdi:chevron-down"
 			class:list={[
-				"shrink-0 origin-center transform text-grayish-700 transition-transform duration-300 group-open/details:-rotate-180 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100!",
+				"text-grayish-700 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100! shrink-0 transition-[rotate] duration-300 group-open/details:rotate-z-180",
 				{
 					"size-9": level === 2,
 					"size-8": level === 3,
@@ -33,8 +35,29 @@ const HeadingTag = `h${level}`
 			aria-label="Expand or Collapse these details"
 		/>
 	</summary>
-	<div
-		class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-1000 ease-in-out group-open/details:grid-rows-[1fr] [&>pre>code]:bg-transparent">
+	<div class="[&>pre>code]:bg-transparent">
 		<slot />
 	</div>
 </details>
+
+<style>
+	/* progressive enhancement (currently only working in Chrome 131 and up) to animate details open */
+	details::details-content {
+		--transition-height: 300ms ease-in-out;
+		height: 0;
+
+		transition:
+			height var(--transition-height),
+			content-visibility var(--transition-height);
+
+		transition-behavior: allow-discrete;
+	}
+
+	details[open]::details-content {
+		height: auto;
+	}
+
+	details summary::-webkit-details-marker {
+		display: none;
+	}
+</style>
