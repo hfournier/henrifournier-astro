@@ -13,10 +13,13 @@ const filter = categories?.map((category) => category.id)
 
 let relatedArticles =
 	filter && filter.length > 0
-		? await getCollection("blogs", (entry) =>
-				entry.data.categories?.some(
-					(category) => filter.includes(category.id) && entry.slug !== slug
-				)
+		? await getCollection(
+				"blogs",
+				(entry) =>
+					entry.data.draft !== true &&
+					entry.data.categories?.some(
+						(category) => filter.includes(category.id) && entry.slug !== slug
+					)
 			)
 		: undefined
 
@@ -34,8 +37,9 @@ if (relatedArticles) {
 				{relatedArticles.map((article) => (
 					<li class="text-sm leading-tight">
 						<a
-							class="no-underline decoration-primary-600 underline-offset-2 hover:underline dark:decoration-primary-400"
-							href={`/blog/${article.slug}`}>
+							class="decoration-primary-600 dark:decoration-primary-400 no-underline underline-offset-2 hover:underline"
+							href={`/blog/${article.slug}`}
+						>
 							{article.data.title}
 						</a>
 					</li>

@@ -11,7 +11,7 @@ const { authorId, slug } = Astro.props as Props
 
 const blogs = await getCollection(
 	"blogs",
-	(entry) => entry.data.author?.id === authorId && entry.slug !== slug
+	(entry) => entry.data.draft !== true && entry.data.author?.id === authorId && entry.slug !== slug
 )
 const sortedBlogs = blogs.sort(
 	(a, b) => new Date(b.data.createdAt).valueOf() - new Date(a.data.createdAt).valueOf()
@@ -26,8 +26,9 @@ const sortedBlogs = blogs.sort(
 					index < 10 && (
 						<li class="text-sm leading-tight">
 							<a
-								class="no-underline decoration-primary-600 underline-offset-2 hover:underline dark:decoration-primary-400"
-								href={`/blog/${blog.slug}`}>
+								class="decoration-primary-600 dark:decoration-primary-400 no-underline underline-offset-2 hover:underline"
+								href={`/blog/${blog.slug}`}
+							>
 								{blog.data.title}
 							</a>
 						</li>
