@@ -271,10 +271,10 @@
 		@apply bg-grayish-300 hover:bg-grayish-400 dark:bg-grayish-600 dark:hover:bg-grayish-500 rounded-full;
 	}
 	.dark .scrollable::-webkit-scrollbar {
-		@apply bg-grayish-700;
+		@apply bg-transparent;
 	}
 	.dark .scrollable::-webkit-scrollbar-track {
-		@apply bg-grayish-700;
+		@apply bg-transparent;
 	}
 	.dark .scrollable::-webkit-scrollbar-thumb {
 		@apply bg-grayish-800 hover:bg-grayish-700;
@@ -282,12 +282,12 @@
 	@supports (scrollbar-color: darkgray lightgray) {
 		.scrollable {
 			scrollbar-width: thin;
-			scrollbar-color: var(--color-grayish-300) var(--color-grayish-100);
+			scrollbar-color: var(--color-grayish-300) transparent;
 		}
 		html[data-theme="dark"].scrollable,
 		[data-theme="dark"] .scrollable,
 		.dark .scrollable {
-			scrollbar-color: var(--color-grayish-600) var(--color-grayish-800);
+			scrollbar-color: var(--color-grayish-600) transparent;
 		}
 	}
 
