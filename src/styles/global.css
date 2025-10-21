@@ -261,34 +261,34 @@
 		--color-blob-to: var(--color-grayish-950);
 	}
 
+	.scrollable {
+		/* Prevent horizontal scroll bounce in iOS */
+		-webkit-overflow-scrolling: touch;
+		/* Enable momentum scrolling on iOS */
+		overscroll-behavior: contain;
+
+		/* Firefox scrollbar styling */
+		scrollbar-width: thin;
+		scrollbar-color: var(--color-grayish-300) transparent;
+	}
+
+	html[data-theme="dark"].scrollable,
+	[data-theme="dark"] .scrollable,
+	.dark .scrollable {
+		scrollbar-color: var(--color-grayish-600) transparent;
+	}
+
 	.scrollable::-webkit-scrollbar {
-		@apply bg-grayish-100 dark:bg-grayish-800 h-2 w-2;
+		@apply h-2 w-2 bg-transparent;
 	}
 	.scrollable::-webkit-scrollbar-track {
-		@apply bg-grayish-100 dark:bg-grayish-800 my-1 rounded-full;
+		@apply my-1 rounded-full bg-transparent;
 	}
 	.scrollable::-webkit-scrollbar-thumb {
-		@apply bg-grayish-300 hover:bg-grayish-400 dark:bg-grayish-600 dark:hover:bg-grayish-500 rounded-full;
-	}
-	.dark .scrollable::-webkit-scrollbar {
-		@apply bg-transparent;
-	}
-	.dark .scrollable::-webkit-scrollbar-track {
-		@apply bg-transparent;
+		@apply bg-grayish-300 hover:bg-grayish-400 dark:bg-grayish-600 dark:hover:bg-grayish-500 rounded-full border-2 border-transparent bg-clip-padding;
 	}
 	.dark .scrollable::-webkit-scrollbar-thumb {
 		@apply bg-grayish-800 hover:bg-grayish-700;
-	}
-	@supports (scrollbar-color: darkgray lightgray) {
-		.scrollable {
-			scrollbar-width: thin;
-			scrollbar-color: var(--color-grayish-300) transparent;
-		}
-		html[data-theme="dark"].scrollable,
-		[data-theme="dark"] .scrollable,
-		.dark .scrollable {
-			scrollbar-color: var(--color-grayish-600) transparent;
-		}
 	}
 
 	h1,
