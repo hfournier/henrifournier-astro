@@ -1,47 +1,61 @@
-# Astro Starter Kit: Minimal
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3eda98f4-9690-46fb-8b49-84eb45249235/deploy-status)](https://app.netlify.com/projects/henri-fournier-dev-astro/deploys)
+
+# henrifournier-astro
+
+Personal website built with Astro and Tailwind CSS. This repo contains the source for Henri Fournier's site — a small, performance-focused portfolio with custom theming, utilities and a few UI helpers.
+
+## Key tech
+
+- Astro (static site generator)
+- Tailwind CSS (utility-first styling)
+- Custom CSS variables + utilities in src/styles/global.css
+- Tailwind Typography plugin
+
+## What’s in this repo:
+
+/  
+├── public/ Static assets served as-is  
+├── src/ Project source  
+│ ├── pages/ Astro pages (routes)  
+│ ├── components/ Reusable UI components  
+│ └── styles/global.css Project-wide styles, theme tokens, utilities (tilting-card, hexagon, scrollbar tweaks, etc.)  
+├── package.json  
+└── README.md
+
+## Notable implementation details
+
+- Theme toggling uses a data-theme attribute (data-theme="dark") and CSS custom properties defined in global.css.
+- global.css includes Tailwind @apply utilities and a number of custom @utility rules (hexagon, tilt, tilting-card) and accessible scrollbar styling.
+- The site is built as a static site — content lives in src/pages and components for reuse.
+
+## Development
+
+All commands run from the project root.
+
+Install
 
 ```sh
-npm create astro@latest -- --template minimal
+pnpm install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+Start dev server
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+pnpm dev
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Build for production
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```sh
+pnpm build
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+Preview production build locally
 
-## 🧞 Commands
+```sh
+pnpm preview
+```
 
-All commands are run from the root of the project, from a terminal:
+## Deployment
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Deployed to Netlify

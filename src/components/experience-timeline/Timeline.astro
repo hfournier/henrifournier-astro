@@ -1,23 +1,30 @@
 <div
-	class="-z-20 col-start-1 row-span-10 row-start-1 mx-auto w-0.5 bg-grayish-200/25 md:col-start-2 dark:bg-grayish-800/25">
+	class="bg-grayish-200/25 dark:bg-grayish-800/25 -z-20 col-start-1 row-span-10 row-start-1 mx-auto w-0.5 md:col-start-2"
+>
 </div>
 <div
-	class="my-timeline -z-10 col-start-1 row-span-10 row-start-1 mx-auto w-0.5 origin-top bg-primary-600 md:col-start-2">
+	class="bg-primary-600 -z-10 col-start-1 row-span-10 row-start-1 mx-auto w-0.5 origin-top md:col-start-2"
+	data-hexagon-timeline
+>
 </div>
 
+<script is:inline>
+	if (!("animationTimeline" in document.documentElement.style)) {
+		//@ts-expect-error "import" is not defined
+		import("https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js")
+	}
+</script>
+
 <style>
-	.my-timeline {
+	[data-hexagon-timeline] {
 		transform: scaleY(0);
 		animation: expand-timeline linear both;
 		animation-timeline: view(block);
 		animation-range: entry-crossing 10% entry-crossing 105%;
+		animation-duration: 1ms;
 	}
 
 	@keyframes expand-timeline {
-		from {
-			transform: scaleY(0);
-		}
-
 		to {
 			transform: scaleY(1);
 		}

@@ -1,4 +1,9 @@
 ---
+import IconFirstPage from "@assets/svgs/chevron-left-first.svg"
+import IconLastPage from "@assets/svgs/chevron-right-last.svg"
+import IconPreviousPage from "@assets/svgs/chevron-left.svg"
+import IconNextPage from "@assets/svgs/chevron-right.svg"
+
 export interface Props {
 	prevUrl?: string
 	currentUrl: string
@@ -45,77 +50,63 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 <nav
 	class="mx-auto flex items-center justify-center gap-2 p-0 py-6"
 	class:list={[
-		"sm:[&>a:nth-child(3):not([data-page='0'])]:block [&>a:nth-child(3)]:hidden",
+		"[&>a:nth-child(3)]:hidden sm:[&>a:nth-child(3):not([data-page='0'])]:block",
 		{
-			"sm:[&>a:nth-child(4):not([data-page='0'])]:block [&>a:nth-child(4)]:hidden":
+			"[&>a:nth-child(4)]:hidden sm:[&>a:nth-child(4):not([data-page='0'])]:block":
 				paginationLeftCount >= 4 && paginationRightCount > 0
 		},
 		{
-			"sm:[&>a:nth-child(5):not([data-page='0'])]:block [&>a:nth-child(5)]:hidden":
+			"[&>a:nth-child(5)]:hidden sm:[&>a:nth-child(5):not([data-page='0'])]:block":
 				paginationLeftCount >= 3 && paginationRightCount > 1
 		},
 		{
-			"sm:[&>a:nth-child(11):not([data-page='0'])]:block [&>a:nth-child(11)]:hidden":
+			"[&>a:nth-child(11)]:hidden sm:[&>a:nth-child(11):not([data-page='0'])]:block":
 				paginationRightCount >= 3 && paginationLeftCount > 1
 		},
 		{
-			"sm:[&>a:nth-child(12):not([data-page='0'])]:block [&>a:nth-child(12)]:hidden":
+			"[&>a:nth-child(12)]:hidden sm:[&>a:nth-child(12):not([data-page='0'])]:block":
 				paginationRightCount >= 4 && paginationLeftCount > 0
 		},
-		"sm:[&>a:nth-child(13):not([data-page='0'])]:block [&>a:nth-child(13)]:hidden"
+		"[&>a:nth-child(13)]:hidden sm:[&>a:nth-child(13):not([data-page='0'])]:block"
 	]}
 >
 	{
 		currentPage === firstPage ? (
 			<span
-				class="rounded-sm border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				class="border-grayish-300 text-grayish-300 rounded-sm border-2 p-1 text-sm uppercase"
 				aria-hidden="true"
 			>
 				<span class="sr-only">First page</span>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
-					<path
-						fill="currentColor"
-						d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6l6 6l1.41-1.41M6 6h2v12H6V6Z"
-					/>
-				</svg>
+				<IconFirstPage class="size-5" />
 			</span>
 		) : (
 			<a
-				class="rounded-sm border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				class="border-grayish-500 rounded-sm border-2 p-1 text-sm uppercase no-underline hover:shadow-md"
 				href={prevUrl?.replace(regexpPageNumber, "")}
 				aria-label="First Page"
 			>
 				<span class="sr-only">First page</span>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
-					<path
-						fill="currentColor"
-						d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6l6 6l1.41-1.41M6 6h2v12H6V6Z"
-					/>
-				</svg>
+				<IconFirstPage class="size-5" />
 			</a>
 		)
 	}
 	{
 		!prevUrl ? (
 			<span
-				class="rounded-sm border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				class="border-grayish-300 text-grayish-300 rounded-sm border-2 p-1 text-sm uppercase"
 				aria-hidden="true"
 			>
 				<span class="sr-only">Previous page</span>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
-					<path fill="currentColor" d="M6 6h2v12H6m3.5-6l8.5 6V6m-2 8.14L12.97 12L16 9.86v4.28Z" />
-				</svg>
+				<IconPreviousPage class="size-5" />
 			</span>
 		) : (
 			<a
-				class="rounded-sm border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				class="border-grayish-500 rounded-sm border-2 p-1 text-sm uppercase no-underline hover:shadow-md"
 				href={prevUrl}
 				aria-label="Previous Page"
 			>
 				<span class="sr-only">Previous page</span>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
-					<path fill="currentColor" d="M6 6h2v12H6m3.5-6l8.5 6V6m-2 8.14L12.97 12L16 9.86v4.28Z" />
-				</svg>
+				<IconPreviousPage class="size-5" />
 			</a>
 		)
 	}
@@ -123,12 +114,12 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 	{
 		paginationList.map((i) =>
 			i === currentPage ? (
-				<span class="min-w-6 rounded-sm border-2 border-grayish-300 p-1 text-center text-sm uppercase text-grayish-300">
+				<span class="border-grayish-300 text-grayish-300 min-w-6 rounded-sm border-2 p-1 text-center text-sm uppercase">
 					{i}
 				</span>
 			) : (
 				<a
-					class="min-w-6 rounded-sm border-2 border-grayish-500 p-1 text-center text-sm uppercase no-underline hover:shadow-md data-[page='0']:hidden"
+					class="border-grayish-500 min-w-6 rounded-sm border-2 p-1 text-center text-sm uppercase no-underline hover:shadow-md data-[page='0']:hidden"
 					data-page={i}
 					href={
 						i === 1
@@ -147,54 +138,40 @@ const paginationList: number[] = [...paginationLeft, currentPage, ...paginationR
 	{
 		!nextUrl ? (
 			<span
-				class="rounded-sm border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				class="border-grayish-300 text-grayish-300 rounded-sm border-2 p-1 text-sm uppercase"
 				aria-hidden="true"
 			>
 				<span class="sr-only">Next page</span>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
-					<path fill="currentColor" d="m6 18l8.5-6L6 6m2 3.86L11.03 12L8 14.14M16 6h2v12h-2" />
-				</svg>
+				<IconNextPage class="size-5" />
 			</span>
 		) : (
 			<a
-				class="rounded-sm border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				class="border-grayish-500 rounded-sm border-2 p-1 text-sm uppercase no-underline hover:shadow-md"
 				href={nextUrl}
 				aria-label="Next Page"
 			>
 				<span class="sr-only">Next page</span>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
-					<path fill="currentColor" d="m6 18l8.5-6L6 6m2 3.86L11.03 12L8 14.14M16 6h2v12h-2" />
-				</svg>
+				<IconNextPage class="size-5" />
 			</a>
 		)
 	}
 	{
 		currentPage === lastPage ? (
 			<span
-				class="rounded-sm border-2 border-grayish-300 p-1 text-sm uppercase text-grayish-300"
+				class="border-grayish-300 text-grayish-300 rounded-sm border-2 p-1 text-sm uppercase"
 				aria-hidden="true"
 			>
 				<span class="sr-only">Last page</span>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
-					<path
-						fill="currentColor"
-						d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6l-6-6l-1.41 1.41M16 6h2v12h-2V6Z"
-					/>
-				</svg>
+				<IconLastPage class="size-5" />
 			</span>
 		) : (
 			<a
-				class="rounded-sm border-2 border-grayish-500 p-1 text-sm uppercase no-underline hover:shadow-md"
+				class="border-grayish-500 rounded-sm border-2 p-1 text-sm uppercase no-underline hover:shadow-md"
 				href={nextUrl?.replace(regexpPageNumber, `/${lastPage}`)}
 				aria-label="Last Page"
 			>
 				<span class="sr-only">Last page</span>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
-					<path
-						fill="currentColor"
-						d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6l-6-6l-1.41 1.41M16 6h2v12h-2V6Z"
-					/>
-				</svg>
+				<IconLastPage class="size-5" />
 			</a>
 		)
 	}

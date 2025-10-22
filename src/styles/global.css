@@ -115,6 +115,15 @@
 
 	--aspect-hexagon: 1 / cos(30deg);
 
+	--animate-fadeIn: fadeIn 250ms ease-in-out 1000ms forwards;
+	--animate-fadeOut: fadeOut 500ms ease-in-out forwards;
+	--animate-expandTL: expandTL 500ms ease-in-out 750ms forwards;
+	--animate-expandTR: expandTR 500ms ease-in-out 750ms forwards;
+	--animate-expandL: expandL 500ms ease-in-out 750ms forwards;
+	--animate-expandR: expandR 500ms ease-in-out 750ms forwards;
+	--animate-expandBL: expandBL 500ms ease-in-out 750ms forwards;
+	--animate-expandBR: expandBR 500ms ease-in-out 750ms forwards;
+
 	@keyframes fadeIn {
 		to {
 			opacity: 1;
