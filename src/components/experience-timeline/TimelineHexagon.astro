@@ -12,32 +12,26 @@ const { rowClass } = Astro.props
 	]}
 >
 	<div class="hexagon bg-grayish-200/25 dark:bg-grayish-800/25 absolute h-6"></div>
-	<div class="my-timeline-hex hexagon bg-primary-600 h-6"></div>
+	<div class="hexagon bg-primary-600 h-6" data-hexagon-marker></div>
 </div>
 
+<script is:inline>
+	if (!("animationTimeline" in document.documentElement.style)) {
+		//@ts-expect-error "import" is not defined
+		import("https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js")
+	}
+</script>
+
 <style>
-	.my-timeline-hex {
+	[data-hexagon-marker] {
 		opacity: 0;
 		animation: show-hexagon linear both;
 		animation-timeline: view(block);
 		animation-range: contain 20% contain 28%;
-	}
-
-	@keyframes expand-timeline {
-		from {
-			transform: scaleY(0);
-		}
-
-		to {
-			transform: scaleY(1);
-		}
+		animation-duration: 1ms;
 	}
 
 	@keyframes show-hexagon {
-		from {
-			opacity: 0;
-		}
-
 		to {
 			opacity: 1;
 		}

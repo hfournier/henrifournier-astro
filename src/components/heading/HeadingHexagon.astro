@@ -1,4 +1,6 @@
 ---
+import SvgHexagonOutline from "../../assets/svgs/hexagon-outline.svg"
+
 type Props = {
 	id: string
 }
@@ -9,137 +11,69 @@ const hexExpandId = `hexExpand-${id}`
 <div
 	id={hexExpandId}
 	data-hex-id={hexExpandId}
-	class="hex-container group relative mx-auto mb-8 grid place-items-center">
+	class="hex-container group relative mx-auto mb-8 grid place-items-center"
+>
 	<h2
-		class="text-center text-2xl font-medium opacity-0 motion-safe:group-[.expand]:animate-[fadeIn_250ms_ease-in-out_1000ms_forwards] motion-reduce:opacity-100 sm:text-3xl md:text-4xl">
+		class="motion-safe:group-[.expand]:animate-fadeIn text-center text-2xl font-medium opacity-0 motion-reduce:opacity-100 sm:text-3xl md:text-4xl"
+	>
 		<slot />
 	</h2>
 
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[fadeOut_500ms_ease-in-out_forwards] motion-reduce:opacity-0">
-		<svg
-			version="1.1"
-			xmlns="http://www.w3.org/2000/svg"
-			xmlns:xlink="http://www.w3.org/1999/xlink"
-			viewBox="0 0 1050 916.0254"
-			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true">
-			<g>
-				<path
-					class="stroke-primary-600 stroke-[70px]"
-					fill="none"
-					d="m 525 25 h 250 l 250 433.0127 l -250 433.0127 h -500 l -250 -433.0127 l 250 -433.0127 z"
-				></path>
-			</g>
-		</svg>
+		class="motion-safe:group-[.expand]:animate-fadeOut pointer-events-none absolute inset-0 w-full motion-reduce:opacity-0"
+	>
+		<SvgHexagonOutline
+			class="stroke-primary-600 pointer-events-none absolute inset-0 mx-auto w-16 stroke-[70px]"
+			aria-hidden="true"
+		/>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandL_500ms_ease-in-out_750ms_forwards] motion-reduce:translate-x-[calc(-50%+16px)]">
-		<svg
-			version="1.1"
-			xmlns="http://www.w3.org/2000/svg"
-			xmlns:xlink="http://www.w3.org/1999/xlink"
-			viewBox="0 0 1050 916.0254"
-			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true">
-			<g>
-				<path
-					class="hex-l-bracket stroke-primary-600 stroke-[70px]"
-					fill="none"
-					d="m 525 25 h 250 l 250 433.0127 l -250 433.0127 h -500 l -250 -433.0127 l 250 -433.0127 z"
-				></path>
-			</g>
-		</svg>
+		class="motion-safe:group-[.expand]:animate-expandL pointer-events-none absolute inset-0 w-full motion-reduce:translate-x-[calc(-50%+16px)]"
+	>
+		<SvgHexagonOutline
+			class="hex-l-bracket stroke-primary-600 pointer-events-none absolute inset-0 mx-auto w-16 stroke-[70px]"
+			aria-hidden="true"
+		/>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandR_500ms_ease-in-out_750ms_forwards] motion-reduce:translate-x-[calc(50%-16px)]">
-		<svg
-			version="1.1"
-			xmlns="http://www.w3.org/2000/svg"
-			xmlns:xlink="http://www.w3.org/1999/xlink"
-			viewBox="0 0 1050 916.0254"
-			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true">
-			<g>
-				<path
-					class="hex-r-bracket stroke-primary-600 stroke-[70px]"
-					fill="none"
-					d="m 525 25 h 250 l 250 433.0127 l -250 433.0127 h -500 l -250 -433.0127 l 250 -433.0127 z"
-				></path>
-			</g>
-		</svg>
+		class="motion-safe:group-[.expand]:animate-expandR pointer-events-none absolute inset-0 w-full motion-reduce:translate-x-[calc(50%-16px)]"
+	>
+		<SvgHexagonOutline
+			class="hex-r-bracket stroke-primary-600 pointer-events-none absolute inset-0 mx-auto w-16 stroke-[70px]"
+			aria-hidden="true"
+		/>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandTR_500ms_ease-in-out_750ms_forwards] motion-reduce:-translate-y-16 motion-reduce:translate-x-16 motion-reduce:opacity-0">
-		<svg
-			version="1.1"
-			xmlns="http://www.w3.org/2000/svg"
-			xmlns:xlink="http://www.w3.org/1999/xlink"
-			viewBox="0 0 1050 916.0254"
-			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true">
-			<g>
-				<path
-					class="hex-tr-bracket stroke-primary-600 stroke-[70px]"
-					fill="none"
-					d="m 525 25 h 250 l 250 433.0127 l -250 433.0127 h -500 l -250 -433.0127 l 250 -433.0127 z"
-				></path>
-			</g>
-		</svg>
+		class="motion-safe:group-[.expand]:animate-expandTR pointer-events-none absolute inset-0 w-full motion-reduce:translate-x-16 motion-reduce:-translate-y-16 motion-reduce:opacity-0"
+	>
+		<SvgHexagonOutline
+			class="hex-tr-bracket stroke-primary-600 pointer-events-none absolute inset-0 mx-auto w-16 stroke-[70px]"
+			aria-hidden="true"
+		/>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandBR_500ms_ease-in-out_750ms_forwards] motion-reduce:translate-x-16 motion-reduce:translate-y-16 motion-reduce:opacity-0">
-		<svg
-			version="1.1"
-			xmlns="http://www.w3.org/2000/svg"
-			xmlns:xlink="http://www.w3.org/1999/xlink"
-			viewBox="0 0 1050 916.0254"
-			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true">
-			<g>
-				<path
-					class="hex-br-bracket stroke-primary-600 stroke-[70px]"
-					fill="none"
-					d="m 525 25 h 250 l 250 433.0127 l -250 433.0127 h -500 l -250 -433.0127 l 250 -433.0127 z"
-				></path>
-			</g>
-		</svg>
+		class="motion-safe:group-[.expand]:animate-expandBR pointer-events-none absolute inset-0 w-full motion-reduce:translate-x-16 motion-reduce:translate-y-16 motion-reduce:opacity-0"
+	>
+		<SvgHexagonOutline
+			class="hex-br-bracket stroke-primary-600 pointer-events-none absolute inset-0 mx-auto w-16 stroke-[70px]"
+			aria-hidden="true"
+		/>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandBL_500ms_ease-in-out_750ms_forwards] motion-reduce:-translate-x-16 motion-reduce:translate-y-16 motion-reduce:opacity-0">
-		<svg
-			version="1.1"
-			xmlns="http://www.w3.org/2000/svg"
-			xmlns:xlink="http://www.w3.org/1999/xlink"
-			viewBox="0 0 1050 916.0254"
-			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true">
-			<g>
-				<path
-					class="hex-bl-bracket stroke-primary-600 stroke-[70px]"
-					fill="none"
-					d="m 525 25 h 250 l 250 433.0127 l -250 433.0127 h -500 l -250 -433.0127 l 250 -433.0127 z"
-				></path>
-			</g>
-		</svg>
+		class="motion-safe:group-[.expand]:animate-expandBL pointer-events-none absolute inset-0 w-full motion-reduce:-translate-x-16 motion-reduce:translate-y-16 motion-reduce:opacity-0"
+	>
+		<SvgHexagonOutline
+			class="hex-bl-bracket stroke-primary-600 pointer-events-none absolute inset-0 mx-auto w-16 stroke-[70px]"
+			aria-hidden="true"
+		/>
 	</div>
 	<div
-		class="pointer-events-none absolute inset-0 w-full motion-safe:group-[.expand]:animate-[expandTL_500ms_ease-in-out_750ms_forwards] motion-reduce:-translate-x-16 motion-reduce:-translate-y-16 motion-reduce:opacity-0">
-		<svg
-			version="1.1"
-			xmlns="http://www.w3.org/2000/svg"
-			xmlns:xlink="http://www.w3.org/1999/xlink"
-			viewBox="0 0 1050 916.0254"
-			class="pointer-events-none absolute inset-0 mx-auto w-16"
-			aria-hidden="true">
-			<g>
-				<path
-					class="hex-tl-bracket stroke-primary-600 stroke-[70px]"
-					fill="none"
-					d="m 525 25 h 250 l 250 433.0127 l -250 433.0127 h -500 l -250 -433.0127 l 250 -433.0127 z"
-				></path>
-			</g>
-		</svg>
+		class="motion-safe:group-[.expand]:animate-expandTL pointer-events-none absolute inset-0 w-full motion-reduce:-translate-x-16 motion-reduce:-translate-y-16 motion-reduce:opacity-0"
+	>
+		<SvgHexagonOutline
+			class="hex-tl-bracket stroke-primary-600 pointer-events-none absolute inset-0 mx-auto w-16 stroke-[70px]"
+			aria-hidden="true"
+		/>
 	</div>
 </div>
 
