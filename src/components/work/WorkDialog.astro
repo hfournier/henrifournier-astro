@@ -14,7 +14,7 @@ const { heading, id: popoverId, class: classList, ...attrs } = Astro.props
 		"backdrop:bg-grayish-950/70 backdrop:opacity-0 backdrop:backdrop-blur-xs open:backdrop:opacity-100",
 		"backdrop:transition-[display,opacity,overlay] backdrop:transition-discrete backdrop:duration-300 backdrop:ease-out starting:open:backdrop:opacity-0",
 		"scale-0 opacity-0 open:scale-100 open:opacity-100",
-		"transition-[display,opacity,scale] transition-discrete duration-300 ease-out starting:open:scale-0 starting:open:opacity-0",
+		"transition-[display,opacity,overlay,scale] transition-discrete duration-300 ease-out starting:open:scale-0 starting:open:opacity-0",
 		classList
 	]}
 	id={popoverId}

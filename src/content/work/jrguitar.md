@@ -1,7 +1,7 @@
 ---
 name: JR Guitar
 description: Designed and developed a professional website with blog for a local guitar repair shop.
-link: https://jrguitar-draft-intratela.netlify.app/
+link: https://jr-guitar-hfdev.netlify.app/
 image: "@assets/gallery/jr-guitar.png"
 imageAlt: JR Guitar website displayed on 4 types of devices
 services:

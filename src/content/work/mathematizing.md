@@ -1,7 +1,7 @@
 ---
 name: Mathematizing 24/7
 description: "Okanagan StartUp Weekend: Designed and developed a calm and welcoming website in less than 48 hours. Our team was awarded 1st Prize."
-link: https://mathematizing.netlify.app/
+link: https://mathematizing-hfdev.netlify.app/
 image: "@assets/gallery/mathematizing.png"
 imageAlt: Mathematizing 24/7 website displayed on 4 types of devices
 services:
