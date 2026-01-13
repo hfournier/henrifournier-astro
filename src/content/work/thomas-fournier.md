@@ -1,7 +1,7 @@
 ---
 name: Thomas Fournier
 description: A Toronto based actor/singer/director/playwright requiring a modern professional website displaying the breadth and depth of his skills.
-link: https://thomas-fournier.netlify.app/
+link: https://thomasfournier.ca/
 image: "@assets/gallery/thomas-fournier.png"
 imageAlt: Thomas Fournier website displayed on 4 types of devices
 services:
