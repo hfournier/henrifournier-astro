@@ -7,10 +7,7 @@ imageAlt: Intratela website displayed on 4 types of devices
 services:
   - website
 tags:
-  - 11ty
-  - Angular
   - Astro
-  - SvelteKit
   - TailwindCSS
 ---
 

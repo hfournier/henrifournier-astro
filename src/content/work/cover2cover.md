@@ -1,13 +1,13 @@
 ---
 name: Cover 2 Cover
 description: Designed and developed a hip website with blog for a local classic rock dance band.
-link: https://cover2cover-draft-intratela.netlify.app/
+link: https://cover2cover-hfdev.netlify.app/
 image: "@assets/gallery/cover-2-cover.png"
 imageAlt: Cover 2 Cover website displayed on 4 types of devices
 services:
   - website
 tags:
-  - 11ty
+  - Astro
   - TailwindCSS
 ---
 

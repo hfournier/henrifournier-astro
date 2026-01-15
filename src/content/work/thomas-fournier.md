@@ -7,7 +7,7 @@ imageAlt: Thomas Fournier website displayed on 4 types of devices
 services:
   - website
 tags:
-  - Svelte
+  - Astro
   - TailwindCSS
 ---
 
