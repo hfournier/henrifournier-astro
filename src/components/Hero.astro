@@ -61,7 +61,10 @@ const hexagons = await getCollection("hexagons")
 										<div
 											class:list={[
 												`hexagon col-span-3 col-start-${c * 2 + 1} row-span-2 row-start-${c % 2 !== 0 ? r * 2 + 2 : r * 2 + 1} grid w-5 place-items-center duration-200 motion-safe:opacity-0 sm:w-10 lg:w-12 xl:w-14`,
-												{ "bg-primary-600": hex.type === "fill" },
+												{
+													"from-primary-600 to-primary-400 dark:from-primary-700 dark:to-primary-500 bg-linear-to-br":
+														hex.type === "fill"
+												},
 												{ "bg-transparent": hex.type === "stroke" },
 												{ "bg-primary-50": hex.type === "icon" },
 												{ "hover:scale-110": hex.type === "fill" },
