@@ -78,7 +78,7 @@ const categories = await getCollection("emoji-categories")
         <div class="flex flex-wrap"></div>
       </details>
       {
-        categories.map((category, index) => (
+        categories.map((category) => (
           <>
             <details class="group/details py-1" data-category={category.id}>
               <summary class="group/summary flex w-full cursor-pointer list-none items-center justify-between">
@@ -101,7 +101,6 @@ const categories = await getCollection("emoji-categories")
 <script>
   import { getEmoji, restoreRecentEmojis, storeRecentEmoji } from "@utils/emoji"
   import type { EmojiType } from "src/content.config"
-  import ts from "typescript"
 
   const response = await fetch("/api/emojis.json")
   const emojis: EmojiType[] = await response.json()

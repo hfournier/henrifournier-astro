@@ -1,6 +1,6 @@
 import { ActionError, defineAction } from "astro:actions"
-import { z } from "astro:schema"
 import { getEntry } from "astro:content"
+import { z } from "astro/zod"
 // import { Comment, db } from "astro:db"
 import { escapeHTML } from "@utils/converters"
 
@@ -22,7 +22,7 @@ export const server = {
         .string()
         .max(30, { message: "Name should be 30 or fewer characters long" })
         .optional(),
-      email: z.string().email("Please enter a valid email address").optional()
+      email: z.email("Please enter a valid email address").optional()
     }),
     handler: async (newComment) => {
       if (newComment.postSlug && newComment.text) {

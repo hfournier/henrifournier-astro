@@ -8,12 +8,12 @@ const authorSchema = ({ image }: SchemaContext) =>
     name: z.string(),
     url: z.string().optional(),
     description: z.string(),
-    link: z.string().url().optional(),
+    link: z.url().optional(),
     avatar_urls: z
       .object({
-        24: z.string().url(),
-        48: z.string().url(),
-        96: z.string().url()
+        24: z.url(),
+        48: z.url(),
+        96: z.url()
       })
       .optional(),
     seo: seoSchema({ image }).optional()
@@ -65,7 +65,7 @@ const workSchema = ({ image }: SchemaContext) =>
   z.object({
     name: z.string(),
     description: z.string(),
-    link: z.string().url(),
+    link: z.url(),
     image: image(),
     imageAlt: z.string(),
     services: z.array(z.string()).optional(),
@@ -103,7 +103,7 @@ const hexagonSchema = z.object({
     z.object({
       type: z.union([z.literal("none"), z.literal("fill"), z.literal("stroke"), z.literal("icon")]),
       alt: z.string().optional(),
-      link: z.string().url().optional(),
+      link: z.url().optional(),
       svg: z.string().optional()
     })
   )
