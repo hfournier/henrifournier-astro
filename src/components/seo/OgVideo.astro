@@ -1,9 +1,9 @@
 ---
-import type { z } from "astro:content"
+import type { z } from "astro/zod"
 import { ogVideoSchema } from "./seo"
 
 type Props = {
-	video: z.infer<typeof ogVideoSchema>
+  video: z.infer<typeof ogVideoSchema>
 }
 const { video } = Astro.props
 ---

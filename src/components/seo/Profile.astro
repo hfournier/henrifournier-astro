@@ -1,9 +1,9 @@
 ---
-import type { z } from "astro:content"
+import type { z } from "astro/zod"
 import { profileSchema } from "./seo"
 
 type Props = {
-	profile: z.infer<typeof profileSchema>
+  profile: z.infer<typeof profileSchema>
 }
 const { profile } = Astro.props
 ---
