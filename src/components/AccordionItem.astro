@@ -2,64 +2,48 @@
 import { Icon } from "astro-icon/components"
 
 type Props = {
-	title: string
-	level?: 2 | 3 | 4 | 5 | 6
+  title: string
+  level?: 2 | 3 | 4 | 5 | 6
 }
 const { title, level = 3 } = Astro.props
 const HeadingTag = `h${level}`
 ---
 
 <details
-	class="group/details border-grayish-700 dark:border-grayish-300 overflow-y-clip rounded-sm border-2 p-4"
+  class:list={[
+    "group/details border-grayish-700 dark:border-grayish-300 overflow-y-clip rounded-sm border-2 p-4",
+    "details-content:h-0 details-content:transition-[height,content-visibility] details-content:transition-discrete details-content:duration-300 details-content:ease-in-out open:details-content:h-auto"
+  ]}
 >
-	<summary
-		class="group/summary focus-visible:ring-grayish-800 focus-visible:ring-offset-grayish-50 prose-headings:my-0 dark:focus-visible:ring-grayish-200 dark:focus-visible:ring-offset-grayish-900 flex w-full cursor-pointer list-none items-center justify-between rounded-xs outline-hidden focus-visible:ring-2 focus-visible:ring-offset-4"
-	>
-		<HeadingTag
-			class:list={[
-				"text-grayish-700! group-focus-visible/summary:text-grayish-900! dark:text-grayish-300! dark:group-focus-visible/summary:text-grayish-100!"
-			]}
-		>
-			{title}
-		</HeadingTag>
-		<Icon
-			name="mdi:chevron-down"
-			class:list={[
-				"text-grayish-700 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100! shrink-0 transition-[rotate] duration-300 group-open/details:rotate-z-180",
-				{
-					"size-9": level === 2,
-					"size-8": level === 3,
-					"size-7": level === 4,
-					"size-6": level === 5,
-					"size-5": level === 6
-				}
-			]}
-			aria-label="Expand or Collapse these details"
-		/>
-	</summary>
-	<div class="[&>pre>code]:bg-transparent">
-		<slot />
-	</div>
+  <summary
+    class:list={[
+      "group/summary focus-visible:ring-grayish-800 focus-visible:ring-offset-grayish-50 prose-headings:my-0 dark:focus-visible:ring-grayish-200 dark:focus-visible:ring-offset-grayish-900 flex w-full cursor-pointer list-none items-center justify-between rounded-xs outline-hidden focus-visible:ring-2 focus-visible:ring-offset-4",
+      "[&::-webkit-details-marker]:hidden"
+    ]}
+  >
+    <HeadingTag
+      class:list={[
+        "text-grayish-700! group-focus-visible/summary:text-grayish-900! dark:text-grayish-300! dark:group-focus-visible/summary:text-grayish-100!"
+      ]}
+    >
+      {title}
+    </HeadingTag>
+    <Icon
+      name="mdi:chevron-down"
+      class:list={[
+        "text-grayish-700 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100! shrink-0 transition-[rotate] duration-300 group-open/details:rotate-z-180",
+        {
+          "size-9": level === 2,
+          "size-8": level === 3,
+          "size-7": level === 4,
+          "size-6": level === 5,
+          "size-5": level === 6
+        }
+      ]}
+      aria-label="Expand or Collapse these details"
+    />
+  </summary>
+  <div class="[&>pre>code]:bg-transparent">
+    <slot />
+  </div>
 </details>
-
-<style>
-	/* progressive enhancement (currently only working in Chrome 131 and up) to animate details open */
-	details::details-content {
-		--transition-height: 300ms ease-in-out;
-		height: 0;
-
-		transition:
-			height var(--transition-height),
-			content-visibility var(--transition-height);
-
-		transition-behavior: allow-discrete;
-	}
-
-	details[open]::details-content {
-		height: auto;
-	}
-
-	details summary::-webkit-details-marker {
-		display: none;
-	}
-</style>

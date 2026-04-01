@@ -6,40 +6,40 @@ import Pagination from "./Pagination.astro"
 import { ITEMS_PER_PAGE } from "../consts"
 
 type Props = {
-	page: Page<CollectionEntry<"blogs">>
+  page: Page<CollectionEntry<"blogs">>
 }
 
 const { page } = Astro.props
 ---
 
 {
-	page && (
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-			{page.data.map((entry, index) => (
-				<BlogCard
-					title={entry.data.title}
-					link={`/blog/${entry.slug}${Astro.url.search}`}
-					slug={entry.slug}
-					mediaSrc={entry.data.featuredMedia?.src}
-					mediaAlt={entry.data.featuredMedia?.alt}
-				>
-					{entry.data.description}
-					lazyLoad={index >= 6}
-				</BlogCard>
-			))}
-		</div>
-	)
+  page && (
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {page.data.map((entry, index) => (
+        <BlogCard
+          title={entry.data.title}
+          link={`/blog/${entry.id}${Astro.url.search}`}
+          id={entry.id}
+          mediaSrc={entry.data.featuredMedia?.src}
+          mediaAlt={entry.data.featuredMedia?.alt}
+        >
+          {entry.data.description}
+          lazyLoad={index >= 6}
+        </BlogCard>
+      ))}
+    </div>
+  )
 }
 {page.data.length === 0 && <div>No matching blog posts found</div>}
 
 {
-	page && page.total > ITEMS_PER_PAGE && (
-		<Pagination
-			prevUrl={page.url.prev}
-			currentUrl={page.url.current}
-			nextUrl={page.url.next}
-			currentPage={page.currentPage}
-			lastPage={page.lastPage}
-		/>
-	)
+  page && page.total > ITEMS_PER_PAGE && (
+    <Pagination
+      prevUrl={page.url.prev}
+      currentUrl={page.url.current}
+      nextUrl={page.url.next}
+      currentPage={page.currentPage}
+      lastPage={page.lastPage}
+    />
+  )
 }

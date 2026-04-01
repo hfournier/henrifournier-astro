@@ -54,8 +54,7 @@ We get all that behavior for free by using the `<dialog>` element instead of a r
 
 OK, enough jibber-jabber... let's see what a minimal example of the `<dialog>` element looks like:
 
-```html
-// src/components/Dialog.astro
+```html title="src/components/Dialog.astro"
 
 <dialog id="dlgAstro">
   <p>Hello Astro Community!</p>
@@ -65,17 +64,19 @@ OK, enough jibber-jabber... let's see what a minimal example of the `<dialog>` e
 </dialog>
 ```
 
-```astro
----
-// src/pages.index.astro
+<br />
 
+```astro title="src/pages/index.astro"
+---
 import BaseLayout from "../layouts/BaseLayout.astro"
 import Dialog from "../components/Dialog.astro"
 ---
 
 <BaseLayout>
   <h1 class="text-4xl font-extrabold">Build an Astro Modal Dialog Component with Tailwind CSS</h1>
-  <button class="bg-indigo-600 px-4 py-2 rounded-sm text-white shadow-lg" id="btnShowModal" type="button">Show Modal</button>
+  <button class="bg-indigo-600 px-4 py-2 rounded-sm text-white shadow-lg" id="btnShowModal" type="button">
+    Show Modal
+  </button>
   <Dialog />
 </BaseLayout>
 
@@ -88,6 +89,8 @@ import Dialog from "../components/Dialog.astro"
 </script>
 ```
 
+<br />
+
 <Image class="mx-auto" src={build_astro_dialog_screenshot_1} alt="Basic Astro Modal Dialog without any styling" />
 
 A few things to note in the above example:
@@ -97,9 +100,8 @@ A few things to note in the above example:
 
 Let's fix the latter point with Tailwind CSS and add some Astro props to make the dialog more appealing, useful and reusable.
 
-```astro
+```astro title="src/components/Dialog.astro"
 ---
-// src/components/Dialog.astro
 import type { HTMLAttributes } from "astro/types"
 import { Icon } from "astro-icon/components"
 
@@ -161,7 +163,7 @@ where we're passing in a `title` and an `id`. Eventhough we didn't explicitly de
 ```html
 <dialog
   class:list={[
-    "w-[90dvw] bg-transparent backdrop:bg-neutral-950/70 backdrop:backdrop-blur-xs md:w-[75dvw] lg:w-[50dvw]",
+    "w-[90dvw] bg-transparent backdrop:bg-neutral-950/30 backdrop:backdrop-blur-xs md:w-[75dvw] lg:w-[50dvw]",
     classList
   ]}
   {...attrs}
@@ -219,6 +221,8 @@ To take it a little bit further, we could add a footer with a couple of buttons,
 ...
 ```
 
+<br />
+
 <Image class="mx-auto" src={build_astro_dialog_screenshot_3} alt="Astro Modal Dialog Component with title, content and Yes/No buttons" />
 
 Since all the buttons are inside a `<form method="dialog">`, and they have a default type of `submit`, they will all close the dialog without the need of any JS. Of course, we could also use a `<button type="button">` instead and handle the click event and closing of the dialog ourselves. If we wanted to know which button was used to close the dialog, we can set the `value` attribute of the buttons, and listen for the "close" event on the dialog.
@@ -231,55 +235,36 @@ dialog.addEventListener("close", (event) => {
 
 We could stop there, but we can do a little bit more to make it "_feel_" better. Here's what I mean. When invoking `showModal()`, the `<dialog>` instantly appears on the screen, and when we close it, it instantly disappears. Wouldn't it "_feel_" better if the dialog transitions were animated? Having them fade in and out smoothly, rather than just appearing and disappearing abruptly? Let's do that and add some polish to our shiny new `<Dialog />` component.
 
-```css
-<style>
-	:root {
-		--opening-duration: 0.3s;
-	}
-
-	dialog[open] {
-		opacity: 1;
-		transform: scale(1);
-	}
-
-	dialog {
-		opacity: 0;
-		transform: scale(0);
-		transition:
-			opacity var(--opening-duration) ease-out,
-			transform var(--opening-duration) ease-out,
-			overlay var(--opening-duration) ease-out allow-discrete,
-			display var(--opening-duration) ease-out allow-discrete;
-	}
-
-	@starting-style {
-		dialog[open] {
-			opacity: 0;
-			transform: scale(0);
-		}
-	}
-
-	dialog::backdrop {
-		opacity: 0;
-		transition:
-			opacity var(--opening-duration) ease-out,
-			overlay var(--opening-duration) ease-out allow-discrete,
-			display var(--opening-duration) ease-out allow-discrete;
-	}
-
-	dialog[open]::backdrop {
-		opacity: 1;
-	}
-
-	@starting-style {
-		dialog[open]::backdrop {
-			opacity: 0;
-		}
-	}
-</style>
+```html
+<dialog
+  class:list={[
+    "w-[90dvw] md:w-[75dvw] lg:w-[50dvw]",
+    "m-auto overscroll-contain bg-transparent",
+    "transition-[display,opacity,overlay,scale] transition-discrete duration-300 ease-out",
+    "opacity-0 scale-0 open:opacity-100 open:scale-100 starting:open:opacity-0 starting:open:scale-0",
+    "backdrop:transition-[display,opacity,overlay] backdrop:transition-discrete backdrop:duration-300 backdrop:ease-out",
+    "backdrop:bg-rich-black/30 backdrop:opacity-0 backdrop:backdrop-blur-xs open:backdrop:opacity-100 starting:open:backdrop:opacity-0",
+    classList
+  ]}
+  ...
+  >
+  ...
+</dialog>
 ```
 
-Although that may look like a lot of CSS, it's only doing two things. It's transitioning the scale and opacity of the `<dialog>` and `::backdrop` from 0 to 1 when the `[open]` attribute is set and back again when it's removed (on close). That's all. However, there are a few things in there that may not be familar to everyone. Until recently, there was no easy way to animate an element that was starting from `display: none`, like a `<dialog>`, because the browser had no initial values to transition from. The [@starting-style](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) CSS at-rule was designed to address that very issue. As the name implies, it allows you to specify what the starting styles of the selected elements should be when transitioning from `display: none` to say `display: block`. Another relatively new item is the [transition-behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior) property, which needs to be set to `allow-discrete` on both `display` and `overlay`. With starting styles in place, you can now animate the dialog and backdrop to transition in and out smoothly. Unfortunately, `@starting-style` is not yet supported in FireFox, so FireFox users will not see the animation, but the `<Dialog />` component will still work. Also, `@starting-style` is not yet supported in Tailwind CSS either, which is why I decided to use a `<style>` block to keep all the dialog animation code together for ease of readability and maintenance.
+Although that may look like a lot of Tailwind classes, it's only doing two things. It's transitioning the scale and opacity of the `<dialog>` and `::backdrop` from 0 to 1 when the `[open]` attribute is set and back again when it's removed (on close). That's all. However, there are a few things in there that may not be familar to everyone. Until recently, there was no easy way to animate an element that was starting from `display: none`, like a `<dialog>`, because the browser had no initial values to transition from. The [@starting-style](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) CSS at-rule was designed to address that very issue. As the name implies, it allows you to specify what the starting styles of the selected elements should be when transitioning from `display: none` to say `display: block`. Another relatively new item is the [transition-behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior) property, which needs to be set to `allow-discrete` on both `display` and `overlay`. With starting styles in place, you can now animate the dialog and backdrop to transition in and out smoothly. Unfortunately, `@starting-style` is not yet supported in FireFox, so FireFox users will not see the animation, but the `<Dialog />` component will still work.
+
+I like using the `class:list` to separate the classes into different lines, so I can keep related items together. I find it easier to edit and maintain the code that way. Let's breakdown the classes that are used to achieve the animation:
+
+- line 1: sets the width of the dialog at different breakpoints
+- line 2: centers the dialog and prevents scroll chaining when the dialog is open
+  - a `<dialog>` will be centered by default, but since Tailwind resets the margin to 0, we need to set it back to `auto` to center it again
+  - `overscroll-contain` prevents scroll chaining
+  - set `bg-transparent` to remove the default background color of the dialog, so that we can style it ourselves
+- line 3: sets the transition properties for the dialog
+- line 4: sets the initial styles for the dialog when transitioning from `display: none` to `display: block` and back again
+- line 5: sets the transition properties for the backdrop
+- line 6: sets the initial styles for the backdrop when transitioning from `display: none` to `display: block` and back again
 
 That's it! If you'd like to have a look at the full code, I've set up a [StackBlitz](https://stackblitz.com/edit/github-isr5xg?file=src%2Fcomponents%2FDialog.astro) for you to play around with and experiment. Enjoy!
 

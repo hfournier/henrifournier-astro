@@ -10,30 +10,30 @@ import Seo, { type SeoType } from "@components/seo/Seo.astro"
 import home from "@assets/og-images/home.png"
 
 const seo: SeoType = {
-	title:
-		"Jamstack Developer | Full Stack Developer | Web Developer | Henri Fournier Dev | Kelowna, BC",
-	description:
-		"Lighter, faster, better custom Jamstack websites that work for you with Svelte, 11ty, Angular, TailwindCSS and Sanity on Netlify",
-	openGraph: {
-		title:
-			"Jamstack Developer | Full Stack Developer | Web Developer | Henri Fournier Dev | Kelowna, BC",
-		type: "website",
-		image: home,
-		imageAlt:
-			"Hexagon background with a gradient, the HenriFournier.dev logo and the title of the website",
-		optional: {
-			description:
-				"Lighter, faster, better custom Jamstack websites that work for you with Svelte, 11ty, Angular, TailwindCSS and Sanity on Netlify"
-		}
-	}
+  title:
+    "Jamstack Developer | Full Stack Developer | Web Developer | Henri Fournier Dev | Kelowna, BC",
+  description:
+    "Lighter, faster, better custom Jamstack websites that work for you with Svelte, 11ty, Angular, TailwindCSS and Sanity on Netlify",
+  openGraph: {
+    title:
+      "Jamstack Developer | Full Stack Developer | Web Developer | Henri Fournier Dev | Kelowna, BC",
+    type: "website",
+    image: home,
+    imageAlt:
+      "Hexagon background with a gradient, the HenriFournier.dev logo and the title of the website",
+    optional: {
+      description:
+        "Lighter, faster, better custom Jamstack websites that work for you with Svelte, 11ty, Angular, TailwindCSS and Sanity on Netlify"
+    }
+  }
 }
 ---
 
 <MainLayout>
-	<Seo {seo} slot="head" />
-	<Hero />
-	<About />
-	<Work />
-	<Team />
-	<Experience />
+  <Seo {seo} slot="head" />
+  <Hero />
+  <About />
+  <Work />
+  <Team />
+  <Experience />
 </MainLayout>

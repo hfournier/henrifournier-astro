@@ -1,62 +1,62 @@
-import type { EmojiType } from "src/content/config"
+import type { EmojiType } from "src/content.config"
 
 export const getEmoji = (codePoint: number | number[] | string | string[]) => {
-	switch (typeof codePoint) {
-		case "number":
-			return String.fromCodePoint(codePoint)
+  switch (typeof codePoint) {
+    case "number":
+      return String.fromCodePoint(codePoint)
 
-		case "string":
-			if (codePoint.startsWith("U+")) {
-				return String.fromCodePoint(Number.parseInt(codePoint.substring(2), 16))
-			} else {
-				return ""
-			}
+    case "string":
+      if (codePoint.startsWith("U+")) {
+        return String.fromCodePoint(Number.parseInt(codePoint.substring(2), 16))
+      } else {
+        return ""
+      }
 
-		default:
-			const isNumberArray =
-				codePoint.length > 0 && codePoint.every((value) => typeof value === "number")
-			if (isNumberArray) {
-				return String.fromCodePoint(...codePoint)
-			} else {
-				const isStringArray =
-					codePoint.length > 0 && codePoint.every((value) => typeof value === "string")
-				if (isStringArray) {
-					const codePoints = codePoint.map((value) => {
-						if (value.startsWith("U+")) {
-							return Number.parseInt(value.substring(2), 16)
-						} else {
-							return 0
-						}
-					})
-					return String.fromCodePoint(...codePoints)
-				} else {
-					return ""
-				}
-			}
-	}
+    default:
+      const isNumberArray =
+        codePoint.length > 0 && codePoint.every((value) => typeof value === "number")
+      if (isNumberArray) {
+        return String.fromCodePoint(...codePoint)
+      } else {
+        const isStringArray =
+          codePoint.length > 0 && codePoint.every((value) => typeof value === "string")
+        if (isStringArray) {
+          const codePoints = codePoint.map((value) => {
+            if (value.startsWith("U+")) {
+              return Number.parseInt(value.substring(2), 16)
+            } else {
+              return 0
+            }
+          })
+          return String.fromCodePoint(...codePoints)
+        } else {
+          return ""
+        }
+      }
+  }
 }
 
 export const storeRecentEmoji = (emoji: EmojiType) => {
-	if (emoji) {
-		const recentEmojis = localStorage.getItem("recent-emojis")
-		if (recentEmojis) {
-			let recentEmojisArray = JSON.parse(recentEmojis) as EmojiType[]
-			recentEmojisArray = recentEmojisArray.filter((value) => value.id !== emoji.id)
-			recentEmojisArray.unshift(emoji)
-			localStorage.setItem("recent-emojis", JSON.stringify(recentEmojisArray.slice(0, 9)))
-		} else {
-			localStorage.setItem("recent-emojis", JSON.stringify([emoji]))
-		}
-	}
+  if (emoji) {
+    const recentEmojis = localStorage.getItem("recent-emojis")
+    if (recentEmojis) {
+      let recentEmojisArray = JSON.parse(recentEmojis) as EmojiType[]
+      recentEmojisArray = recentEmojisArray.filter((value) => value.id !== emoji.id)
+      recentEmojisArray.unshift(emoji)
+      localStorage.setItem("recent-emojis", JSON.stringify(recentEmojisArray.slice(0, 9)))
+    } else {
+      localStorage.setItem("recent-emojis", JSON.stringify([emoji]))
+    }
+  }
 }
 
 export const restoreRecentEmojis = () => {
-	const recentEmojis = localStorage.getItem("recent-emojis")
-	if (recentEmojis) {
-		return JSON.parse(recentEmojis) as EmojiType[]
-	} else {
-		return []
-	}
+  const recentEmojis = localStorage.getItem("recent-emojis")
+  if (recentEmojis) {
+    return JSON.parse(recentEmojis) as EmojiType[]
+  } else {
+    return []
+  }
 }
 
 // const rocket = "🚀"

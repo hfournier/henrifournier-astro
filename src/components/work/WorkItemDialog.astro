@@ -1,39 +1,39 @@
 ---
-import type { CollectionEntry } from "astro:content"
+import { render, type CollectionEntry } from "astro:content"
 import Image from "astro/components/Image.astro"
 import WorkDialog from "./WorkDialog.astro"
 
 type Props = { work: CollectionEntry<"work"> }
 const { work } = Astro.props
-const { Content } = await work.render()
+const { Content } = await render(work)
 ---
 
-<WorkDialog id={`popover_${work.slug}`} heading={work.data.name}>
-	<Image src={work.data.image} alt={work.data.imageAlt} />
-	<div class="prose dark:prose-invert max-w-none">
-		<Content />
-		<h3>Technologies</h3>
-	</div>
-	<div class="flex flex-wrap items-center gap-2 py-4">
-		{
-			work.data.tags &&
-				work.data.tags.map((tag: string) => (
-					<span class="bg-secondary-200 dark:bg-secondary-800 rounded-sm px-2 py-1 text-sm dark:text-white">
-						{tag}
-					</span>
-				))
-		}
-	</div>
-	{
-		work.data.link && (
-			<div class="py-2">
-				<a
-					class="text-primary-700 focus-visible:outline-primary-600 dark:text-primary-400 dark:hover:text-primary-300 dark:focus-visible:outline-primary-500 text-sm no-underline hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solid"
-					href={work.data.link}
-				>
-					View website
-				</a>
-			</div>
-		)
-	}
+<WorkDialog id={`popover_${work.id}`} heading={work.data.name}>
+  <Image src={work.data.image} alt={work.data.imageAlt} />
+  <div class="prose dark:prose-invert max-w-none">
+    <Content />
+    <h3>Technologies</h3>
+  </div>
+  <div class="flex flex-wrap items-center gap-2 py-4">
+    {
+      work.data.tags &&
+        work.data.tags.map((tag: string) => (
+          <span class="bg-secondary-200 dark:bg-secondary-800 rounded-sm px-2 py-1 text-sm dark:text-white">
+            {tag}
+          </span>
+        ))
+    }
+  </div>
+  {
+    work.data.link && (
+      <div class="py-2">
+        <a
+          class="text-primary-700 focus-visible:outline-primary-600 dark:text-primary-400 dark:hover:text-primary-300 dark:focus-visible:outline-primary-500 text-sm no-underline hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solid"
+          href={work.data.link}
+        >
+          View website
+        </a>
+      </div>
+    )
+  }
 </WorkDialog>
