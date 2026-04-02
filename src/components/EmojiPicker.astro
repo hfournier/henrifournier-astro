@@ -12,217 +12,216 @@ const categories = await getCollection("emoji-categories")
 ---
 
 <div
-	class="bg-grayish-300 dark:bg-grayish-800 w-full rounded-sm p-4 sm:max-w-[503px]"
-	id="divEmojiPicker"
-	popover
+  class="bg-grayish-300 dark:bg-grayish-800 w-full rounded-sm p-4 sm:max-w-125.75"
+  id="divEmojiPicker"
+  popover
 >
-	<div class="relative space-y-4">
-		<button
-			class="absolute -top-5 -right-2"
-			id="btnCloseEmojiPicker"
-			type="button"
-			popovertarget="divEmojiPicker"
-			popovertargetaction="hide"><Icon class="size-5" name="mdi:close" /></button
-		>
-		<div class="flex w-full items-center gap-2 pt-4">
-			<div
-				class="border-grayish-100 bg-grayish-300 focus-within:border-secondary-600 dark:border-grayish-900 dark:bg-grayish-800 dark:focus-within:border-secondary-400 flex w-full items-center justify-between rounded-xs border"
-			>
-				<input
-					class="peer h-10 w-full bg-transparent px-2 py-1 outline-hidden"
-					type="search"
-					id="inputSearchEmoji"
-					placeholder="Search plain text or :shortcodes:"
-					autofocus
-				/>
-				<Icon
-					class="peer-focus:text-secondary-600 dark:peer-focus:text-secondary-400 size-6 min-w-fit px-2"
-					name="mdi:search"
-					aria-hidden="true"
-				/>
-			</div>
-			<button class="" type="button" id="btnEmojiOptions" title="Emoji options">
-				<span class="sr-only">Emoji options</span>
-				<Icon class="size-8" name="mdi:dots-vertical" aria-hidden="true" />
-			</button>
-		</div>
-		<fieldset
-			class="scrollable border-grayish-100 dark:border-grayish-900 aspect-4/3 overflow-y-auto rounded-xs border px-4 py-2"
-			id="fsEmoji"
-		>
-			<legend class="font-baloo2 px-2 text-xl font-medium">Select an emoji</legend>
-			<details class="group/details py-1 has-[div:empty]:hidden" data-category="search-results">
-				<summary
-					class="group/summary flex w-full cursor-pointer list-none items-center justify-between"
-				>
-					Search Results
-					<Icon
-						name="mdi:chevron-down"
-						class="text-grayish-700 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100! size-6 shrink-0 origin-center transform transition-transform duration-300 group-open/details:-rotate-180"
-						aria-label={`Expand or Collapse Search Results section`}
-					/>
-				</summary>
-				<div class="flex flex-wrap"></div>
-			</details>
-			<details class="group/details py-1 has-[div:empty]:hidden" data-category="recent">
-				<summary
-					class="group/summary flex w-full cursor-pointer list-none items-center justify-between"
-				>
-					Recent
-					<Icon
-						name="mdi:chevron-down"
-						class="text-grayish-700 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100! size-6 shrink-0 origin-center transform transition-transform duration-300 group-open/details:-rotate-180"
-						aria-label={`Expand or Collapse Recent section`}
-					/>
-				</summary>
-				<div class="flex flex-wrap"></div>
-			</details>
-			{
-				categories.map((category, index) => (
-					<>
-						<details class="group/details py-1" data-category={category.id}>
-							<summary class="group/summary flex w-full cursor-pointer list-none items-center justify-between">
-								{category.data.title}
-								<Icon
-									name="mdi:chevron-down"
-									class="text-grayish-700 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100! size-6 shrink-0 origin-center transform transition-transform duration-300 group-open/details:-rotate-180"
-									aria-label={`Expand or Collapse ${category.data.title} section`}
-								/>
-							</summary>
-							<div class="flex flex-wrap" />
-						</details>
-					</>
-				))
-			}
-		</fieldset>
-	</div>
+  <div class="relative space-y-4">
+    <button
+      class="absolute -top-5 -right-2"
+      id="btnCloseEmojiPicker"
+      type="button"
+      popovertarget="divEmojiPicker"
+      popovertargetaction="hide"><Icon class="size-5" name="mdi:close" /></button
+    >
+    <div class="flex w-full items-center gap-2 pt-4">
+      <div
+        class="border-grayish-100 bg-grayish-300 focus-within:border-secondary-600 dark:border-grayish-900 dark:bg-grayish-800 dark:focus-within:border-secondary-400 flex w-full items-center justify-between rounded-xs border"
+      >
+        <input
+          class="peer h-10 w-full bg-transparent px-2 py-1 outline-hidden"
+          type="search"
+          id="inputSearchEmoji"
+          placeholder="Search plain text or :shortcodes:"
+          autofocus
+        />
+        <Icon
+          class="peer-focus:text-secondary-600 dark:peer-focus:text-secondary-400 size-6 min-w-fit px-2"
+          name="mdi:search"
+          aria-hidden="true"
+        />
+      </div>
+      <button class="" type="button" id="btnEmojiOptions" title="Emoji options">
+        <span class="sr-only">Emoji options</span>
+        <Icon class="size-8" name="mdi:dots-vertical" aria-hidden="true" />
+      </button>
+    </div>
+    <fieldset
+      class="scrollable border-grayish-100 dark:border-grayish-900 aspect-4/3 overflow-y-auto rounded-xs border px-4 py-2"
+      id="fsEmoji"
+    >
+      <legend class="font-baloo2 px-2 text-xl font-medium">Select an emoji</legend>
+      <details class="group/details py-1 has-[div:empty]:hidden" data-category="search-results">
+        <summary
+          class="group/summary flex w-full cursor-pointer list-none items-center justify-between"
+        >
+          Search Results
+          <Icon
+            name="mdi:chevron-down"
+            class="text-grayish-700 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100! size-6 shrink-0 origin-center transform transition-transform duration-300 group-open/details:-rotate-180"
+            aria-label={`Expand or Collapse Search Results section`}
+          />
+        </summary>
+        <div class="flex flex-wrap"></div>
+      </details>
+      <details class="group/details py-1 has-[div:empty]:hidden" data-category="recent">
+        <summary
+          class="group/summary flex w-full cursor-pointer list-none items-center justify-between"
+        >
+          Recent
+          <Icon
+            name="mdi:chevron-down"
+            class="text-grayish-700 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100! size-6 shrink-0 origin-center transform transition-transform duration-300 group-open/details:-rotate-180"
+            aria-label={`Expand or Collapse Recent section`}
+          />
+        </summary>
+        <div class="flex flex-wrap"></div>
+      </details>
+      {
+        categories.map((category) => (
+          <>
+            <details class="group/details py-1" data-category={category.id}>
+              <summary class="group/summary flex w-full cursor-pointer list-none items-center justify-between">
+                {category.data.title}
+                <Icon
+                  name="mdi:chevron-down"
+                  class="text-grayish-700 group-focus-visible/summary:text-grayish-900! dark:text-grayish-300 dark:group-focus-visible/summary:text-grayish-100! size-6 shrink-0 origin-center transform transition-transform duration-300 group-open/details:-rotate-180"
+                  aria-label={`Expand or Collapse ${category.data.title} section`}
+                />
+              </summary>
+              <div class="flex flex-wrap" />
+            </details>
+          </>
+        ))
+      }
+    </fieldset>
+  </div>
 </div>
 
 <script>
-	import { getEmoji, restoreRecentEmojis, storeRecentEmoji } from "@utils/emoji"
-	import type { EmojiType } from "src/content/config"
-	import ts from "typescript"
+  import { getEmoji, restoreRecentEmojis, storeRecentEmoji } from "@utils/emoji"
+  import type { EmojiType } from "src/content.config"
 
-	const response = await fetch("/api/emojis.json")
-	const emojis: EmojiType[] = await response.json()
+  const response = await fetch("/api/emojis.json")
+  const emojis: EmojiType[] = await response.json()
 
-	const details = document.querySelectorAll<HTMLDetailsElement>("details[data-category]")
+  const details = document.querySelectorAll<HTMLDetailsElement>("details[data-category]")
 
-	const createEmojiButton = (emoji: EmojiType) => {
-		const button = document.createElement("button")
-		button.type = "button"
-		button.style.setProperty("font-size", "1.875rem")
-		button.style.setProperty("line-height", "2.25rem")
-		button.style.setProperty("padding", "0.375rem")
-		button.value = emoji.id
-		button.title = emoji.shortCodes ? emoji.name + "\n" + emoji.shortCodes?.join(", ") : emoji.name
-		button.innerText = getEmoji(emoji.codePoint)
-		button.addEventListener("click", () => {
-			const event = new CustomEvent("hfdev-emoji-selected", {
-				bubbles: true,
-				composed: true,
-				cancelable: true,
-				detail: { emoji: emoji }
-			})
-			button.dispatchEvent(event)
-			storeRecentEmoji(emoji)
-			updateRecentEmojis()
-		})
-		return button
-	}
+  const createEmojiButton = (emoji: EmojiType) => {
+    const button = document.createElement("button")
+    button.type = "button"
+    button.style.setProperty("font-size", "1.875rem")
+    button.style.setProperty("line-height", "2.25rem")
+    button.style.setProperty("padding", "0.375rem")
+    button.value = emoji.id
+    button.title = emoji.shortCodes ? emoji.name + "\n" + emoji.shortCodes?.join(", ") : emoji.name
+    button.innerText = getEmoji(emoji.codePoint)
+    button.addEventListener("click", () => {
+      const event = new CustomEvent("hfdev-emoji-selected", {
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+        detail: { emoji: emoji }
+      })
+      button.dispatchEvent(event)
+      storeRecentEmoji(emoji)
+      updateRecentEmojis()
+    })
+    return button
+  }
 
-	const updateRecentEmojis = () => {
-		const recentDetail = document.querySelector<HTMLDetailsElement>(
-			"details[data-category='recent']"
-		)
-		if (recentDetail) {
-			const divEmojis = recentDetail.lastElementChild as HTMLDivElement
-			divEmojis.innerHTML = ""
-			const recentEmojis = restoreRecentEmojis()
-			recentEmojis.forEach((emoji) => {
-				const button = createEmojiButton(emoji)
-				divEmojis.appendChild(button)
-			})
-			if (recentEmojis.length > 0 && !recentDetail.open) {
-				recentDetail.open = true
-			}
-		}
-	}
+  const updateRecentEmojis = () => {
+    const recentDetail = document.querySelector<HTMLDetailsElement>(
+      "details[data-category='recent']"
+    )
+    if (recentDetail) {
+      const divEmojis = recentDetail.lastElementChild as HTMLDivElement
+      divEmojis.innerHTML = ""
+      const recentEmojis = restoreRecentEmojis()
+      recentEmojis.forEach((emoji) => {
+        const button = createEmojiButton(emoji)
+        divEmojis.appendChild(button)
+      })
+      if (recentEmojis.length > 0 && !recentDetail.open) {
+        recentDetail.open = true
+      }
+    }
+  }
 
-	updateRecentEmojis()
+  updateRecentEmojis()
 
-	details.forEach((detail) => {
-		detail.addEventListener("toggle", () => {
-			if (detail.open) {
-				const divEmojis = detail.lastElementChild as HTMLDivElement
-				if (divEmojis.children.length === 0 || detail.dataset.category === "recent") {
-					if (detail.dataset.category === "recent") {
-						divEmojis.innerHTML = ""
-					}
-					const catEmojis =
-						detail.dataset.category === "recent"
-							? restoreRecentEmojis()
-							: emojis.filter((emoji) => emoji.category.id === detail.dataset.category)
+  details.forEach((detail) => {
+    detail.addEventListener("toggle", () => {
+      if (detail.open) {
+        const divEmojis = detail.lastElementChild as HTMLDivElement
+        if (divEmojis.children.length === 0 || detail.dataset.category === "recent") {
+          if (detail.dataset.category === "recent") {
+            divEmojis.innerHTML = ""
+          }
+          const catEmojis =
+            detail.dataset.category === "recent"
+              ? restoreRecentEmojis()
+              : emojis.filter((emoji) => emoji.category.id === detail.dataset.category)
 
-					catEmojis.forEach((emoji) => {
-						const button = createEmojiButton(emoji)
-						divEmojis.appendChild(button)
-					})
-					if (detail.dataset.category === "recent" && catEmojis.length > 0 && !detail.open) {
-						detail.open = true
-					}
-				}
-			}
-		})
-	})
+          catEmojis.forEach((emoji) => {
+            const button = createEmojiButton(emoji)
+            divEmojis.appendChild(button)
+          })
+          if (detail.dataset.category === "recent" && catEmojis.length > 0 && !detail.open) {
+            detail.open = true
+          }
+        }
+      }
+    })
+  })
 
-	const updateSearchResults = (searchResultEmojis: EmojiType[]) => {
-		const searchDetail = document.querySelector<HTMLDetailsElement>(
-			"details[data-category='search-results']"
-		)
-		if (searchDetail) {
-			const divEmojis = searchDetail.lastElementChild as HTMLDivElement
-			divEmojis.innerHTML = ""
-			searchResultEmojis.forEach((emoji) => {
-				const button = createEmojiButton(emoji)
-				divEmojis.appendChild(button)
-			})
-			if (!searchDetail.open) {
-				searchDetail.open = true
-			}
-		}
-	}
+  const updateSearchResults = (searchResultEmojis: EmojiType[]) => {
+    const searchDetail = document.querySelector<HTMLDetailsElement>(
+      "details[data-category='search-results']"
+    )
+    if (searchDetail) {
+      const divEmojis = searchDetail.lastElementChild as HTMLDivElement
+      divEmojis.innerHTML = ""
+      searchResultEmojis.forEach((emoji) => {
+        const button = createEmojiButton(emoji)
+        divEmojis.appendChild(button)
+      })
+      if (!searchDetail.open) {
+        searchDetail.open = true
+      }
+    }
+  }
 
-	const searchEmojis = (event: Event) => {
-		const input = event.target as HTMLInputElement
-		const search = input.value.toLowerCase()
-		let matchingEmojis: EmojiType[] = []
-		if (search.startsWith(":") && search.length > 2) {
-			matchingEmojis = emojis.filter((emoji) =>
-				// @ts-ignore
-				emoji.shortCodes?.some((sc) => sc.toLowerCase().startsWith(search))
-			)
-			updateSearchResults(matchingEmojis)
-		} else if (search.length > 1) {
-			matchingEmojis = emojis.filter((emoji) => emoji.name.toLowerCase().includes(search))
-			updateSearchResults(matchingEmojis)
-		} else {
-			updateSearchResults(matchingEmojis)
-		}
-	}
+  const searchEmojis = (event: Event) => {
+    const input = event.target as HTMLInputElement
+    const search = input.value.toLowerCase()
+    let matchingEmojis: EmojiType[] = []
+    if (search.startsWith(":") && search.length > 2) {
+      matchingEmojis = emojis.filter((emoji) =>
+        // @ts-ignore
+        emoji.shortCodes?.some((sc) => sc.toLowerCase().startsWith(search))
+      )
+      updateSearchResults(matchingEmojis)
+    } else if (search.length > 1) {
+      matchingEmojis = emojis.filter((emoji) => emoji.name.toLowerCase().includes(search))
+      updateSearchResults(matchingEmojis)
+    } else {
+      updateSearchResults(matchingEmojis)
+    }
+  }
 
-	type CallbackFunctionVariadicAnyReturn = (...args: any[]) => any
-	const debounce = (callback: CallbackFunctionVariadicAnyReturn, waitTime: number) => {
-		let timer: NodeJS.Timeout
-		return (...args: any[]) => {
-			clearTimeout(timer)
-			timer = setTimeout(() => {
-				callback(...args)
-			}, waitTime)
-		}
-	}
-	const debounceHandler = debounce(searchEmojis, 500)
+  type CallbackFunctionVariadicAnyReturn = (...args: any[]) => any
+  const debounce = (callback: CallbackFunctionVariadicAnyReturn, waitTime: number) => {
+    let timer: NodeJS.Timeout
+    return (...args: any[]) => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        callback(...args)
+      }, waitTime)
+    }
+  }
+  const debounceHandler = debounce(searchEmojis, 500)
 
-	const inputSearchEmoji = document.getElementById("inputSearchEmoji") as HTMLInputElement
-	inputSearchEmoji.addEventListener("input", debounceHandler)
+  const inputSearchEmoji = document.getElementById("inputSearchEmoji") as HTMLInputElement
+  inputSearchEmoji.addEventListener("input", debounceHandler)
 </script>

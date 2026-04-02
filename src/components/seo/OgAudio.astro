@@ -1,9 +1,9 @@
 ---
-import type { z } from "astro:content"
+import type { z } from "astro/zod"
 import { ogAudioSchema } from "./seo"
 
 type Props = {
-	audio: z.infer<typeof ogAudioSchema>
+  audio: z.infer<typeof ogAudioSchema>
 }
 const { audio } = Astro.props
 ---

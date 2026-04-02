@@ -10,43 +10,44 @@ import Seo, { type SeoType } from "@components/seo/Seo.astro"
 import contact_me from "@assets/og-images/contact-me.png"
 
 const seo: SeoType = {
-	title: "Contact | Henri Fournier Dev",
-	description: "Please leave me a message and I will reply shortly. Thank you.",
-	openGraph: {
-		title: "Contact | Henri Fournier Dev | Kelowna, BC",
-		type: "website",
-		image: contact_me,
-		imageAlt:
-			"Hexagon background with a gradient, the HenriFournier.dev logo and the title of the page: Contact Me",
-		optional: {
-			description: "Please leave me a message and I will reply shortly. Thank you."
-		}
-	}
+  title: "Contact | Henri Fournier Dev",
+  description: "Please leave me a message and I will reply shortly. Thank you.",
+  openGraph: {
+    title: "Contact | Henri Fournier Dev | Kelowna, BC",
+    type: "website",
+    image: contact_me,
+    imageAlt:
+      "Hexagon background with a gradient, the HenriFournier.dev logo and the title of the page: Contact Me",
+    optional: {
+      description: "Please leave me a message and I will reply shortly. Thank you."
+    }
+  }
 }
 ---
 
 <MainLayout>
-	<Seo {seo} slot="head" />
+  <Seo {seo} slot="head" />
 
-	<section
-		class="mx-auto grid place-content-center px-2 md:px-8 lg:px-12"
-		aria-label="Contact form">
-		<Heading1 justify="text-left">Contact Me</Heading1>
-		<p>Like what you see? Let's talk.</p>
-		<FormNetlify>
-			<InputText label="Name" id="name" name="name" type="text" required />
-			<InputText label="Email" id="email" name="email" type="email" required />
-			<InputText label="Subject" id="subject" name="subject" type="text" required />
-			<InputTextarea label="Message" id="message" name="message" rows="4" required />
-			<div class="flex gap-4">
-				<Button
-					id="btnSend"
-					type="submit"
-					class="group-invalid:pointer-events-none group-invalid:border-grayish-600 group-invalid:bg-grayish-600 group-invalid:text-white dark:group-invalid:border-grayish-600 dark:group-invalid:bg-grayish-600"
-					>Send</Button
-				>
-				<Button id="btnClear" type="reset" outline={true}>Clear</Button>
-			</div>
-		</FormNetlify>
-	</section>
+  <section
+    class="mx-auto grid place-content-center px-2 md:px-8 lg:px-12"
+    aria-label="Contact form"
+  >
+    <Heading1 justify="text-left">Contact Me</Heading1>
+    <p>Like what you see? Let's talk.</p>
+    <FormNetlify>
+      <InputText label="Name" id="name" name="name" type="text" required />
+      <InputText label="Email" id="email" name="email" type="email" required />
+      <InputText label="Subject" id="subject" name="subject" type="text" required />
+      <InputTextarea label="Message" id="message" name="message" rows="4" required />
+      <div class="flex gap-4">
+        <Button
+          id="btnSend"
+          type="submit"
+          class="group-invalid:border-grayish-600 group-invalid:bg-grayish-600 dark:group-invalid:border-grayish-600 dark:group-invalid:bg-grayish-600 group-invalid:pointer-events-none group-invalid:text-white"
+          >Send</Button
+        >
+        <Button id="btnClear" type="reset" outline={true}>Clear</Button>
+      </div>
+    </FormNetlify>
+  </section>
 </MainLayout>
